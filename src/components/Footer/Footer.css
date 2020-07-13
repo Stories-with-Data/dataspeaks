@@ -1,0 +1,33 @@
+#footer {
+  height: 10vh;
+  width: 90vw;
+  overflow: hidden;
+  border: black solid 1px;
+  margin-left: 5vw;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.button {
+  border: none;
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+  margin-left: 50px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 100px;
+  height: 40px;
+
+}
+
+.button:hover {
+  color: black;
+  background-color: #FCE21B;
+}
+
+.button:focus {
+  outline: none;
+}
