@@ -14,14 +14,15 @@ class App extends Component {
     }
   }
 
-  rendr(){
+  render(){
     return (
       <div className="App">
-        <Nav />
-      {Routes} 
+      <Nav />
+        {Routes} 
       <Footer />
+      
       </div>
-    );
+    )
   }
 }
 
