@@ -1,0 +1,12 @@
+#footer {
+  height: 10vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+}
+
+#footerButton {
+  border: none;
+  border-radius: 15px;
+  
+}
