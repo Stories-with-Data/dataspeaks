@@ -8,3 +8,4 @@ const app = express()
 app.use(express.json())
 
 app.listen(SERVER_PORT, () => console.log(`Goliath ${SERVER_PORT} online`))
+// Testing
