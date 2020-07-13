@@ -1,7 +1,7 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
-import Landing from './Components/Landing/Landing';
-import USMap from './components/USMap/USMap';
+import Landing from './components/Landing/Landing';
+import USMap from './components/Map/USMap';
 import GetInvolved from './components/GetInvolved/GetInvolved'
 
 export default (
