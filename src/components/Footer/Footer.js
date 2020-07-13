@@ -13,7 +13,6 @@ function Footer(props) {
       <Link to='/getinvolved'>
         <button className='footerButton'>Get Involved</button>
       </Link>
-
     </div>
   )
 }
