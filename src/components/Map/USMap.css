@@ -23,3 +23,7 @@
 .mapContainer:active {
   cursor: grabbing;
 }
+
+.stateFlag {
+  z-index: 2;
+}
