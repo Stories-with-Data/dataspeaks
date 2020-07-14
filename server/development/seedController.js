@@ -1,8 +1,15 @@
 const Axios = require('axios')
+const fs = require('fs')
+const { stackOffsetSilhouette } = require('d3')
 
 module.exports = {
 	populateFbiData: async (req, res) => {
+		const db = req.app.get('db')
+		
+		fs.writeFileSync('./server/development/fbi.sql', '')
+
 		const nonViolentCrimes = [
+      'all-other-offenses',
 			'curfew',
 			'disorderly-conduct',
 			'dui',
@@ -28,7 +35,6 @@ module.exports = {
 		]
 
 		const violentCrimes = [
-			'all-other-offenses',
 			'burglary',
 			'arson',
 			'human-trafficking-commerical',
@@ -49,21 +55,37 @@ module.exports = {
 			'American Indian or Alaska Native',
 			'White',
 			'Other'
-		]
+    ]
+    
+    const states = await db.get_states_list()
 
-		for (let j = 0; j < races.length; j++) {
-			let totalArrests = 0
-			for (let i = 0; i < nonViolentCrimes.length; i++) {
-				const res = await Axios.get(
-					`https://api.usa.gov/crime/fbi/sapi/api/arrest/national/${nonViolentCrimes[i]}/race/2018/2018?API_KEY=X8yPHRM4OynSw8CtVB8FuwP0y5J9WKng3UiIChCf`
-				)
+    const crimes = violentCrimes.concat(nonViolentCrimes)
+    
+    for (let k = 1; k < states.length; k++) {
+      for (let j = 0; j < races.length; j++){
+        let totalNonViolentArrests = 0
+        let totalViolentArrests = 0
+        for (let i = 0; i < crimes.length; i++) {
+          const res = await Axios.get(`https://api.usa.gov/crime/fbi/sapi/api/arrest/states/${states[k].state_abv}/${crimes[i]}/race/2018/2018?API_KEY=X8yPHRM4OynSw8CtVB8FuwP0y5J9WKng3UiIChCf`)
+          
+          if (res.data.data[0]){
+            if(nonViolentCrimes.includes(crimes[i])){
+              totalNonViolentArrests += res.data.data[j].value
+            }
+            else {
+              totalViolentArrests += res.data.data[j].value
+            }
+          }
+        }
+				console.log(`insert into fbi_data (state_abv, race, violent_arrests, non_violent_arrests) values ('${states[k].state_abv}', '${races[j]}', ${totalViolentArrests}, ${totalNonViolentArrests});`)
+				
+				fs.appendFileSync('./server/development/fbi.sql', `insert into fbi_data (state_abv, race, violent_arrests, non_violent_arrests) values ('${states[k].state_abv}', '${races[j]}', ${totalViolentArrests}, ${totalNonViolentArrests});\r\n`)
+      }
+    }
+    console.log('The script has run. copy an paste the above console logs into seed.sql')
+  },
 
-				totalArrests += res.data.data[j].value
-			}
-			console.log(`${races[j]} ${totalArrests}`)
-		}
-	},
-	seedDb: async (req, res) => {
+  seedDb: async (req, res) => {
 		const db = req.app.get('db')
 
 		try {
