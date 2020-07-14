@@ -1,7 +1,6 @@
 import React from 'react'
 import TransitionTemplate from '../../development/TransitionTemplate/TransitionTemplate'
 import './Landing.css'
-import Axios from 'axios'
 
 function Landing(props) {
 	return (

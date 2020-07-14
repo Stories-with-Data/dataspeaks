@@ -1,9 +1,12 @@
 const Axios = require('axios')
+const fs = require('fs')
 const { stackOffsetSilhouette } = require('d3')
 
 module.exports = {
 	populateFbiData: async (req, res) => {
-    const db = req.app.get('db')
+		const db = req.app.get('db')
+		
+		fs.writeFileSync('./server/development/fbi.sql', '')
 
 		const nonViolentCrimes = [
       'all-other-offenses',
@@ -74,7 +77,9 @@ module.exports = {
             }
           }
         }
-        console.log(`insert into fbi_data (state_abv, race, violent_arrests, non_violent_arrests) values ('${states[k].state_abv}', '${races[j]}', ${totalViolentArrests}, ${totalNonViolentArrests});`)
+				console.log(`insert into fbi_data (state_abv, race, violent_arrests, non_violent_arrests) values ('${states[k].state_abv}', '${races[j]}', ${totalViolentArrests}, ${totalNonViolentArrests});`)
+				
+				fs.appendFileSync('./server/development/fbi.sql', `insert into fbi_data (state_abv, race, violent_arrests, non_violent_arrests) values ('${states[k].state_abv}', '${races[j]}', ${totalViolentArrests}, ${totalNonViolentArrests});\r\n`)
       }
     }
     console.log('The script has run. copy an paste the above console logs into seed.sql')
