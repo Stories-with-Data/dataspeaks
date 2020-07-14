@@ -1,4 +1,4 @@
-import React, { Component, useRef } from 'react'
+import React, { Component } from 'react'
 import State from '../State/State'
 import {
 	ComposableMap,
