@@ -15,3 +15,11 @@
   width: 90%;
   height: 90%;
 }
+
+.mapContainer:hover {
+  cursor: grab;
+}
+
+.mapContainer:active {
+  cursor: grabbing;
+}
