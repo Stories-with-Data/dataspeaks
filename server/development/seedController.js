@@ -1,12 +1,55 @@
 const Axios = require('axios')
 
 module.exports = {
-  populateFbiData: async (req, res) => {
-    const nonViolentCrimes = ['curfew', 'disorderly-conduct', 'dui', 'drug-grand-total', 'drunkenness', 'embezzlement', 'forgery', 'fraud', 'gambling-total', 'larceny', 'liqour-laws', 'offense-against-family', 'prostitution', 'prostitution-assisting', 'prostitution-prostitution', 'prostitution-purchasing', 'runaway', 'stolen-property', 'suspicion', 'vagrancy', 'vandalism', 'weapons']
+	populateFbiData: async (req, res) => {
+		const nonViolentCrimes = [
+			'curfew',
+			'disorderly-conduct',
+			'dui',
+			'drug-grand-total',
+			'drunkenness',
+			'embezzlement',
+			'forgery',
+			'fraud',
+			'gambling-total',
+			'larceny',
+			'liqour-laws',
+			'offense-against-family',
+			'prostitution',
+			'prostitution-assisting',
+			'prostitution-prostitution',
+			'prostitution-purchasing',
+			'runaway',
+			'stolen-property',
+			'suspicion',
+			'vagrancy',
+			'vandalism',
+			'weapons'
+		]
 
-    const violentCrimes = ['all-other-offenses', 'burglary', 'arson', 'human-trafficking-commerical', 'human-trafficking-servitude', 'motor-vehcile-theft',  'murder', 'rape', 'robbery', 'sex-offenses', 'simple-assault', 'aggravated-assault']
+		const violentCrimes = [
+			'all-other-offenses',
+			'burglary',
+			'arson',
+			'human-trafficking-commerical',
+			'human-trafficking-servitude',
+			'motor-vehcile-theft',
+			'murder',
+			'rape',
+			'robbery',
+			'sex-offenses',
+			'simple-assault',
+			'aggravated-assault'
+		]
 
-    const races = ['Asian', 'Native Hawaiian', 'Black or African American', 'American Indian or Alaska Native', 'White', 'Other']
+		const races = [
+			'Asian',
+			'Native Hawaiian',
+			'Black or African American',
+			'American Indian or Alaska Native',
+			'White',
+			'Other'
+		]
 
     for (let j = 0; j < races.length; j++){
       let totalNonViolentArrests = 0
@@ -29,5 +72,16 @@ module.exports = {
       }
       console.log(`Violent ${races[j]} ${totalViolentArrests}`)
     }
-  }
+  },
+
+  seedDb: async (req, res) => {
+		const db = req.app.get('db')
+
+		try {
+			await db.seed()
+		} catch (err) {
+			console.error(err)
+		}
+		res.sendStatus(200)
+	}
 }
