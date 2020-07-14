@@ -9,13 +9,25 @@ module.exports = {
     const races = ['Asian', 'Native Hawaiian', 'Black or African American', 'American Indian or Alaska Native', 'White', 'Other']
 
     for (let j = 0; j < races.length; j++){
-      let totalArrests = 0
-      for (let i = 0; i < crimes.length; i++) {
-        const res = await Axios.get(`https://api.usa.gov/crime/fbi/sapi/api/arrest/national/${crimes[i]}/race/2018/2018?API_KEY=X8yPHRM4OynSw8CtVB8FuwP0y5J9WKng3UiIChCf`)
-  
-        totalArrests += res.data.data[j].value
+      let totalNonViolentArrests = 0
+      for (let i = 0; i < nonViolentCrimes.length; i++) {
+        const res = await Axios.get(`https://api.usa.gov/crime/fbi/sapi/api/arrest/national/${nonViolentCrimes[i]}/race/2018/2018?API_KEY=X8yPHRM4OynSw8CtVB8FuwP0y5J9WKng3UiIChCf`)
+        console.log(res.data.data[j].value)
+        
+        totalNonViolentArrests += res.data.data[j].value
       }
-      console.log(`${races[j]} ${totalArrests}`)
+      console.log(`NonViolent ${races[j]} ${totalNonViolentArrests}`)
+    }
+
+    for (let j = 0; j < races.length; j++){
+      let totalViolentArrests = 0
+      for (let i = 0; i < violentCrimes.length; i++) {
+        const res = await Axios.get(`https://api.usa.gov/crime/fbi/sapi/api/arrest/national/${violentCrimes[i]}/race/2018/2018?API_KEY=X8yPHRM4OynSw8CtVB8FuwP0y5J9WKng3UiIChCf`)
+        console.log(res.data.data[j].value)
+        
+        totalViolentArrests += res.data.data[j].value
+      }
+      console.log(`Violent ${races[j]} ${totalViolentArrests}`)
     }
   }
 }
