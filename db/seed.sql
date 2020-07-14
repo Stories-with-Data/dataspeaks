@@ -130,6 +130,9 @@ VALUES
   ('Washington DC', 'DC');
 
 
+-- FBI DATA
+
+
 -- IAT DATA
 insert into iat_data (year, state_abv, race, responses, sum_iat) values (2015, null, '0', 86504, 23220.06446);
 insert into iat_data (year, state_abv, race, responses, sum_iat) values (2015, null, '1', 606, 124.5073852);
