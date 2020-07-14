@@ -1,9 +1,13 @@
 import React from 'react'
+import './Landing.css'
 
 function Landing(props) {
 
   return (
-    <h1>Landing Page</h1>
+    <div className='landingPage'>
+      <div className='header'>Title animation?</div>
+      <h1 className='missionStatement'>Landing Page / Mission statement</h1>
+    </div>
   )
 }
 

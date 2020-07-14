@@ -4,6 +4,7 @@ import Nav from './components/Nav/Nav';
 import Routes from './routes'
 import './reset.css'
 import './App.css';
+import Axios from 'axios';
 
 class App extends Component {
   constructor(){

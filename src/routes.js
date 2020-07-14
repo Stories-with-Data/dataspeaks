@@ -10,4 +10,4 @@ export default (
         <Route path='/map' component={USMap} />
         <Route path='/getinvolved' component={GetInvolved} />
     </Switch>
-)   
+)
