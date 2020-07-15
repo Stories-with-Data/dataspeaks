@@ -1,4 +1,4 @@
-import React, { Component, useRef } from 'react'
+import React, { Component } from 'react'
 import State from '../State/State'
 import {
 	ComposableMap,
@@ -59,6 +59,7 @@ class USMap extends Component {
 										<Geographies geography={states}>
 											{({ geographies }) =>
 												geographies.map(geo => {
+													// console.log(this.state.stateSelected)
 													// console.log(geo)
 													// ! defs tag is for defining the svg background pattern
 													// TODO: Get all state flags loaded in public/assets/stateFlags/1x
