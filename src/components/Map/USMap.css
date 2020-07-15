@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80vw;
-  height: 70vh;
+  width: 70vw;
+  height: 75vh;
   border: solid black 1px;
   margin-left: 10vw;
   margin-top: 50px;
@@ -14,6 +14,8 @@
   margin-top: 15px;
   width: 90%;
   height: 90%;
+  overflow: hidden;
+  
 }
 
 .mapContainer:hover {
@@ -27,3 +29,9 @@
 .stateFlag {
   z-index: 2;
 }
+
+.rsm-geography {
+  outline: none;
+}
+
+
