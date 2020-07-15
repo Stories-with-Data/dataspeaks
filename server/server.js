@@ -14,6 +14,7 @@ app.post('/seed', seedCtrl.seedDb)
 
 // * Data Endpoints
 app.get('/api/prison', ctrl.prisonData)
+app.get('/api/states/:stateName', ctrl.getStateAbv)
 
 massive({
 	connectionString: CONNECTION_STRING,

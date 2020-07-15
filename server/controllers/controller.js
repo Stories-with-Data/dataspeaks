@@ -22,5 +22,15 @@ module.exports = {
 			output = prisonData
 		}
 		res.status(200).send(output)
+	},
+
+	getStateAbv: async (req, res) => {
+		const db = req.app.get('db')
+		const {stateName} = req.params
+		console.log(stateName)
+
+		const stateAbv = await db.get_state_abv(stateName)
+		
+		res.status(200).send(stateAbv[0])
 	}
 }
