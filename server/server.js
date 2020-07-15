@@ -1,16 +1,19 @@
 require('dotenv').config()
 const express = require('express')
 const massive = require('massive')
-const ctrl = require('../server/controllers/controller')
-const seedCtrl = require('../server/development/seedController')
+const ctrl = require('./controllers/controller')
+const seedCtrl = require('./development/seedController')
 const { SERVER_PORT, CONNECTION_STRING } = process.env
 
 const app = express()
 app.use(express.json())
 
-// Endpoints
+// * Development Endpoints
 app.get('/api/seed/fbi', seedCtrl.populateFbiData)
 app.post('/seed', seedCtrl.seedDb)
+
+// * Data Endpoints
+app.get('/api/prison', ctrl.prisonData)
 
 massive({
 	connectionString: CONNECTION_STRING,
