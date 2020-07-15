@@ -97,10 +97,6 @@ const TransitionTemplate = () => {
   }
   
   // * Function that fires as soon as transition changes from TRUE to FALSE
-		transition2: () => {}
-	}
-
-	// * Function that fires as soon as transition changes from TRUE to FALSE
 	const onExiting = {
 		transition1: () => {},
 		transition2: () => {},
@@ -203,5 +199,6 @@ const TransitionTemplate = () => {
 			</Fade>
 		</>
 	)
+}
 
 export default TransitionTemplate

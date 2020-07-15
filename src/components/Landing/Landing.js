@@ -9,7 +9,7 @@ function Landing(props) {
 			<div className='header'>
       			<h1>See <span>U</span>. <span>S</span>. <span id='span-A'>A</span>.</h1>
       		</div>
-			{/* <Loading /> */}
+			<Loading />
 			<div className='missionStatement'>
         		<h1>Mission Statement</h1>
 			</div>
