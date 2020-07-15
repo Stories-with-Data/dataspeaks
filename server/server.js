@@ -13,7 +13,7 @@ app.get('/api/seed/fbi', seedCtrl.populateFbiData)
 app.post('/seed', seedCtrl.seedDb)
 
 // * Data Endpoints
-app.get('/api/prison', ctrl.prisonData)
+app.get('/api/data', ctrl.getData)
 
 massive({
 	connectionString: CONNECTION_STRING,
@@ -25,4 +25,3 @@ massive({
 	console.log('connected to db')
 	app.listen(SERVER_PORT, () => console.log(`Goliath ${SERVER_PORT} online`))
 })
-// Testing
