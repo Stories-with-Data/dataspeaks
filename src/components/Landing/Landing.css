@@ -4,6 +4,123 @@
   align-items: center;
   overflow: hidden;
 }
+.landingPage p {
+  float: left;
+  margin: 20px;
+  animation: FadeIn 1s linear;
+  animation-fill-mode: both;
+  font-size:28px;
+  position: relative;
+}
+#transition-template {
+  width: 20%;
+  position: fixed;
+  top: 105px;
+  left: 2px;
+  height: 67vh;
+}
+#BLMimage {
+  width:20%;
+
+  /* animation: slidein 35s; */
+  /* animation-timing-function: linear; */
+}
+#BLMimage:nth-child(1){
+  position: absolute;
+  top: 20px;
+  left:20px;
+}
+#BLMimage:nth-child(3){
+  position: absolute;
+  top: 350px;
+  left:50px;
+}
+#BLMimage:nth-child(2){
+  position: absolute;
+  top: 120px;
+  right:10px;
+}
+#BLMimage:nth-child(4){
+  position: absolute;
+  top: 520px;
+  right:15px;
+}
+#BLMimage:nth-child(5){
+  position: absolute;
+  bottom: 10px;
+  left:10px;
+}
+#BLMimage:nth-child(6){
+  position: absolute;
+  top: 220px;
+  right:10px;
+}
+#BLMimage:nth-child(7){
+  position: absolute;
+  top: 20px;
+  left:20px;
+}
+#BLMimage:nth-child(8){
+  position: absolute;
+  top: 20px;
+  right:20px;
+}
+#BLMimage:nth-child(9){
+  position: absolute;
+  top: 20px;
+  left:20px;
+}
+#BLMimage:nth-child(10){
+  position: absolute;
+  top: 20px;
+  left:320px;
+}
+/* #BLMimage:nth-child(11){
+  position: fixed;
+  top: 20px;
+  left:20px;
+}
+#BLMimage:nth-child(12){
+  position: fixed;
+  top: 20px;
+  left:20px;
+}
+#BLMimage:nth-child(13){
+  position: fixed;
+  top: 20px;
+  left:20px;
+}
+#BLMimage:nth-child(14){
+  position: fixed;
+  top: 20px;
+  left:20px;
+} */
+
+
+@keyframes fadeA {
+  0% {opacity: 1.0;}
+  20% {opacity: 0.0;}
+  40% {opacity: 0.0;}
+  60% {opacity: 0.0;}
+  80% {opacity: 0.0;}
+  100% {opacity: 0.0;}
+}
+.landingPage p:nth-child(1){
+  animation-delay: .5s 
+}
+.landingPage p:nth-child(2){
+  animation-delay: 1s 
+}
+.landingPage p:nth-child(3){
+  animation-delay: 1.5s 
+}
+.landingPage p:nth-child(4){
+  animation-delay: 2s 
+}
+.landingPage p:nth-child(5){
+  animation-delay: 2.5s 
+}
+
 
 .header {
   height: 10vh;
@@ -23,4 +140,5 @@
   width: 500px;
   border: solid black 1px;
   margin-bottom: 50px;
+  text-align: left;
 }

@@ -1,6 +1,10 @@
-const prisonData = require('./data/prisonPop2018.json')
+const prisonData = require('./data/prisonPop2018.json'),
+  sampleData = require('../development/SampleDataOutput.json')
 
 module.exports = {
+  getData: (req, res) => {
+    res.status(200).send(sampleData)
+  },
 	prisonData: (req, res) => {
 		let output
 
