@@ -13,7 +13,7 @@ app.get('/api/seed/fbi', seedCtrl.populateFbiData)
 app.post('/seed', seedCtrl.seedDb)
 
 // * Data Endpoints
-app.get('/api/data', ctrl.getData)
+app.get('/api/data', ctrl.sampleData)
 
 massive({
 	connectionString: CONNECTION_STRING,

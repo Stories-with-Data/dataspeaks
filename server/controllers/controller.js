@@ -1,5 +1,5 @@
 const prisonData = require('./data/prisonPop2018.json'),
-  sampleData = require('../development/SampleDataOutput.json')
+	sampleData = require('../development/SampleDataOutput.json')
 
 module.exports = {
   getData: (req, res) => {
@@ -36,5 +36,9 @@ module.exports = {
 		const stateAbv = await db.get_state_abv(stateName)
 		
 		res.status(200).send(stateAbv[0])
-	}
+	},
+
+	sampleData: (req, res) => {
+    res.status(200).send(sampleData)
+  }
 }
