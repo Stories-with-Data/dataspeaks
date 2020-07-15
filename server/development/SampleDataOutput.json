@@ -1,0 +1,480 @@
+{
+	"Texas": {
+		"overall": {
+			"stateName": "Texas",
+			"rank": 40,
+			"summary": "This is the summary"
+		},
+		"categories": [
+			{
+				"title": "IAT",
+				"rank": 32,
+				"tooltip": "Description of category",
+				"data": [
+					{
+						"chartType": "bar",
+						"chartTitle": "Mean IAT Score",
+						"data": [
+							{
+								"label": "White",
+								"value": 0.35,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Black",
+								"value": 0.05,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Hispanic",
+								"value": 0.3,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Asian",
+								"value": 0.33,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Other",
+								"value": 0.3,
+								"tooltip": "Description of data"
+							}
+						]
+					}
+				]
+			},
+			{
+				"title": "Arrest Rate",
+				"rank": 10,
+				"tooltip": "Description of category",
+				"data": [
+					{
+						"chartType": "stackedBar",
+						"chartTitle": "",
+						"data": {
+							"categories": [
+								{
+									"name": "Violent",
+									"tooltip": "Description of category"
+								},
+								{
+									"name": "Non-violent",
+									"tooltip": "Description of category"
+								}
+							],
+							"values": [
+								{
+									"label": "White",
+									"category": "Violent Crimes",
+									"value": 2,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "White",
+									"category": "Non-violent Crimes",
+									"value": 3,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Black",
+									"category": "Violent Crimes",
+									"value": 15,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Black",
+									"category": "Non-violent Crimes",
+									"value": 14,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Hispanic",
+									"category": "Violent Crimes",
+									"value": 5,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Hispanic",
+									"category": "Non-violent Crimes",
+									"value": 3,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Asian",
+									"category": "Violent Crimes",
+									"value": 1,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Asian",
+									"category": "Non-violent Crimes",
+									"value": 2,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Other",
+									"category": "Violent Crimes",
+									"value": 3,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Other",
+									"category": "Non-violent Crimes",
+									"value": 4,
+									"tooltip": "Description of data"
+								}
+							]
+						} 
+					}
+				]
+			},
+			{
+				"title": "Incarceration Rate",
+				"rank": 5,
+				"tooltip": "Description of category",
+				"data": [
+					{
+						"chartType": "bar",
+						"chartTitle": "Incarceration Rate (based on Admissions)",
+						"data": [
+							{
+								"label": "White",
+								"value": 2,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Black",
+								"value": 10,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Hispanic",
+								"value": 5,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Asian",
+								"value": 1,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Other",
+								"value": 3,
+								"tooltip": "Description of data"
+							}
+						]
+					},
+					{
+						"chartType": "bar",
+						"chartTitle": "Prison Population (based on year-end pop)",
+						"data": [
+							{
+								"label": "White",
+								"value": 55000,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Black",
+								"value": 55000,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Hispanic",
+								"value": 55000,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Asian",
+								"value": 500,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Other",
+								"value": 400,
+								"tooltip": "Description of data"
+							}
+						]
+					}
+				]
+			},
+			{
+				"title": "State Population",
+				"rank": 20,
+				"tooltip": "Description of category",
+				"data": [
+					{
+						"chartType": "pie",
+						"chartTitle": "",
+						"data": [
+							{
+								"label": "White",
+								"value": 78,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Black",
+								"value": 12,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Hispanic",
+								"value": 40,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Asian",
+								"value": 20,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Other",
+								"value": 10,
+								"tooltip": "Description of data"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	"Utah": {
+		"overall": {
+			"stateName": "Utah",
+			"rank": 40,
+			"summary": "This is the summary"
+		},
+		"categories": [
+			{
+				"title": "IAT",
+				"rank": 32,
+				"tooltip": "Description of category",
+				"data": [
+					{
+						"chartType": "bar",
+						"chartTitle": "Mean IAT Score",
+						"data": [
+							{
+								"label": "White",
+								"value": 0.35,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Black",
+								"value": 0.05,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Hispanic",
+								"value": 0.3,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Asian",
+								"value": 0.33,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Other",
+								"value": 0.3,
+								"tooltip": "Description of data"
+							}
+						]
+					}
+				]
+			},
+			{
+				"title": "Arrest Rate",
+				"rank": 10,
+				"tooltip": "Description of category",
+				"data": [
+					{
+						"chartType": "stackedBar",
+						"chartTitle": "",
+						"data": {
+							"categories": [
+								{
+									"name": "Violent",
+									"tooltip": "Description of category"
+								},
+								{
+									"name": "Non-violent",
+									"tooltip": "Description of category"
+								}
+							],
+							"values": [
+								{
+									"label": "White",
+									"category": "Violent Crimes",
+									"value": 2,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "White",
+									"category": "Non-violent Crimes",
+									"value": 3,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Black",
+									"category": "Violent Crimes",
+									"value": 15,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Black",
+									"category": "Non-violent Crimes",
+									"value": 14,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Hispanic",
+									"category": "Violent Crimes",
+									"value": 5,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Hispanic",
+									"category": "Non-violent Crimes",
+									"value": 3,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Asian",
+									"category": "Violent Crimes",
+									"value": 1,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Asian",
+									"category": "Non-violent Crimes",
+									"value": 2,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Other",
+									"category": "Violent Crimes",
+									"value": 3,
+									"tooltip": "Description of data"
+								},
+								{
+									"label": "Other",
+									"category": "Non-violent Crimes",
+									"value": 4,
+									"tooltip": "Description of data"
+								}
+							]
+						} 
+					}
+				]
+			},
+			{
+				"title": "Incarceration Rate",
+				"rank": 5,
+				"tooltip": "Description of category",
+				"data": [
+					{
+						"chartType": "bar",
+						"chartTitle": "Incarceration Rate (based on Admissions)",
+						"data": [
+							{
+								"label": "White",
+								"value": 2,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Black",
+								"value": 10,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Hispanic",
+								"value": 5,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Asian",
+								"value": 1,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Other",
+								"value": 3,
+								"tooltip": "Description of data"
+							}
+						]
+					},
+					{
+						"chartType": "bar",
+						"chartTitle": "Prison Population (based on year-end pop)",
+						"data": [
+							{
+								"label": "White",
+								"value": 55000,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Black",
+								"value": 55000,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Hispanic",
+								"value": 55000,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Asian",
+								"value": 500,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Other",
+								"value": 400,
+								"tooltip": "Description of data"
+							}
+						]
+					}
+				]
+			},
+			{
+				"title": "State Population",
+				"rank": 20,
+				"tooltip": "Description of category",
+				"data": [
+					{
+						"chartType": "pie",
+						"chartTitle": "",
+						"data": [
+							{
+								"label": "White",
+								"value": 78,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Black",
+								"value": 12,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Hispanic",
+								"value": 40,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Asian",
+								"value": 20,
+								"tooltip": "Description of data"
+							},
+							{
+								"label": "Other",
+								"value": 10,
+								"tooltip": "Description of data"
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}
