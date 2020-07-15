@@ -1,1 +1,1 @@
-select * from states
+select * from states;
