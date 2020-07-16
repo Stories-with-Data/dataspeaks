@@ -4,14 +4,25 @@
   align-items: center;
   overflow: hidden;
 }
-.landingPage p {
+.bg-image {
+  filter: blur(5px);
+    -webkit-filter: blur(5px);
+    background-image: url('https://cdn.vox-cdn.com/thumbor/QuTsf9KyR4gCaUviJoZy_98U6DY=/0x0:5568x3712/1200x675/filters:focal(2339x1411:3229x2301)/cdn.vox-cdn.com/uploads/chorus_image/image/66908888/1218460006.jpg.0.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+/* .landingPage p {
   float: left;
   margin: 20px;
   animation: FadeIn 1s linear;
   animation-fill-mode: both;
   font-size:28px;
   position: relative;
-}
+} */
 #transition-template {
   width: 20%;
   position: fixed;
@@ -75,27 +86,6 @@
   top: 20px;
   left:320px;
 }
-/* #BLMimage:nth-child(11){
-  position: fixed;
-  top: 20px;
-  left:20px;
-}
-#BLMimage:nth-child(12){
-  position: fixed;
-  top: 20px;
-  left:20px;
-}
-#BLMimage:nth-child(13){
-  position: fixed;
-  top: 20px;
-  left:20px;
-}
-#BLMimage:nth-child(14){
-  position: fixed;
-  top: 20px;
-  left:20px;
-} */
-
 
 @keyframes fadeA {
   0% {opacity: 1.0;}
@@ -132,13 +122,41 @@
   margin-top: 20px;
   display: flex;
   justify-content: center;
+  z-index:1;
+  font-size: 45px;
 }
 
 .missionStatement {
   margin-top: 50px;
-  height: 400px;
-  width: 500px;
-  border: solid black 1px;
-  margin-bottom: 50px;
-  text-align: left;
+    height: 400px;
+    width: 700px;
+    border: solid black 1px;
+    margin-bottom: 50px;
+    text-align: left;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    justify-content: space-evenly;
+    z-index:1;
+    background-color: rgba(100,100,100, 0.7);
+}
+.quote-div {
+  width:95%;
+  /* border:2px solid red; */
+  padding:10px;
+  height:20%;
+  z-index:1;
+}
+.bg-text {
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 80%;
+  padding: 20px;
+  text-align: center;
 }
