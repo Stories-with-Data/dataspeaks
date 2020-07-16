@@ -17,7 +17,7 @@ class BarChart extends Component {
     
         const data = this.props.data;
           
-        const svg = d3.select("#svg")
+        const svg = d3.select('#svg')
       .append("svg")
       .attr("width", this.props.width)
       .attr("height", this.props.height)
@@ -39,9 +39,7 @@ class BarChart extends Component {
       render(){
         return (
             <div id={"#" + this.props.id}>
-              <div id='svg'>
-
-              </div>
+              
                {/* Button for changing values maybe .. */}
                 {/* <button onClick={() => this.change()}>Click Me</button> */}
             </div>

@@ -9,10 +9,48 @@
 
 .categoryColumnContainer {
   display: flex;
+}
+
+.stateTitleContainer {
+  width: 70%;
+  height: 8%;
+  background-color: teal;
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.stateTitle {
+  width: 90%;
+  height: 100%;
+  margin-left: 10%;
+}
+
+.flagImage {
+  width: 10%;
+  height: 100%;
+  background-color: rgb(0, 39, 145);
+  
+}
+
+.summaryContainer {
+  width: 70%;
+  height: 12%;
+  display: flex;
 
 }
 
-h1 {
-  font-weight: 700;
-  font-size: 40px;
+.overall {
+  height: 100%;
+  width: 25%;
+  border: solid black 1px;
+  background-color: teal;
+  margin-right: 5px;
+}
+
+.summary {
+  width: 85%;
+  height: 100%;
+  background-color: teal;
+  border: solid black 1px;
+  
 }

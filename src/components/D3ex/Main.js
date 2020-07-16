@@ -6,10 +6,10 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      data: [12, 1, 12, 6, 9, 10],
-      width: 800,
+      data: [122, 1, 12, 6, 9, 10],
+      width: 500,
       height: 500,
-      id: null
+      id: 1
      }
   }
   render() { 
