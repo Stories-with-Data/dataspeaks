@@ -53,6 +53,8 @@ class USMap extends Component {
 					<div className='mapContainer'>
 						{this.state.stateClicked ? (
 							<State
+								stateSelected={this.state.stateSelected}
+								statesData={this.state.data}
 								stateOpen={this.state.stateClicked}
 								handleStateClose={this.handleStateClose}
 							/>
@@ -63,8 +65,6 @@ class USMap extends Component {
 										<Geographies geography={states}>
 											{({ geographies }) =>
 												geographies.map(geo => {
-													console.log(this.state.data[geo.properties.name])
-
 													// ! defs tag is for defining the svg background pattern
 													// TODO: Get all state flags loaded in public/assets/stateFlags/1x
 													return (
@@ -92,11 +92,9 @@ class USMap extends Component {
 																geography={geo}
 																onClick={() => {
 																	const { stateSelected } = this.state
+																	this.handleStateOpen()
 																	this.setState({
-																		stateSelected:
-																			stateSelected === ''
-																				? geo.properties.name
-																				: ''
+																		stateSelected: geo.properties.name
 																	})
 																}}
 																style={{
@@ -126,11 +124,11 @@ class USMap extends Component {
 						)}
 					</div>
 					{this.state.stateClicked ? (
-						''
+						<button className='button' onClick={() => this.handleStateClose()}>
+						State Close
+					</button>
 					) : (
-						<button className='button' onClick={() => this.handleStateOpen()}>
-							State Open
-						</button>
+						''
 					)}
 				</div>
 			</div>

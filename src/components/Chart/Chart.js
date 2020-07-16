@@ -2,9 +2,10 @@ import React from 'react'
 import './Chart.css'
 
 function Chart(props) {
+  const {chartData} = props
   return (
   <div className='chartMain'>
-    <p>Chart</p>
+    
   </div>
   )
 }
