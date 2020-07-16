@@ -10,14 +10,13 @@ import {
 import stateFlags from './assets/stateFlags/stateFlags.json'
 import states from '../../assets/topoJSONs/states-10m.json'
 import './USMap.css'
+import Axios from 'axios'
 
 class USMap extends Component {
 	constructor() {
 		super()
 		this.state = {
-			iat: {},
-			fbi: {},
-			census: {},
+			data: {},
 			stateClicked: false,
 			stateSelected: '',
 			isLoading: false,
@@ -38,10 +37,15 @@ class USMap extends Component {
 		})
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		Axios.get('/api/data')
+		.then(res => {
+			this.setState({data: res.data})
+		})
+	}
 
 	render() {
-		console.log(this.props)
+		// console.log(this.props)
 		return (
 			<div>
 				<div className='mapPage'>
@@ -49,6 +53,8 @@ class USMap extends Component {
 					<div className='mapContainer'>
 						{this.state.stateClicked ? (
 							<State
+								stateSelected={this.state.stateSelected}
+								statesData={this.state.data}
 								stateOpen={this.state.stateClicked}
 								handleStateClose={this.handleStateClose}
 							/>
@@ -59,8 +65,6 @@ class USMap extends Component {
 										<Geographies geography={states}>
 											{({ geographies }) =>
 												geographies.map(geo => {
-													// console.log(this.state.stateSelected)
-													// console.log(geo)
 													// ! defs tag is for defining the svg background pattern
 													// TODO: Get all state flags loaded in public/assets/stateFlags/1x
 													return (
@@ -88,11 +92,9 @@ class USMap extends Component {
 																geography={geo}
 																onClick={() => {
 																	const { stateSelected } = this.state
+																	this.handleStateOpen()
 																	this.setState({
-																		stateSelected:
-																			stateSelected === ''
-																				? geo.properties.name
-																				: ''
+																		stateSelected: geo.properties.name
 																	})
 																}}
 																style={{
@@ -122,11 +124,11 @@ class USMap extends Component {
 						)}
 					</div>
 					{this.state.stateClicked ? (
-						''
+						<button className='button' onClick={() => this.handleStateClose()}>
+						State Close
+					</button>
 					) : (
-						<button className='button' onClick={() => this.handleStateOpen()}>
-							State Open
-						</button>
+						''
 					)}
 				</div>
 			</div>

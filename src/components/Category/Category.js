@@ -4,22 +4,20 @@ import Rank from '../Rank/Rank'
 import Chart from '../Chart/Chart'
 
 function Category(props) {
+  const {catData} = props
   return (
     <div className='categoryContainer'>
-      <p>Category Component</p>
-      
-
       <div className='categoryTitle'>
-        <p className='pCategory'>Category Name</p>
+  <p className='pCategory'>{catData.title}</p>
       </div>
 
       <div className='rankContainer'>
         <p>Rank:</p>
-        <Rank/>
+        <Rank rank={catData.rank}/>
       </div>
 
       <div className='chartContainer'>
-        <Chart/>
+        <Chart chartData={catData.data}/>
       </div>
 
     </div>
