@@ -1,6 +1,6 @@
 import React from 'react'
 import './Category.css'
-import Rank from '../Rank/Rank'
+// import Rank from '../Rank/Rank'
 // import Chart from '../Chart/Chart'
 
 function Category(props) {
