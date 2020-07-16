@@ -10,14 +10,13 @@ import {
 import stateFlags from './assets/stateFlags/stateFlags.json'
 import states from '../../assets/topoJSONs/states-10m.json'
 import './USMap.css'
+import Axios from 'axios'
 
 class USMap extends Component {
 	constructor() {
 		super()
 		this.state = {
-			iat: {},
-			fbi: {},
-			census: {},
+			data: {},
 			stateClicked: false,
 			stateSelected: '',
 			isLoading: false,
@@ -38,10 +37,15 @@ class USMap extends Component {
 		})
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		Axios.get('/api/data')
+		.then(res => {
+			this.setState({data: res.data})
+		})
+	}
 
 	render() {
-		console.log(this.props)
+		// console.log(this.props)
 		return (
 			<div>
 				<div className='mapPage'>
@@ -59,7 +63,8 @@ class USMap extends Component {
 										<Geographies geography={states}>
 											{({ geographies }) =>
 												geographies.map(geo => {
-													// console.log(geo)
+													console.log(this.state.data[geo.properties.name])
+
 													// ! defs tag is for defining the svg background pattern
 													// TODO: Get all state flags loaded in public/assets/stateFlags/1x
 													return (
