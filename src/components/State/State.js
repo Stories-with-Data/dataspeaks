@@ -1,6 +1,7 @@
 import React from 'react'
 import Category from '../Category/Category'
 import './State.css'
+import Rank from '../Rank/Rank'
 
 function State(props) {
 
@@ -13,7 +14,9 @@ function State(props) {
     </div>
 
     <div className='summaryContainer'>
-      <div className='overall'>overall</div>
+      <div className='overall'>Overall Rank
+        <Rank/>
+      </div>
       <div className='summary'>summary</div>
     </div>
 

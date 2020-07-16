@@ -1,7 +1,7 @@
 import React from 'react'
 import './Category.css'
-// import Rank from '../Rank/Rank'
-// import Chart from '../Chart/Chart'
+import Rank from '../Rank/Rank'
+import Chart from '../Chart/Chart'
 
 function Category(props) {
   return (
@@ -14,11 +14,12 @@ function Category(props) {
       </div>
 
       <div className='rankContainer'>
-        {/* <Rank/>   */} RANK
+        <p>Rank:</p>
+        <Rank/>
       </div>
 
       <div className='chartContainer'>
-        {/* <Chart/> */} CHART
+        <Chart/>
       </div>
 
     </div>
