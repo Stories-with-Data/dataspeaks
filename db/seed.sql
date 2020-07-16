@@ -14,7 +14,8 @@ CREATE TABLE "footer_links" (
 
 CREATE TABLE "states" (
   "state_name" text UNIQUE PRIMARY KEY,
-  "state_abv" varchar(2) UNIQUE
+  "state_abv" varchar(2) UNIQUE,
+  "census_id" varchar(2) UNIQUE
 );
 
 CREATE TABLE "iat_data" (
@@ -41,7 +42,7 @@ CREATE TABLE "prison_data" (
 CREATE TABLE "races" (
   "name" text,
   "iat_lookup" text UNIQUE,
-  "census_lookup" text UNIQUE,
+  "census_lookup" text,
   "prison_lookup" int UNIQUE
 );
 
@@ -60,74 +61,73 @@ ALTER TABLE "fbi_data" ADD FOREIGN KEY ("state_abv") REFERENCES "states" ("state
 
 -- RACES/STATES table
 INSERT INTO
-  races (NAME, iat_lookup)
+  races (NAME, iat_lookup, census_lookup)
 VALUES
-  ('Did not answer', 0),
-  ('American Indian or Alaska Native', 1),
-  ('Asian', 2),
-  ('Asian', 3),
-  ('Native Hawaiian', 4),
-  ('Black or African American', 5),
-  ('White', 6),
-  ('Other', 8),
-  ('Other', 9),
-  ('Other', 7);
+  ('Did not answer', 0, 0),
+  ('American Indian or Alaska Native', 1, 3),
+  ('Asian', 2, 4),
+  ('Asian', 3, 4),
+  ('Native Hawaiian or Pacific Islander', 4, 5),
+  ('Black or African American', 5, 2),
+  ('White', 6, 1),
+  ('Other', 8, 6),
+  ('Other', 9, 6),
+  ('Other', 7, 6);
 
-INSERT INTO
-  states (state_name, state_abv)
-VALUES
-  ('None', ''),
-  ('Alabama', 'AL'),
-  ('Alaska', 'AK'),
-  ('Arizona', 'AZ'),
-  ('Arkansas', 'AR'),
-  ('California', 'CA'),
-  ('Colorado', 'CO'),
-  ('Connecticut', 'CT'),
-  ('Delaware', 'DE'),
-  ('Florida', 'FL'),
-  ('Georgia', 'GA'),
-  ('Hawaii', 'HI'),
-  ('Idaho', 'ID'),
-  ('Illinois', 'IL'),
-  ('Indiana', 'IN'),
-  ('Iowa', 'IA'),
-  ('Kansas', 'KS'),
-  ('Kentucky', 'KY'),
-  ('Louisiana', 'LA'),
-  ('Maine', 'ME'),
-  ('Maryland', 'MD'),
-  ('Massachusetts', 'MA'),
-  ('Michigan', 'MI'),
-  ('Minnesota', 'MN'),
-  ('Mississippi', 'MS'),
-  ('Missouri', 'MO'),
-  ('Montana', 'MT'),
-  ('Nebraska', 'NE'),
-  ('Nevada', 'NV'),
-  ('New Hampshire', 'NH'),
-  ('New Jersey', 'NJ'),
-  ('New Mexico', 'NM'),
-  ('New York', 'NY'),
-  ('North Carolina', 'NC'),
-  ('North Dakota', 'ND'),
-  ('Ohio', 'OH'),
-  ('Oklahoma', 'OK'),
-  ('Oregon', 'OR'),
-  ('Pennsylvania', 'PA'),
-  ('Rhode Island', 'RI'),
-  ('South Carolina', 'SC'),
-  ('South Dakota', 'SD'),
-  ('Tennessee', 'TN'),
-  ('Texas', 'TX'),
-  ('Utah', 'UT'),
-  ('Vermont', 'VT'),
-  ('Virginia', 'VA'),
-  ('Washington', 'WA'),
-  ('West Virginia', 'WV'),
-  ('Wisconsin', 'WI'),
-  ('Wyoming', 'WY'),
-  ('Washington DC', 'DC');
+
+insert into states (state_name, state_abv, census_id) values ('None', '', '');
+insert into states (state_name, state_abv, census_id) values ('Alaska', 'AK', '02');
+insert into states (state_name, state_abv, census_id) values ('California', 'CA', '06');
+insert into states (state_name, state_abv, census_id) values ('Arkansas', 'AR', '05');
+insert into states (state_name, state_abv, census_id) values ('Alabama', 'AL', '01');
+insert into states (state_name, state_abv, census_id) values ('Arizona', 'AZ', '04');
+insert into states (state_name, state_abv, census_id) values ('Georgia', 'GA', '13');
+insert into states (state_name, state_abv, census_id) values ('Hawaii', 'HI', '15');
+insert into states (state_name, state_abv, census_id) values ('Idaho', 'ID', '16');
+insert into states (state_name, state_abv, census_id) values ('Indiana', 'IN', '18');
+insert into states (state_name, state_abv, census_id) values ('Illinois', 'IL', '17');
+insert into states (state_name, state_abv, census_id) values ('Kansas', 'KS', '20');
+insert into states (state_name, state_abv, census_id) values ('Iowa', 'IA', '19');
+insert into states (state_name, state_abv, census_id) values ('Kentucky', 'KY', '21');
+insert into states (state_name, state_abv, census_id) values ('Louisiana', 'LA', '22');
+insert into states (state_name, state_abv, census_id) values ('Maine', 'ME', '23');
+insert into states (state_name, state_abv, census_id) values ('Maryland', 'MD', '24');
+insert into states (state_name, state_abv, census_id) values ('Michigan', 'MI', '26');
+insert into states (state_name, state_abv, census_id) values ('Massachusetts', 'MA', '25');
+insert into states (state_name, state_abv, census_id) values ('Minnesota', 'MN', '27');
+insert into states (state_name, state_abv, census_id) values ('Mississippi', 'MS', '28');
+insert into states (state_name, state_abv, census_id) values ('Missouri', 'MO', '29');
+insert into states (state_name, state_abv, census_id) values ('Montana', 'MT', '30');
+insert into states (state_name, state_abv, census_id) values ('Nebraska', 'NE', '31');
+insert into states (state_name, state_abv, census_id) values ('Nevada', 'NV', '32');
+insert into states (state_name, state_abv, census_id) values ('New Hampshire', 'NH', '33');
+insert into states (state_name, state_abv, census_id) values ('New Jersey', 'NJ', '34');
+insert into states (state_name, state_abv, census_id) values ('New Mexico', 'NM', '35');
+insert into states (state_name, state_abv, census_id) values ('New York', 'NY', '36');
+insert into states (state_name, state_abv, census_id) values ('North Carolina', 'NC', '37');
+insert into states (state_name, state_abv, census_id) values ('North Dakota', 'ND', '38');
+insert into states (state_name, state_abv, census_id) values ('Ohio', 'OH', '39');
+insert into states (state_name, state_abv, census_id) values ('Oklahoma', 'OK', '40');
+insert into states (state_name, state_abv, census_id) values ('Oregon', 'OR', '41');
+insert into states (state_name, state_abv, census_id) values ('Pennsylvania', 'PA', '42');
+insert into states (state_name, state_abv, census_id) values ('Rhode Island', 'RI', '44');
+insert into states (state_name, state_abv, census_id) values ('Delaware', 'DE', '10');
+insert into states (state_name, state_abv, census_id) values ('Florida', 'FL', '12');
+insert into states (state_name, state_abv, census_id) values ('Connecticut', 'CT', '09');
+insert into states (state_name, state_abv, census_id) values ('Colorado', 'CO', '08');
+insert into states (state_name, state_abv, census_id) values ('South Carolina', 'SC', '45');
+insert into states (state_name, state_abv, census_id) values ('Washington DC', 'DC', '11');
+insert into states (state_name, state_abv, census_id) values ('Tennessee', 'TN', '47');
+insert into states (state_name, state_abv, census_id) values ('South Dakota', 'SD', '46');
+insert into states (state_name, state_abv, census_id) values ('Texas', 'TX', '48');
+insert into states (state_name, state_abv, census_id) values ('Utah', 'UT', '49');
+insert into states (state_name, state_abv, census_id) values ('Vermont', 'VT', '50');
+insert into states (state_name, state_abv, census_id) values ('Washington', 'WA', '53');
+insert into states (state_name, state_abv, census_id) values ('Virginia', 'VA', '51');
+insert into states (state_name, state_abv, census_id) values ('West Virginia', 'WV', '54');
+insert into states (state_name, state_abv, census_id) values ('Wisconsin', 'WI', '55');
+insert into states (state_name, state_abv, census_id) values ('Wyoming', 'WY', '56');
+
 
 
 -- FBI DATA
