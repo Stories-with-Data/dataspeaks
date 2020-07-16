@@ -22,7 +22,7 @@ const Rank = (props) => {
     console.log(props);
     return ( 
         <div>
-            <h1>Odometer</h1>
+            {/* <h1>Odometer</h1> */}
             <Odometer className='odom'value={odomValue} format="(.ddd)" />
         </div>
      );
