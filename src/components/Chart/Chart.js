@@ -1,7 +1,7 @@
 import React from 'react'
 import './Chart.css'
-import BarGraph from '../BarGraph/BarGraph'
-import StackedBar from '../StackedBar/StackedBar'
+import BarGraph from './Charts/BarGraph/BarGraph'
+import StackedBar from './Charts/StackedBar/StackedBar'
 
 function Chart(props) {
   const {chartData} = props
