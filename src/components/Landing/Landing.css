@@ -113,11 +113,11 @@
 
 .span-title {
   opacity: 0.0;
-  animation: spanTitle 5s;
+  animation: spanTitle 5s 18s;
 }
 .span-title2 {
   opacity: 0.3;
-  animation: spanTitle2 5s;
+  animation: spanTitle2 5s 18s;
 }
 @keyframes spanTitle {
   from{opacity: 1}
