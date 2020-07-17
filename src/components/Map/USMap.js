@@ -9,6 +9,7 @@ import {
 // import counties from '../../assets/topoJSONs/counties-10m.json'
 import stateFlags from './assets/stateFlags/stateFlags.json'
 import states from '../../assets/topoJSONs/states-10m.json'
+import { ReactComponent as flags } from '../../assets/stateFlags/USStateFlags.svg'
 import './USMap.css'
 import Axios from 'axios'
 
@@ -38,9 +39,8 @@ class USMap extends Component {
 	}
 
 	componentDidMount() {
-		Axios.get('/api/data')
-		.then(res => {
-			this.setState({data: res.data})
+		Axios.get('/api/data').then(res => {
+			this.setState({ data: res.data })
 		})
 	}
 
@@ -77,13 +77,14 @@ class USMap extends Component {
 																	width='100'
 																	height='80'
 																>
-																	<image
+																	{flags.getElementById(geo.properties.name)}
+																	{/* <image
 																		xlinkHref={stateFlags[geo.properties.name]}
 																		x='0'
 																		y='0'
 																		width='100'
 																		height='80'
-																	/>
+																	/> */}
 																</pattern>
 															</defs>
 															<Geography
@@ -91,7 +92,6 @@ class USMap extends Component {
 																key={geo.rsmKey}
 																geography={geo}
 																onClick={() => {
-																	const { stateSelected } = this.state
 																	this.handleStateOpen()
 																	this.setState({
 																		stateSelected: geo.properties.name
@@ -125,8 +125,8 @@ class USMap extends Component {
 					</div>
 					{this.state.stateClicked ? (
 						<button className='button' onClick={() => this.handleStateClose()}>
-						State Close
-					</button>
+							State Close
+						</button>
 					) : (
 						''
 					)}
