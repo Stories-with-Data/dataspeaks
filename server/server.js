@@ -9,8 +9,11 @@ const app = express()
 app.use(express.json())
 
 // * Development Endpoints
-app.get('/api/seed/fbi', seedCtrl.populateFbiData)
-app.post('/seed', seedCtrl.seedDb)
+app.post('/dev/seed/fbi', seedCtrl.populateFbiData)
+app.post('/dev/seed/census', seedCtrl.populateCensusData)
+app.post('/dev/seed/prison', seedCtrl.populatePrisonData)
+app.post('/dev/seed/ranks', seedCtrl.generateStateRanks)
+app.post('/dev/seed', seedCtrl.seedDb)
 
 // * Data Endpoints
 app.get('/api/data', ctrl.sampleData)
@@ -25,3 +28,4 @@ massive({
 	console.log('connected to db')
 	app.listen(SERVER_PORT, () => console.log(`Goliath ${SERVER_PORT} online`))
 })
+.catch(err => console.log(err));
