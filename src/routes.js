@@ -5,7 +5,7 @@ import USMap from './components/Map/USMap';
 import GetInvolved from './components/GetInvolved/GetInvolved'
 import Loading from './components/Loading/Loading';
 import Rank from './components/Rank/Rank';
-import Main from './components/D3ex/Main';
+// import Main from './components/D3ex/Main';
 
 export default (
     <Switch>
@@ -14,6 +14,6 @@ export default (
         <Route path='/getinvolved' component={GetInvolved} />
         <Route path='/loading' component={Loading} />
         <Route path='/rank' component={Rank} />
-        <Route path='/d3' component={Main} />
+        {/* <Route path='/d3' component={Main} /> */}
     </Switch>
 )
