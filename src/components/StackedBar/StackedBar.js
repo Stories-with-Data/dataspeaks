@@ -12,23 +12,6 @@ class StackedBar extends Component {
     }
   }
 
-  //  categories: Array(2)
-  // 0: {name: "Violent", tooltip: "Description of category"}
-  // 1: {name: "Non-violent", tooltip: "Description of category"}
-  // length: 2
-  // __proto__: Array(0)
-  // values: Array(10)
-  // 0: {label: "White", category: "Violent Crimes", value: 2, tooltip: "Description of data"}
-  // 1: {label: "White", category: "Non-violent Crimes", value: 3, tooltip: "Description of data"}
-  // 2: {label: "Black", category: "Violent Crimes", value: 15, tooltip: "Description of data"}
-  // 3: {label: "Black", category: "Non-violent Crimes", value: 14, tooltip: "Description of data"}
-  // 4: {label: "Hispanic", category: "Violent Crimes", value: 5, tooltip: "Description of data"}
-  // 5: {label: "Hispanic", category: "Non-violent Crimes", value: 3, tooltip: "Description of data"}
-  // 6: {label: "Asian", category: "Violent Crimes", value: 1, tooltip: "Description of data"}
-  // 7: {label: "Asian", category: "Non-violent Crimes", value: 2, tooltip: "Description of data"}
-  // 8: {label: "Other", category: "Violent Crimes", value: 3, tooltip: "Description of data"}
-  // 9: {label: "Other", category: "Non-violent Crimes", value: 4, toolti
-
   componentDidMount() {
     const { data } = this.props
     // console.log(data)
