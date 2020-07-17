@@ -7,11 +7,14 @@ function Chart(props) {
   // console.log(chartData)
   return (
   <div className='chartMain'>
-    {/* <BarChart data={chartData}/> */}
     {chartData.map((elem, ind) => {
       if(elem.chartType === 'bar'){
         console.log('check')
-        return <BarGraph key={ind} data={elem.data}/>
+        return (
+        <div className='singleChartDiv' style={{width: '100%', height: `${Math.floor(100 / chartData.length)}%`, border: '1px solid black'}}>
+          <BarGraph key={ind} data={elem.data}/> 
+        </div>
+        )
       }
     })}
   </div>
