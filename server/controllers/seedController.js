@@ -1,10 +1,11 @@
-const axios = require('axios')
-const fs = require('fs')
-const prisonData = require('./prisonPop2018.json')
+const axios = require('axios'),
+	fs = require('fs'),
+	prisonData = require('../development/prisonPop2018.json')
 
 module.exports = {
 	populateFbiData: async (req, res) => {
-		const db = req.app.get('db')
+		const db = req.app.get('db'),
+			{ DATA_GOV_API_KEY } = process.env
 
 		fs.writeFileSync('./server/development/fbi.sql', '')
 
@@ -67,7 +68,7 @@ module.exports = {
 				let totalViolentArrests = 0
 				for (let i = 0; i < crimes.length; i++) {
 					const res = await axios.get(
-						`https://api.usa.gov/crime/fbi/sapi/api/arrest/states/${states[k].state_abv}/${crimes[i]}/race/2018/2018?API_KEY=X8yPHRM4OynSw8CtVB8FuwP0y5J9WKng3UiIChCf`
+						`https://api.usa.gov/crime/fbi/sapi/api/arrest/states/${states[k].state_abv}/${crimes[i]}/race/2018/2018?API_KEY=${DATA_GOV_API_KEY}`
 					)
 
 					if (res.data.data[0]) {
@@ -105,14 +106,15 @@ module.exports = {
 	populateCensusData: async (req, res) => {
 		const db = req.app.get('db'),
 			states = await db.get_states_list().catch(err => console.error(err)),
-			races = await db.get_races_list().catch(err => console.error(err))
+			races = await db.get_races_list().catch(err => console.error(err)),
+			{ CENSUS_API_KEY } = process.env
 
 		await states.forEach(async state => {
 			await races.forEach(async race => {
 				if (state.census_id && race.census_lookup && state.census_id !== ' ') {
 					const { data: censusData } = await axios
 						.get(
-							`https://api.census.gov/data/2019/pep/charage?get=POP&for=state:${state.census_id}&RACE=${race.census_lookup}&key=55461e4a27be3249c606296fb2ff698d70ea784e`
+							`https://api.census.gov/data/2019/pep/charage?get=POP&for=state:${state.census_id}&RACE=${race.census_lookup}&key=${CENSUS_API_KEY}`
 						)
 						.catch(err => {
 							console.log(err.code)
@@ -218,7 +220,7 @@ module.exports = {
 				+arrestRate[arI].rank +
 				+ciRate[cirI].rank +
 				+blackPop[bpI].rank
-		
+
 			return Math.round(rankSum / 4)
 		}
 
@@ -233,6 +235,7 @@ module.exports = {
 					arI = arrestRate.findIndex(e => e.state_name === state.state_name),
 					cirI = ciRate.findIndex(e => e.state_name === state.state_name),
 					bpI = blackPop.findIndex(e => e.state_name === state.state_name)
+
 				try {
 					await db.state_ranks.insert(
 						{

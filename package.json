@@ -15,6 +15,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "massive": "^6.5.0",
+    "ordinal-numbers": "^1.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-odometerjs": "^2.1.1",
