@@ -1,15 +1,15 @@
-const Axios = require('axios')
+const axios = require('axios')
 const fs = require('fs')
-const { stackOffsetSilhouette } = require('d3')
+const prisonData = require('./prisonPop2018.json')
 
 module.exports = {
 	populateFbiData: async (req, res) => {
 		const db = req.app.get('db')
-		
+
 		fs.writeFileSync('./server/development/fbi.sql', '')
 
 		const nonViolentCrimes = [
-      'all-other-offenses',
+			'all-other-offenses',
 			'curfew',
 			'disorderly-conduct',
 			'dui',
@@ -20,7 +20,7 @@ module.exports = {
 			'fraud',
 			'gambling-total',
 			'larceny',
-			'liqour-laws',
+			'liquor-laws',
 			'offense-against-family',
 			'prostitution',
 			'prostitution-assisting',
@@ -37,9 +37,9 @@ module.exports = {
 		const violentCrimes = [
 			'burglary',
 			'arson',
-			'human-trafficking-commerical',
+			'human-trafficking-commercial',
 			'human-trafficking-servitude',
-			'motor-vehcile-theft',
+			'motor-vehicle-theft',
 			'murder',
 			'rape',
 			'robbery',
@@ -55,37 +55,44 @@ module.exports = {
 			'American Indian or Alaska Native',
 			'White',
 			'Other'
-    ]
-    
-    const states = await db.get_states_list()
+		]
 
-    const crimes = violentCrimes.concat(nonViolentCrimes)
-    
-    for (let k = 1; k < states.length; k++) {
-      for (let j = 0; j < races.length; j++){
-        let totalNonViolentArrests = 0
-        let totalViolentArrests = 0
-        for (let i = 0; i < crimes.length; i++) {
-          const res = await Axios.get(`https://api.usa.gov/crime/fbi/sapi/api/arrest/states/${states[k].state_abv}/${crimes[i]}/race/2018/2018?API_KEY=X8yPHRM4OynSw8CtVB8FuwP0y5J9WKng3UiIChCf`)
-          
-          if (res.data.data[0]){
-            if(nonViolentCrimes.includes(crimes[i])){
-              totalNonViolentArrests += res.data.data[j].value
-            }
-            else {
-              totalViolentArrests += res.data.data[j].value
-            }
-          }
-        }
-				console.log(`insert into fbi_data (state_abv, race, violent_arrests, non_violent_arrests) values ('${states[k].state_abv}', '${races[j]}', ${totalViolentArrests}, ${totalNonViolentArrests});`)
-				
-				fs.appendFileSync('./server/development/fbi.sql', `insert into fbi_data (state_abv, race, violent_arrests, non_violent_arrests) values ('${states[k].state_abv}', '${races[j]}', ${totalViolentArrests}, ${totalNonViolentArrests});\r\n`)
-      }
-    }
-    console.log('The script has run. copy an paste the above console logs into seed.sql')
-  },
+		const states = await db.get_states_list()
 
-  seedDb: async (req, res) => {
+		const crimes = violentCrimes.concat(nonViolentCrimes)
+
+		for (let k = 1; k < states.length; k++) {
+			for (let j = 0; j < races.length; j++) {
+				let totalNonViolentArrests = 0
+				let totalViolentArrests = 0
+				for (let i = 0; i < crimes.length; i++) {
+					const res = await axios.get(
+						`https://api.usa.gov/crime/fbi/sapi/api/arrest/states/${states[k].state_abv}/${crimes[i]}/race/2018/2018?API_KEY=X8yPHRM4OynSw8CtVB8FuwP0y5J9WKng3UiIChCf`
+					)
+
+					if (res.data.data[0]) {
+						if (nonViolentCrimes.includes(crimes[i])) {
+							totalNonViolentArrests += res.data.data[j].value
+						} else {
+							totalViolentArrests += res.data.data[j].value
+						}
+					}
+				}
+				console.log(
+					`insert into fbi_data (state_abv, race, violent_arrests, non_violent_arrests) values ('${states[k].state_abv}', '${races[j]}', ${totalViolentArrests}, ${totalNonViolentArrests});`
+				)
+
+				fs.appendFileSync(
+					'./server/development/fbi.sql',
+					`insert into fbi_data (state_abv, race, violent_arrests, non_violent_arrests) values ('${states[k].state_abv}', '${races[j]}', ${totalViolentArrests}, ${totalNonViolentArrests});\r\n`
+				)
+			}
+		}
+		console.log(
+			'The script has run. copy an paste the above console logs into seed.sql'
+		)
+	},
+	seedDb: async (req, res) => {
 		const db = req.app.get('db')
 
 		try {
@@ -93,6 +100,164 @@ module.exports = {
 		} catch (err) {
 			console.error(err)
 		}
+		res.sendStatus(200)
+	},
+	populateCensusData: async (req, res) => {
+		const db = req.app.get('db'),
+			states = await db.get_states_list().catch(err => console.error(err)),
+			races = await db.get_races_list().catch(err => console.error(err))
+
+		await states.forEach(async state => {
+			await races.forEach(async race => {
+				if (state.census_id && race.census_lookup && state.census_id !== ' ') {
+					const { data: censusData } = await axios
+						.get(
+							`https://api.census.gov/data/2019/pep/charage?get=POP&for=state:${state.census_id}&RACE=${race.census_lookup}&key=55461e4a27be3249c606296fb2ff698d70ea784e`
+						)
+						.catch(err => {
+							console.log(err.code)
+						})
+
+					if (censusData[1]) {
+						await db.census_data
+							.insert({
+								state: state.state_name,
+								race: race.name,
+								year: 2019,
+								population: +censusData[1][0]
+							})
+							.catch(err => {
+								if (err.code === 53300) {
+									setTimeout(async () => {
+										await db.census_data.insert({
+											state: state.state_name,
+											race: race.name,
+											year: 2019,
+											population: +censusData[1][0]
+										})
+									}, 0)
+								}
+							})
+						console.log(`${state.state_name} - ${race.name} finished`)
+					}
+				}
+			})
+		})
+
+		res.sendStatus(200)
+	},
+	populatePrisonData: async (req, res) => {
+		const db = req.app.get('db')
+
+		const raceConversion = {
+			total: null,
+			white: 1,
+			black: 2,
+			hispanic: 7,
+			asian: 3,
+			pacificIslander: 4,
+			americanIndian: 5,
+			twoOrMore: null,
+			other: 6,
+			unknown: 6,
+			didNotReport: 0
+		}
+
+		for (let state in prisonData) {
+			for (let race in prisonData[state]) {
+				if (race !== 'note') {
+					try {
+						await db.prison_data.insert({
+							state_name: state,
+							race: raceConversion[race],
+							pop_count: prisonData[state][race],
+							year: 2018
+						})
+					} catch (err) {
+						console.error(err)
+					}
+					console.log(`${state} - ${race} finished`)
+					// console.log({
+					// 	state_name: state,
+					// 	race: raceConversion[race],
+					// 	pop_count: prisonData[state][race],
+					// 	year: 2018
+					// })
+				}
+			}
+		}
+		res.sendStatus(200)
+	},
+	generateStateRanks: async (req, res) => {
+		const db = req.app.get('db')
+
+		// * This async await syntax will allow all of the database query functions to execute
+		// * simultaneously, but it won't continue until all are complete.
+
+		let [iat, arrestRate, ciRate, blackPop, states] = await Promise.all([
+			db.ranks_iat(),
+			db.ranks_arrest_rate(),
+			db.ranks_cir(),
+			db.ranks_black_pop(),
+			db.get_states_list()
+		]).catch(err => {
+			console.error(err)
+		})
+
+		// * Uncomment to see the schema
+		// console.table(iat)
+		// console.table(arrestRate)
+		// console.table(ciRate)
+		// console.table(blackPop)
+
+		// * Function to calculate overall rank. Will allow easy adjustments.
+		// TODO: Figure out how to generate overall rank with unique rank position.
+		const overallRank = (iatI, arI, cirI, bpI) => {
+			const rankSum =
+				+iat[iatI].rank +
+				+arrestRate[arI].rank +
+				+ciRate[cirI].rank +
+				+blackPop[bpI].rank
+		
+			return Math.round(rankSum / 4)
+		}
+
+		// * Used to filter out the following rows from the states table
+		const excludedStates = ['Federal', 'None', 'Washington DC']
+
+		// * Looping over states array to update state_ranks table
+		states.forEach(async (state, i) => {
+			if (!excludedStates.includes(state.state_name)) {
+				// * Finding index in each array for the current state
+				const iatI = iat.findIndex(e => e.state_name === state.state_name),
+					arI = arrestRate.findIndex(e => e.state_name === state.state_name),
+					cirI = ciRate.findIndex(e => e.state_name === state.state_name),
+					bpI = blackPop.findIndex(e => e.state_name === state.state_name)
+				try {
+					await db.state_ranks.insert(
+						{
+							state_name: state.state_name,
+							iat: iat[iatI].rank,
+							arrest_rate: arrestRate[arI].rank,
+							incarcerated_rate: ciRate[cirI].rank,
+							black_pop: blackPop[bpI].rank,
+							overall: overallRank(iatI, arI, cirI, bpI)
+						},
+						{
+							onConflict: {
+								target: 'state_name',
+								action: 'update'
+							}
+						}
+					)
+				} catch (err) {
+					console.log(err)
+				}
+
+				console.log(`${state.state_name}'s rank updated`)
+			}
+		})
+
 		res.sendStatus(200)
 	}
 }
