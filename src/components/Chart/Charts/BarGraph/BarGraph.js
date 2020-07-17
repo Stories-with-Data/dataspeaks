@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack  } from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel  } from 'victory';
   
   
  
@@ -21,11 +21,25 @@ import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack  } fr
             theme={VictoryTheme.material} 
             >
             <VictoryAxis
-              // tickValues={[1, 2, 3, 4]}
-              // tickFormat={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
-              />
+            style={{
+              grid: {stroke: 'rgb(255, 255, 255, 0.0)'}
+            }}
+              tickLabelComponent={<VictoryLabel 
+              angle={45}
+              verticalAnchor={'start'}
+              y={350}
+              >
+
+              </VictoryLabel>}
+              // style={{tickLabels: {
+              //   angle: 45
+              // }}}
+            />
   
             <VictoryAxis
+            style={{
+              grid: {stroke: 'rgb(255, 255, 255, 0.0)'}
+            }}
               dependentAxis
               tickFormat={(x) => (`${x}`)}
               />
@@ -33,6 +47,12 @@ import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack  } fr
               data={this.props.data}
               x='label'
               y='value'
+              barRatio={1}
+              cornerRadius={{top: 10}}
+              animate={{
+                duration: 2000,
+                onLoad: { duration: 1000 }
+              }}
             />
   
           </VictoryChart>
