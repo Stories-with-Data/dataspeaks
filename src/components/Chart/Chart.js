@@ -1,6 +1,6 @@
 import React from 'react'
 import './Chart.css'
-import BarGraph from './Charts/BarGraph/BarGraph'
+import BarGraph from '../BarGraph/BarGraph'
 
 function Chart(props) {
   const {chartData} = props
