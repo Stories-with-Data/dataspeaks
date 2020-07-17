@@ -55,11 +55,11 @@
 						"data": {
 							"categories": [
 								{
-									"name": "Violent",
+									"name": "Violent Crimes",
 									"tooltip": "Description of category"
 								},
 								{
-									"name": "Non-violent",
+									"name": "Non-violent Crimes",
 									"tooltip": "Description of category"
 								}
 							],
@@ -294,11 +294,11 @@
 						"data": {
 							"categories": [
 								{
-									"name": "Violent",
+									"name": "Violent Crimes",
 									"tooltip": "Description of category"
 								},
 								{
-									"name": "Non-violent",
+									"name": "Non-violent Crimes",
 									"tooltip": "Description of category"
 								}
 							],
