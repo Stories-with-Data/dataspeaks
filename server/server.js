@@ -1,11 +1,12 @@
 require('dotenv').config()
-const express = require('express')
-const massive = require('massive')
-const ctrl = require('./controllers/controller')
-const seedCtrl = require('./development/seedController')
-const { SERVER_PORT, CONNECTION_STRING } = process.env
+const express = require('express'),
+	massive = require('massive'),
+	ctrl = require('./controllers/controller'),
+	seedCtrl = require('./controllers/seedController'),
+	{ SERVER_PORT, CONNECTION_STRING } = process.env
 
 const app = express()
+
 app.use(express.json())
 
 // * Development Endpoints
@@ -16,7 +17,7 @@ app.post('/dev/seed/ranks', seedCtrl.generateStateRanks)
 app.post('/dev/seed', seedCtrl.seedDb)
 
 // * Data Endpoints
-app.get('/api/data', ctrl.sampleData)
+app.get('/api/data', ctrl.getData)
 
 massive({
 	connectionString: CONNECTION_STRING,
@@ -28,3 +29,6 @@ massive({
 	console.log('connected to db')
 	app.listen(SERVER_PORT, () => console.log(`Goliath ${SERVER_PORT} online`))
 })
+
+// TODO: Write seed middleware to protect seed endpoints
+// TODO: Write Postgres function and trigger to refresh materialized views on update
