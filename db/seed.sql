@@ -59,7 +59,8 @@ CREATE TABLE state_ranks (
   iat INT UNIQUE,
   arrest_rate INT UNIQUE,
   incarcerated_rate INT UNIQUE,
-  black_pop INT UNIQUE
+  black_pop INT UNIQUE,
+  overall FLOAT
 );
 
 ALTER TABLE
@@ -104,9 +105,24 @@ FROM
   fbi_data f
   JOIN states s ON s.state_abv = f.state_abv;
 
-CREATE INDEX state_race_lookup ON census_data (state, race);
+-- This view calculates arrest rates
 
-CREATE INDEX fbi_state_race_lookup ON fbi_data_states (state_name, race);
+CREATE MATERIALIZED VIEW arrest_rates AS
+SELECT
+  f.state_name,
+  f.race,
+  f.violent_arrests,
+  f.non_violent_arrests,
+  cd.population,
+  round((f.violent_arrests / cd.population :: FLOAT) * 100000) AS violent_arrest_rate,
+  round(
+    (f.non_violent_arrests / cd.population :: FLOAT) * 100000
+  ) AS non_violent_arrest_rate
+FROM
+  fbi_data_states f
+  JOIN census_data cd ON (cd.state, cd.race) = (f.state_name, f.race);
+
+CREATE INDEX arrest_rate_state_race ON arrest_rates (state_name, race);
 
 -- This view replaces state_abv on prison_data with state_name for multicolumn index
 CREATE MATERIALIZED VIEW prison_data_states AS
@@ -123,7 +139,7 @@ GROUP BY
   r.name,
   p.year;
 
-CREATE INDEX prison_state_race_lookup ON prison_data_states (state_name, race);
+
 
 -- Creating 2 views to use for currently incarcerated rate rankings.
 -- Will rank by states with the largest difference between white incarcerated ranks and black incarcerated ranks.
@@ -172,12 +188,52 @@ GROUP BY
 ORDER BY
   currently_incarcerated_rate DESC;
 
--- CIR = Currently Incarcerated Rate
+CREATE MATERIALIZED VIEW cir AS
+SELECT
+  p.state_name,
+  p.race,
+  round(AVG(p.pop_count)) AS pop_count,
+  round(AVG(cd.population)) AS population,
+  round(
+    (AVG(p.pop_count) / AVG(cd.population) :: FLOAT) * 100000
+  ) AS currently_incarcerated_rate
+FROM
+  prison_data_states p
+  JOIN census_data cd ON (cd.state, cd.race) = (p.state_name, p.race)
+GROUP BY
+  p.state_name,
+  p.race
+ORDER BY
+  currently_incarcerated_rate DESC;
+
+CREATE INDEX cir_state_race ON cir (state_name, race);
+
+-- IAT VIEW
+
+CREATE MATERIALIZED VIEW iat_view AS
+SELECT
+  s.state_name,
+  r.name as race,
+  sum(id.responses) as iat_responses,
+  sum(id.sum_iat) as iat_sum,
+  (sum(id.sum_iat)/sum(id.responses) :: FLOAT) as iat_avg
+FROM iat_data id
+JOIN states s ON s.state_abv = id.state_abv
+JOIN races r ON r.iat_lookup = id.race
+GROUP BY s.state_name, r.name;
+
+
+CREATE INDEX prison_state_race_lookup ON prison_data_states (state_name, race);
+
+CREATE INDEX state_race_lookup ON census_data (state, race);
+
+CREATE INDEX fbi_state_race_lookup ON fbi_data_states (state_name, race);
+
+CREATE INDEX iat_state_race_lookup ON iat_view (state_name, race);
 
 CREATE INDEX cir_white_state_year_lookup ON currently_incarcerated_rate_white (state_name, year);
-CREATE INDEX cir_black_state_year_lookup ON currently_incarcerated_rate_black (state_name, year);
 
--- 
+CREATE INDEX cir_black_state_year_lookup ON currently_incarcerated_rate_black (state_name, year);
 
 -- RACES/STATES table
 INSERT INTO
