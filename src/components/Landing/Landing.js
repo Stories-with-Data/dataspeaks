@@ -9,7 +9,7 @@ function Landing(props) {
 			<div className='bg-image'>h</div>
 	
 			<div className='header'>
-      			<h1> <span className='span-title'>When</span> <span className='span-title'>They</span> <span>See</span> <span>U.</span> <span>S.</span> <span className='span-title'>A.</span> </h1>
+      			<h1> <span className='span-title'>When</span> <span className='span-title'>They</span> <span>See</span> <span>U.</span> <span>S.</span> <span className='span-title2'>A.</span> </h1>
       		</div>
 			{/* <Loading /> */}
 			<div className='missionStatement'>
