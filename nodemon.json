@@ -1,8 +1,7 @@
 {
   "ignore": [
     "src/*",
-    "node_modules/*",
-    "server/development/*"
+    "node_modules/*"
   ],
   "watch": [
     "server/*",
