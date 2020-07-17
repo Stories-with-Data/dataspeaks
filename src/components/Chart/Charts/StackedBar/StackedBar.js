@@ -39,27 +39,41 @@ class StackedBar extends Component {
 
   render() {
     const { categories, values } = this.props.data
+    console.log(values)
     return (
       <div>
         <VictoryChart
           domainPadding={20}
           theme={VictoryTheme.material}
         >
-          <VictoryAxis />
+          <VictoryAxis 
+          style={{
+            grid: {stroke: 'rgb(255, 255, 255, 0.0)'}
+          }}/>
 
           <VictoryAxis
             dependentAxis
+            style={{
+              grid: {stroke: 'rgb(255, 255, 255, 0.0)'}
+            }}
             tickFormat={(x) => (`${x}`)}
           />
 
           <VictoryGroup
-          offset={10}
+          offset={20}
+          barRatio={1}
+          
           // categories={categories.map(cat => cat.name)}
           // categories={['Non-violent Crimes', 'Violent Crimes']}
           >
             {categories.map(cat => {
               return (
                 <VictoryBar
+                
+                animate={{
+                  duration: 2000,
+                  onLoad: { duration: 1000 }
+                }}
                   data={values.filter(val => val.category === cat.name)}
                   x='label'
                   y='value'
