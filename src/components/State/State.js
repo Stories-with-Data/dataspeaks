@@ -5,7 +5,7 @@ import Rank from '../Rank/Rank'
 
 function State(props) {
   const stateData = props.statesData[props.stateSelected]
-
+console.log(props);
   return (
     <div className='stateContainer'>
 
