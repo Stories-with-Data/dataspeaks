@@ -5,6 +5,7 @@ import Chart from '../Chart/Chart'
 
 function Category(props) {
   const {catData} = props
+  console.log(catData)
   return (
     <div className='categoryContainer'>
       <div className='categoryTitle'>
