@@ -2,19 +2,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 90vw;
-  height: 92vh;
-  border: solid black 1px;
-  margin-left: 5vw;
-  margin-top: 50px;
+  width: 100vw;
+  height: 100vh;
+  /* border: solid black 1px; */
 }
 
 .mapContainer {
-  border: solid black 1px;
-  margin-top: 15px;
-  width: 90%;
-  height: 90%;
-  overflow: hidden;
+  /* border: solid black 1px; */
+  min-width: 100%;
+  min-height: 100%;
+  /* overflow: hidden; */
   
 }
 

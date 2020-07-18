@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import State from '../State/State'
 import {
 	ComposableMap,
@@ -11,140 +11,160 @@ import stateFlags from './assets/stateFlags/stateFlags.json'
 import states from './assets/topoJSONs/states-10m.json'
 import './USMap.css'
 import Axios from 'axios'
+import { makeStyles } from '@material-ui/core/styles'
+import Popover from '@material-ui/core/Popover'
+import Typography from '@material-ui/core/Typography'
 
-class USMap extends Component {
-	constructor() {
-		super()
-		this.state = {
-			data: {},
-			stateClicked: false,
-			stateSelected: '',
-			isLoading: false,
-			transitions: {}
+const useStyles = makeStyles(theme => ({
+	popover: {
+		pointerEvents: 'none'
+	},
+	paper: {
+		padding: theme.spacing(1)
+	}
+}))
+
+const USMap = () => {
+	// * All state hooks here
+	const [data, setData] = useState({})
+	const [selectedState, setSelectedState] = useState('')
+	const [position, setPosition] = useState({ coords: [0, 0], zoom: 1 })
+	const [mapSize, setMapSize] = useState({ height: 600, width: 800 })
+
+	// * All component functions
+	const handleStateOpen = stateName => {
+		setSelectedState(stateName)
+	}
+
+	const handleStateClose = () => {
+		setSelectedState('')
+	}
+
+	const handleMoveEnd = position => setPosition(position)
+
+	// * useEffect behaving like componentDidMount and componentWillUnmount
+	useEffect(() => {
+		const CancelToken = Axios.CancelToken,
+			source = CancelToken.source()
+
+		// * Declaring function inside useEffect to avoid dependencies error
+		const loadData = async () => {
+			try {
+				const { data } = await Axios.get('/api/data')
+				setData(data)
+			} catch (err) {
+				if (Axios.isCancel(err)) {
+					console.log('Cancelled')
+				} else {
+					throw err
+				}
+			}
 		}
-		this.handleStateClose = this.handleStateClose.bind(this)
-		this.stateShape = React.createRef()
-	}
+		// * Calling loadData function
+		loadData()
+		// * Setting map viewBox size to window
+		setMapSize({ height: window.innerHeight, width: window.innerWidth })
+		return () => {
+			// * Acts like componentWillUnmount. Cancelling axios call avoids memory leaks
+			source.cancel()
+		}
+	}, [])
 
-	handleStateOpen() {
-		this.setState({
-			stateClicked: true
-		})
-	}
+	// * For Popover
+	const classes = useStyles()
+	const [anchorEl, setAnchorEl] = useState(null)
+	const [popoverText, setPopoverText] = useState('Loading...')
+	const popoverOpen = Boolean(anchorEl)
 
-	handleStateClose() {
-		this.setState({
-			stateClicked: false
-		})
-	}
+	const handlePopoverOpen = e => setAnchorEl(e.currentTarget)
+	const handlePopoverClose = () => setAnchorEl(null)
 
-	componentDidMount() {
-		Axios.get('/api/data').then(res => {
-			this.setState({ data: res.data })
-		})
-		console.log(this.stateShape.current)
-	}
-
-	render() {
-		// console.log(this.props)
-		return (
-			<div>
-				<div className='mapPage'>
-					Map Page
-					<div className='mapContainer'>
-						{this.state.stateClicked ? (
-							<State
-								stateSelected={this.state.stateSelected}
-								statesData={this.state.data}
-								stateOpen={this.state.stateClicked}
-								handleStateClose={this.handleStateClose}
-							/>
-						) : (
-							<div>
-								<ComposableMap projection='geoAlbersUsa'>
-									<ZoomableGroup zoom={1}>
-										<Geographies geography={states}>
-											{({ geographies }) =>
-												geographies.map(geo => {
-													// ! defs tag is for defining the svg background pattern
-													// TODO: Get all state flags loaded in public/assets/stateFlags/1x
-													return (
-														<svg key={geo.rsmKey} ref={this.stateShape}>
-															<defs>
-																<pattern
-																	id={`${geo.properties.name.replace(
-																		/\s/g,
-																		''
-																	)}Flag`}
-																	patternUnits='userSpaceOnUse'
-																	// TODO: Figure out how to programatically get State flag SVG to size with State geo SVG
-																	width='100'
-																	height='80'
-																>
-																	{/* <Flags /> */}
-																	<image
-																		// * Replacing space in state name in order to access filepath in JSON object
-																		xlinkHref={
-																			stateFlags[
-																				geo.properties.name.replace(/\s/g, '')
-																			]
-																		}
-																		x='0'
-																		y='0'
-																		width='100'
-																		height='80'
-																	/>
-																</pattern>
-															</defs>
-															<Geography
-																id='state'
-																geography={geo}
-																onClick={() => {
-																	this.handleStateOpen()
-																	this.setState({
-																		stateSelected: geo.properties.name
-																	})
-																}}
-																style={{
-																	default: {
-																		fill: '#ddd',
-																		stroke: '#fff'
-																	},
-																	hover: {
-																		stroke: '#fff',
-																		cursor: 'pointer',
-																		outline: 'none',
-																		fill: `url(#${geo.properties.name.replace(
-																			/\s/g,
-																			''
-																		)}Flag)`
-																	},
-																	pressed: {
-																		outline: 'none'
-																	}
-																}}
-															/>
-														</svg>
-													)
-												})
-											}
-										</Geographies>
-									</ZoomableGroup>
-								</ComposableMap>
-							</div>
-						)}
-					</div>
-					{this.state.stateClicked ? (
-						<button className='button' onClick={() => this.handleStateClose()}>
-							State Close
-						</button>
-					) : (
-						''
-					)}
-				</div>
+	return (
+		<div className='mapPage'>
+			{selectedState ? (
+				<State
+					stateSelected={selectedState ? true : false}
+					stateData={selectedState ? data[selectedState] : data.Texas}
+					handleStateClose={handleStateClose}
+					stateFlag={stateFlags[selectedState.replace(/\s/g, '')]}
+				/>
+			) : null}
+			<div className='mapContainer'>
+				<ComposableMap
+					width={mapSize.width || 800}
+					height={mapSize.height || 600}
+					projection='geoAlbersUsa'
+				>
+					<ZoomableGroup
+						minZoom={0.5}
+						zoom={1}
+						center={position.coords}
+						onMoveEnd={handleMoveEnd}
+					>
+						<Geographies geography={states}>
+							{({ geographies }) => (
+								<>
+									{geographies.map(geo => (
+										<React.Fragment key={geo.rsmKey}>
+											<Geography
+												// key={geo.rsmKey}
+												id='state'
+												geography={geo}
+												onClick={() => {
+													handleStateOpen(geo.properties.name)
+												}}
+												style={{
+													default: {
+														fill: '#ddd',
+														stroke: '#fff'
+													},
+													hover: {
+														stroke: '#fff',
+														cursor: 'pointer',
+														outline: 'none'
+													},
+													pressed: {
+														outline: 'none'
+													}
+												}}
+												onMouseEnter={e => {
+													setPopoverText(geo.properties.name)
+													handlePopoverOpen(e)
+												}}
+												onMouseLeave={() => {
+													handlePopoverClose()
+												}}
+											/>
+										</React.Fragment>
+									))}
+								</>
+							)}
+						</Geographies>
+					</ZoomableGroup>
+				</ComposableMap>
 			</div>
-		)
-	}
+			<Popover
+				className={classes.popover}
+				classes={{
+					paper: classes.paper
+				}}
+				open={popoverOpen}
+				anchorEl={anchorEl}
+				anchorOrigin={{
+					vertical: 'top',
+					horizontal: 'center'
+				}}
+				transformOrigin={{
+					vertical: 'center',
+					horizontal: 'center'
+				}}
+				onClose={handlePopoverClose}
+				disableRestoreFocus
+			>
+				<Typography variant='body1'>{popoverText}</Typography>
+			</Popover>
+		</div>
+	)
 }
 
 export default USMap
