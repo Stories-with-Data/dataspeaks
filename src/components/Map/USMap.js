@@ -6,10 +6,9 @@ import {
 	Geography,
 	ZoomableGroup
 } from 'react-simple-maps'
-// import counties from '../../assets/topoJSONs/counties-10m.json'
+// import counties from './assets/topoJSONs/counties-10m.json'
 import stateFlags from './assets/stateFlags/stateFlags.json'
-import states from '../../assets/topoJSONs/states-10m.json'
-import { ReactComponent as flags } from '../../assets/stateFlags/USStateFlags.svg'
+import states from './assets/topoJSONs/states-10m.json'
 import './USMap.css'
 import Axios from 'axios'
 
@@ -24,6 +23,7 @@ class USMap extends Component {
 			transitions: {}
 		}
 		this.handleStateClose = this.handleStateClose.bind(this)
+		this.stateShape = React.createRef()
 	}
 
 	handleStateOpen() {
@@ -42,6 +42,7 @@ class USMap extends Component {
 		Axios.get('/api/data').then(res => {
 			this.setState({ data: res.data })
 		})
+		console.log(this.stateShape.current)
 	}
 
 	render() {
@@ -68,28 +69,35 @@ class USMap extends Component {
 													// ! defs tag is for defining the svg background pattern
 													// TODO: Get all state flags loaded in public/assets/stateFlags/1x
 													return (
-														<>
+														<svg key={geo.rsmKey} ref={this.stateShape}>
 															<defs>
 																<pattern
-																	id={`${geo.properties.name}Flag`}
+																	id={`${geo.properties.name.replace(
+																		/\s/g,
+																		''
+																	)}Flag`}
 																	patternUnits='userSpaceOnUse'
 																	// TODO: Figure out how to programatically get State flag SVG to size with State geo SVG
 																	width='100'
 																	height='80'
 																>
-																	{flags.getElementById(geo.properties.name)}
-																	{/* <image
-																		xlinkHref={stateFlags[geo.properties.name]}
+																	{/* <Flags /> */}
+																	<image
+																		// * Replacing space in state name in order to access filepath in JSON object
+																		xlinkHref={
+																			stateFlags[
+																				geo.properties.name.replace(/\s/g, '')
+																			]
+																		}
 																		x='0'
 																		y='0'
 																		width='100'
 																		height='80'
-																	/> */}
+																	/>
 																</pattern>
 															</defs>
 															<Geography
 																id='state'
-																key={geo.rsmKey}
 																geography={geo}
 																onClick={() => {
 																	this.handleStateOpen()
@@ -106,14 +114,17 @@ class USMap extends Component {
 																		stroke: '#fff',
 																		cursor: 'pointer',
 																		outline: 'none',
-																		fill: `url(#${geo.properties.name}Flag)`
+																		fill: `url(#${geo.properties.name.replace(
+																			/\s/g,
+																			''
+																		)}Flag)`
 																	},
 																	pressed: {
 																		outline: 'none'
 																	}
 																}}
 															/>
-														</>
+														</svg>
 													)
 												})
 											}
