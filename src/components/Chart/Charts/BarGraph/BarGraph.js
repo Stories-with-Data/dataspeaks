@@ -4,9 +4,13 @@ import {
 	VictoryChart,
 	VictoryAxis,
 	VictoryTheme,
-	VictoryLabel
+	VictoryLabel,
+	VictoryTooltip,
+  VictoryLegend,
+  VictoryContainer
 } from 'victory'
 import { withTheme } from '@material-ui/core'
+import { values } from 'd3'
 
 class BarGraph extends Component {
 	constructor() {
@@ -19,14 +23,18 @@ class BarGraph extends Component {
 		return (
 			<div>
 				<VictoryChart domainPadding={20} theme={VictoryTheme.material}>
-					{/* <VictoryAxis
+					<VictoryAxis
 						style={{
 							grid: { stroke: 'rgb(255, 255, 255, 0.0)' },
 							tickLabels: {
-								fill: '#fff'
+								fill: '#fff',
+								visibility: 'hidden'
 							},
 							axisLabel: {
 								fill: '#fff'
+							},
+							ticks: {
+								visibility: 'hidden'
 							}
 						}}
 						// tickLabelComponent={
@@ -40,25 +48,23 @@ class BarGraph extends Component {
 						// style={{tickLabels: {
 						//   angle: 45
 						// }}}
-					/> */}
+					/>
 
 					<VictoryAxis
 						style={{
-              grid: { stroke: 'rgb(255, 255, 255, 0.0)' },
-              tickLabels: {
-                fill: '#fff'
-              }
+							grid: { stroke: 'rgb(255, 255, 255, 0.0)' },
+							tickLabels: {
+								fill: '#fff'
+							}
 						}}
 						dependentAxis
 						tickFormat={x => `${x}`}
 					/>
 					<VictoryBar
-						data={this.props.data.map(e =>
-							e.label === 'White' ? { ...e, label: 'White or Caucasian' } : e
-						)}
-						x='label'
+						data={this.props.data}
+						x='race'
 						y='value'
-						categories={{ x: this.props.data.map(e => e.label) }}
+						// categories={{ x: this.props.data.map(e => e.label) }}
 						barRatio={1}
 						cornerRadius={{ top: 5 }}
 						animate={{
@@ -67,30 +73,66 @@ class BarGraph extends Component {
 						}}
 						style={{
 							labels: {
-								fill: '#fff'
+								fill: '#000'
 							},
 							data: {
 								fill: ({ datum }) => {
-									switch (datum.label) {
+									switch (datum.race) {
 										case 'Black or African American':
 											return '#000'
-										case 'White or Caucasian':
-                      return '#fff'
-                    case 'Asian':
-                      return '#C47AC0'
-                    case 'American Indian or Alaska Native':
-                      return '#2B9720'
-                    case 'Native Hawaiian or Pacific Islander':
-                      return '#32CBFF'
-                    case 'Other':
-                      return '#1B3B6F'
+										case 'rgb(255, 255, 255)':
+											return '#fff'
+										case 'Asian':
+											return '#C47AC0'
+										case 'American Indian or Alaska Native':
+											return '#2B9720'
+										case 'Native Hawaiian or Pacific Islander':
+											return '#32CBFF'
+										case 'Other':
+											return '#1B3B6F'
 										default:
 											return '#32CBFF'
 									}
 								}
 							}
 						}}
+						labelComponent={
+							<VictoryTooltip
+								flyoutStyle={{
+									fill: '#ffffff90'
+								}}
+							/>
+						}
 					/>
+					{/* <VictoryLegend
+            padding={20}
+						data={this.props.data.map(e => ({ name: e.race }))}
+						style={{
+							labels: {
+								fill: '#fff'
+							},
+							data: {
+								fill: ({ datum }) => {
+									switch (datum.name) {
+										case 'Black or African American':
+											return '#000'
+										case 'rgb(255, 255, 255)':
+											return '#fff'
+										case 'Asian':
+											return '#C47AC0'
+										case 'American Indian or Alaska Native':
+											return '#2B9720'
+										case 'Native Hawaiian or Pacific Islander':
+											return '#32CBFF'
+										case 'Other':
+											return '#1B3B6F'
+										default:
+											return '#32CBFF'
+									}
+								}
+							}
+						}}
+					/> */}
 				</VictoryChart>
 			</div>
 		)
