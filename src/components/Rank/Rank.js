@@ -23,7 +23,7 @@ const Rank = ({ rank }) => {
 		setOdom(rank)
 		setTimeout(() => {
 			setOrdinalEnter(true)
-		}, 2200)
+		}, 2100)
 	}, [rank])
 
 	const ordinalRank = ordinal(rank)
