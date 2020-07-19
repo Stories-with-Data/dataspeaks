@@ -245,7 +245,7 @@ VALUES
   ('Asian', 2, 4, 3),
   ('Native Hawaiian or Pacific Islander', 4, 5, 4),
   ('Black or African American', 5, 2, 2),
-  ('White', 6, 1, 1),
+  ('White or Caucasian', 6, 1, 1),
   ('Other', 7, 6, 6),
   ('Hispanic', null, null, 7);
 
