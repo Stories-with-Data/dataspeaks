@@ -4,13 +4,13 @@ import {
 	VictoryChart,
 	VictoryAxis,
 	VictoryTheme,
-	VictoryLabel,
+	// VictoryLabel,
 	VictoryTooltip,
-  VictoryLegend,
-  VictoryContainer
+  // VictoryLegend,
+  // VictoryContainer
 } from 'victory'
-import { withTheme } from '@material-ui/core'
-import { values } from 'd3'
+// import { withTheme } from '@material-ui/core'
+// import { values } from 'd3'
 
 class BarGraph extends Component {
 	constructor() {
