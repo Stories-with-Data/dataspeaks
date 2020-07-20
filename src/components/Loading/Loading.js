@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import LoadingTransition from './LoadingTransition/LoadingTransition'
+// import LoadingTransition from './LoadingTransition/LoadingTransition'
 import './Loading.css';
 
 class Loading extends Component {
@@ -10,7 +10,7 @@ class Loading extends Component {
     render() { 
         return ( 
             <div id='loading-cont'>
-                <LoadingTransition />
+                {/* <LoadingTransition /> */}
                 <h1>Hello</h1>
             </div>
          );

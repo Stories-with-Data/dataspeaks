@@ -97,6 +97,7 @@ const USMap = () => {
 				>
 					<ZoomableGroup
 						minZoom={0.5}
+						maxZoom={4}
 						zoom={1}
 						center={position.coords}
 						onMoveEnd={handleMoveEnd}
@@ -116,10 +117,9 @@ const USMap = () => {
 												style={{
 													default: {
 														fill: '#ddd',
-														stroke: '#fff'
+														stroke: '#ffffff00'
 													},
 													hover: {
-														stroke: '#fff',
 														cursor: 'pointer',
 														outline: 'none'
 													},
