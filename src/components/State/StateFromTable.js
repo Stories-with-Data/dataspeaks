@@ -5,22 +5,20 @@ import GetInvolved from '../GetInvolved/GetInvolved'
 import './State.css'
 import Rank from '../Rank/Rank'
 import Fade from '@material-ui/core/Fade'
-// import sampleData from './SampleDataOutput.json'
 import useStatesData from '../../hooks/useStatesData'
 import stateFlags from '../../assets/stateFlags/stateFlags.json'
-// import Paper from '@material-ui/core/Paper'
+import Backdrop from '@material-ui/core/Backdrop'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const StateFromTable = props => {
 	const { statename } = props.match.params
-  const stateData = useStatesData(statename)
-  const history = useHistory()
+	const stateData = useStatesData(statename)
+	const history = useHistory()
 	const stateFlag = stateFlags[statename.replace(/\s/g, '')]
-	// const stateData = sampleData.Texas
 
 	const [stateVis, setStateVis] = useState(false)
 	const [involvedVis, setInvolvedVis] = useState(false)
 
-	// const [stateFlag, setStateFlag] = useState('')
 
 	const toggleInvolvedVis = () => {
 		setInvolvedVis(!involvedVis)
@@ -36,6 +34,9 @@ const StateFromTable = props => {
 
 	return (
 		<>
+			<Backdrop open={!stateVis} transitionDuration={{enter: 50, exit: 750}}>
+				<CircularProgress />
+			</Backdrop>
 			<Fade
 				mountOnEnter
 				in={stateVis}
@@ -65,12 +66,6 @@ const StateFromTable = props => {
 									{stateData.overall ? stateData.overall.summary : ''}
 								</div>
 							</div>
-
-							{/* <div className='flagImageContainer'>
-							<svg className='flagSvg'>
-								<image className='flagSvg' xlinkHref={stateFlag} />
-							</svg>
-						</div> */}
 						</div>
 
 						<div className='closeStateBtnContainer'>
@@ -82,8 +77,8 @@ const StateFromTable = props => {
 									// * Using a setTimeout synced to exit transition time
 									// * before altering USMap state with handleStateClose
 									setTimeout(() => {
-                    history.push('/states')
-                  }, exit)
+										history.push('/states')
+									}, exit)
 								}}
 							>
 								Back
@@ -91,8 +86,8 @@ const StateFromTable = props => {
 						</div>
 
 						<button onClick={() => toggleInvolvedVis()} className='button'>
-						Get Involved
-					</button>
+							Get Involved
+						</button>
 
 						<div className='categoryColumnContainer'>
 							{stateData.categories
@@ -103,11 +98,11 @@ const StateFromTable = props => {
 						</div>
 					</div>
 					<div className={`involvedVis${involvedVis}`}>
-					<GetInvolved 
-						toggleInvolvedVis={toggleInvolvedVis} 
-						stateName={statename} 
-					/>
-				</div>
+						<GetInvolved
+							toggleInvolvedVis={toggleInvolvedVis}
+							stateName={statename}
+						/>
+					</div>
 				</div>
 			</Fade>
 		</>
