@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import Collapse from '@material-ui/core/Collapse'
+// import Collapse from '@material-ui/core/Collapse'
 import Fade from '@material-ui/core/Fade'
-import Grow from '@material-ui/core/Grow'
-import Slide from '@material-ui/core/Slide'
-import Zoom from '@material-ui/core/Zoom'
+// import Grow from '@material-ui/core/Grow'
+// import Slide from '@material-ui/core/Slide'
+// import Zoom from '@material-ui/core/Zoom'
 
 const TransitionTemplate = () => {
 	// * Determines whether transition children are visible

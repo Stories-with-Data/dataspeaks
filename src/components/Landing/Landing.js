@@ -1,7 +1,7 @@
 import React from 'react'
-import TransitionTemplate from '../../development/TransitionTemplate/TransitionTemplate'
+// import TransitionTemplate from '../../development/TransitionTemplate/TransitionTemplate'
 import './Landing.css'
-import Loading from '../Loading/Loading';
+// import Loading from '../Loading/Loading';
 
 function Landing(props) {
 	return (

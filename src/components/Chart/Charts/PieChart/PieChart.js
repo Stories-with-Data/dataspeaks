@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {
 	VictoryPie,
-	VictoryChart,
-	VictoryAxis,
+	// VictoryChart,
+	// VictoryAxis,
 	VictoryTheme,
-	VictoryLabel,
+	// VictoryLabel,
 	VictoryTooltip
 } from 'victory'
 
