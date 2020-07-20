@@ -1,7 +1,7 @@
 import React from 'react'
 // import TransitionTemplate from '../../development/TransitionTemplate/TransitionTemplate'
 import './Landing.css'
-// import Loading from '../Loading/Loading';
+import Loading from '../Loading/Loading';
 
 function Landing(props) {
 	return (
@@ -11,7 +11,7 @@ function Landing(props) {
 			<div className='header'>
       			<h1> <span className='span-title'>When</span> <span className='span-title'>They</span> <span>See</span> <span>U.</span> <span>S.</span> <span className='span-title2'>A.</span> </h1>
       		</div>
-			<Loading />
+			{/* <Loading /> */}
 			<div className='missionStatement'>
 
 					<div className='quote-div'>
