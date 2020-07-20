@@ -21,9 +21,11 @@ const Rank = ({ rank }) => {
 
 	useEffect(() => {
 		setOdom(rank)
-		setTimeout(() => {
+		const timeout = setTimeout(() => {
 			setOrdinalEnter(true)
 		}, 2100)
+
+		return () => clearTimeout(timeout)
 	}, [rank])
 
 	const ordinalRank = ordinal(rank)

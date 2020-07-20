@@ -6,11 +6,11 @@ import {
 	Geography,
 	ZoomableGroup
 } from 'react-simple-maps'
-// import counties from './assets/topoJSONs/counties-10m.json'
-import stateFlags from './assets/stateFlags/stateFlags.json'
-import states from './assets/topoJSONs/states-10m.json'
+// import counties from '../../assets/topoJSONs/counties-10m.json'
+import stateFlags from '../../assets/stateFlags/stateFlags.json'
+import states from '../../assets/topoJSONs/states-10m.json'
 import './USMap.css'
-import Axios from 'axios'
+import useStatesData from '../../hooks/useStatesData'
 import { makeStyles } from '@material-ui/core/styles'
 import Popover from '@material-ui/core/Popover'
 import Typography from '@material-ui/core/Typography'
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 const USMap = () => {
 	// * All state hooks here
-	const [data, setData] = useState({})
+	const data = useStatesData()
 	const [selectedState, setSelectedState] = useState('')
 	const [position, setPosition] = useState({ coords: [0, 0], zoom: 1 })
 	const [mapSize, setMapSize] = useState({ height: 600, width: 800 })
@@ -44,30 +44,7 @@ const USMap = () => {
 
 	// * useEffect behaving like componentDidMount and componentWillUnmount
 	useEffect(() => {
-		const CancelToken = Axios.CancelToken,
-			source = CancelToken.source()
-
-		// * Declaring function inside useEffect to avoid dependencies error
-		const loadData = async () => {
-			try {
-				const { data } = await Axios.get('/api/data')
-				setData(data)
-			} catch (err) {
-				if (Axios.isCancel(err)) {
-					console.log('Cancelled')
-				} else {
-					throw err
-				}
-			}
-		}
-		// * Calling loadData function
-		loadData()
-		// * Setting map viewBox size to window
 		setMapSize({ height: window.innerHeight, width: window.innerWidth })
-		return () => {
-			// * Acts like componentWillUnmount. Cancelling axios call avoids memory leaks
-			source.cancel()
-		}
 	}, [])
 
 	// * For Popover
