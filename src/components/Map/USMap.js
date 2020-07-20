@@ -121,7 +121,8 @@ const USMap = () => {
 													},
 													hover: {
 														cursor: 'pointer',
-														outline: 'none'
+														outline: 'none',
+														fill: '#FCE21B'
 													},
 													pressed: {
 														outline: 'none'
