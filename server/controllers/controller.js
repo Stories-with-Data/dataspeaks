@@ -190,5 +190,14 @@ module.exports = {
 		})
 
 		res.status(200).send(output)
+	},
+
+	getStateAbv: async (req, res) => {
+		const db = req.app.get('db')
+		const {state} = req.params
+
+		const stateAbv = await db.get_state_abv(state)
+
+		res.status(200).send(stateAbv[0])
 	}
 }

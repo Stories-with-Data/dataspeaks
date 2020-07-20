@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
+// import LoadingTransition from './LoadingTransition/LoadingTransition'
 import './Loading.css';
-import TransitionTemplate from '../../development/TransitionTemplate/TransitionTemplate'
 
 class Loading extends Component {
     constructor(props) {
@@ -10,7 +10,7 @@ class Loading extends Component {
     render() { 
         return ( 
             <div id='loading-cont'>
-                <TransitionTemplate />
+                {/* <LoadingTransition /> */}
                 <h1>Hello</h1>
             </div>
          );
