@@ -203,4 +203,6 @@
   .quote-div > cite {
     right:10px;
   }
+.zIndex {
+  z-index: 1;
 }

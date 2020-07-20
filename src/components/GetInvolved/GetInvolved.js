@@ -14,7 +14,7 @@ function GetInvolved(props) {
   const [stateName, setStateName] = useState('')
 
   useEffect(() => {
-    if(!props.stateName){
+    if(props.stateName){
       setStateName(props.stateName)
       getMemberData()
     }
@@ -27,7 +27,7 @@ function GetInvolved(props) {
       }
     })
 
-    const response = await Axios.get(`/api/states/${'Utah'}`)
+    const response = await Axios.get(`/api/states/${stateName}`)
     const senateList = res.data.results[0].members
     for(let i = senateList.length - 1; i >= 0; i--){
       if(senateList[i].state !== response.data.state_abv){
@@ -38,7 +38,6 @@ function GetInvolved(props) {
   }
 
   const senatorsMap = senators.map(elem => {
-    console.log(senators)
     return (
       <div className='senator-container'
       key={elem.id}>
@@ -48,28 +47,30 @@ function GetInvolved(props) {
           href={elem.twitter_account ? `https://twitter.com/${elem.twitter_account}`: `https://twitter.com/search?q=${elem.first_name}%20${elem.last_name}&src=typed_query`}
           target='_blank'
           >
-            <TwitterIcon fontSize='large'/>
+            <TwitterIcon className='linkButton' fontSize='large'/>
           </IconButton>
           <IconButton
           href={elem.facebook_account ? `https://www.facebook.com/${elem.facebook_account}` : `https://www.facebook.com/search/top?q=senator%20${elem.first_name}%20${elem.last_name}`}
           target='_blank'
           >
-            <FacebookIcon fontSize='large'/>
+            <FacebookIcon className='linkButton' fontSize='large'/>
           </IconButton>
           <IconButton
           href={elem.youtube_account ? `https://www.youtube.com/${elem.youtube_account}` : `https://www.youtube.com/results?search_query=senator+${elem.first_name}+${elem.last_name}`}
           target='_blank'
           >
-            <YouTubeIcon fontSize='large'/>
+            <YouTubeIcon className='linkButton' fontSize='large'/>
           </IconButton>
         </div>
         <div className='contact-form'>
           {`Write ${elem.first_name} a message expressing how to feel the government needs change. Click below`}
           <IconButton
+          className='linkButton'
           href={elem.contact_form}
           target='_blank'
           >
-            <ContactMailRoundedIcon fontSize='large'/>
+            <ContactMailRoundedIcon
+            className='linkButton' fontSize='large'/>
           </IconButton>
         </div>
       </div>
@@ -81,6 +82,9 @@ function GetInvolved(props) {
       <div>Want to help change our damaged system?</div>
       <div>{`Meet the U.S senators for ${stateName}`}</div>
       <div className='senators'>{senatorsMap}</div>
+      <button onClick={() => props.toggleInvolvedVis()} className='button'>
+        Close
+      </button>
     </div>
   )
 }

@@ -1,7 +1,8 @@
 import React from 'react'
 // import TransitionTemplate from '../../development/TransitionTemplate/TransitionTemplate'
 import './Landing.css'
-import Loading from '../Loading/Loading';
+import { Link } from 'react-router-dom'
+// import Loading from '../Loading/Loading';
 
 function Landing(props) {
 	return (
@@ -26,7 +27,9 @@ function Landing(props) {
 					</div>
 				
 			</div>
-
+			<Link className='zIndex' to='/map'>
+				<button className='button'>See Map</button>
+			</Link>
 		</div>
 	)
 }
