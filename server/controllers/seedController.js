@@ -214,15 +214,15 @@ module.exports = {
 
 		// * Function to calculate overall rank. Will allow easy adjustments.
 		// TODO: Figure out how to generate overall rank with unique rank position.
-		const overallRank = (iatI, arI, cirI, bpI) => {
-			const rankSum =
-				+iat[iatI].rank +
-				+arrestRate[arI].rank +
-				+ciRate[cirI].rank +
-				+blackPop[bpI].rank
+		// const overallRank = (iatI, arI, cirI, bpI) => {
+		// 	const rankSum =
+		// 		+iat[iatI].rank +
+		// 		+arrestRate[arI].rank +
+		// 		+ciRate[cirI].rank +
+		// 		+blackPop[bpI].rank
 
-			return Math.round(rankSum / 4)
-		}
+		// 	return Math.round(rankSum / 4)
+		// }
 
 		// * Used to filter out the following rows from the states table
 		const excludedStates = ['Federal', 'None', 'Washington DC']
@@ -243,8 +243,7 @@ module.exports = {
 							iat: iat[iatI].rank,
 							arrest_rate: arrestRate[arI].rank,
 							incarcerated_rate: ciRate[cirI].rank,
-							black_pop: blackPop[bpI].rank,
-							overall: overallRank(iatI, arI, cirI, bpI)
+							black_pop: blackPop[bpI].rank
 						},
 						{
 							onConflict: {

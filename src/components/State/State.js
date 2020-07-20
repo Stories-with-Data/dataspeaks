@@ -3,6 +3,7 @@ import Category from '../Category/Category'
 import './State.css'
 import Rank from '../Rank/Rank'
 import Fade from '@material-ui/core/Fade'
+// import stateFlags from '../../assets/stateFlags/stateFlags.json'
 // import Paper from '@material-ui/core/Paper'
 
 function State(props) {

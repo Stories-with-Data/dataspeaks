@@ -60,7 +60,7 @@ CREATE TABLE state_ranks (
   arrest_rate INT UNIQUE,
   incarcerated_rate INT UNIQUE,
   black_pop INT UNIQUE,
-  overall FLOAT
+  overall_calc FLOAT GENERATED ALWAYS AS ((iat + (51 - arrest_rate) + (51 - incarcerated_rate) + (black_pop * 0.02))/4 :: FLOAT) STORED;
 );
 
 ALTER TABLE
@@ -221,6 +221,20 @@ FROM iat_data id
 JOIN states s ON s.state_abv = id.state_abv
 JOIN races r ON r.iat_lookup = id.race
 GROUP BY s.state_name, r.name;
+
+CREATE MATERIALIZED VIEW state_ranks_adj AS
+SELECT
+  state_name,
+  iat,
+  arrest_rate,
+  incarcerated_rate,
+  black_pop,
+  RANK () OVER (
+    ORDER BY
+      overall_calc
+  ) overall
+FROM
+  state_ranks;
 
 
 CREATE INDEX prison_state_race_lookup ON prison_data_states (state_name, race);

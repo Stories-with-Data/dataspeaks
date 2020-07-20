@@ -6,9 +6,9 @@ import {
 	Geography,
 	ZoomableGroup
 } from 'react-simple-maps'
-// import counties from './assets/topoJSONs/counties-10m.json'
-import stateFlags from './assets/stateFlags/stateFlags.json'
-import states from './assets/topoJSONs/states-10m.json'
+// import counties from '../../assets/topoJSONs/counties-10m.json'
+import stateFlags from '../../assets/stateFlags/stateFlags.json'
+import states from '../../assets/topoJSONs/states-10m.json'
 import './USMap.css'
 import useStatesData from '../../hooks/useStatesData'
 import { makeStyles } from '@material-ui/core/styles'

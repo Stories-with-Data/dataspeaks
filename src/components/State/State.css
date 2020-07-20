@@ -23,7 +23,13 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  overflow:scroll
+	overflow:scroll;
+	overflow-x: hidden;
+	min-height: 100vh;
+}
+
+.stateContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .stateSubContainer{
@@ -31,6 +37,7 @@
 }
 
 .stateHeadContainer {
+	padding-top: 20px;
 	width: 100%;
   /* height: 30vh; */
   flex-direction: column;
@@ -39,13 +46,13 @@
 }
 
 .stateTitleContainer {
-	width: 20%;
+	width: 100%;
 	/* height: 100%; */
 	/* background-color: teal; */
 	flex-direction: column;
 }
 .summaryContainer {
-	width: 50%;
+	width: 100%;
 	height: 100%;
 }
 .flagImageContainer {
@@ -81,7 +88,7 @@
 .summary {
 	width: 100%;
   height: 100%;
-  padding: 10px;
+  padding: 20px;
 	/* background-color: teal; */
 	/* border: solid black 1px; */
 }
@@ -91,3 +98,4 @@
   justify-content: center;
   flex-wrap: wrap;
 }
+
