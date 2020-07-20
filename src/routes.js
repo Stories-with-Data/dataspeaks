@@ -5,7 +5,7 @@ import USMap from './components/Map/USMap';
 import GetInvolved from './components/GetInvolved/GetInvolved'
 import Loading from './components/Loading/Loading';
 import Rank from './components/Rank/Rank';
-// import Main from './components/D3ex/Main';
+import StateRankTable from './components/StateRankTable/StateRankTable'
 
 export default (
     <Switch>
