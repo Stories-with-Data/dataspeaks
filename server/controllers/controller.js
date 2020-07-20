@@ -80,9 +80,9 @@ module.exports = {
 									.filter(e => e.iat_avg)
 									.map(d => {
 										return {
-											label: d.race,
+											race: d.race,
 											value: d.iat_avg,
-											tooltip: `Based on ${d.iat_responses} responses between 2015 and 2019`
+											label: `${d.race} IAT Race Score of ${Number.parseFloat(d.iat_avg).toPrecision(3)} \nBased on ${d.iat_responses} responses between 2015 and 2019`
 										}
 									})
 							}
@@ -102,28 +102,29 @@ module.exports = {
 									categories: [
 										{
 											name: 'Violent Crimes',
-											tooltip: `Violent crimes include: Burglary, Arson, Human Trafficking Commercial, Human Trafficking Servitude, Motor Vehicle Theft, Murder, Rape, Robbery, Sex Offenses, Simple Assault, Aggravated Assault`
+											description: `Violent crimes include: Burglary, Arson, Human Trafficking Commercial, Human Trafficking Servitude, Motor Vehicle Theft, Murder, Rape, Robbery, Sex Offenses, Simple Assault, Aggravated Assault`
 										},
 										{
 											name: 'Non-violent Crimes',
-											tooltip: `Non-violent crimes include: Burglary, Arson, Human Trafficking Commercial, Human Trafficking Servitude, Motor Vehicle Theft, Murder, Rape, Robbery, Sex Offenses, Simple Assault, Aggravated Assault`
-										}
+											description: `Non-violent crimes include: All Other Offenses, Curfew, Disorderly Conduct, Dui, Drug Grand Total, Drunkenness, Embezzlement, Forgery, Fraud, Gambling Total, Larceny, Liquor Laws, Offense Against Family, Prostitution, Prostitution Assisting, Prostitution Prostitution, Prostitution Purchasing, Runaway, Stolen Property, Suspicion, Vagrancy, Vandalism, Weapons`
+										} 
+
 									],
 									values: stateData.reduce((a, c) => {
 										if (c.violent_arrest_rate) {
 											return [
 												...a,
 												{
-													label: c.race,
+													race: c.race,
 													category: 'Violent Crimes',
 													value: c.violent_arrest_rate,
-													tooltip: `Based on a ${c.race} state population of ${c.population} in 2019 and ${c.violent_arrests} arrests for Violent crimes in 2018`
+													label: `${c.violent_arrest_rate} per 100,000\nBased on a ${c.race} state population of ${c.population} in 2019 \nand ${c.violent_arrests} arrests for Violent crimes in 2018`
 												},
 												{
-													label: c.race,
+													race: c.race,
 													category: 'Non-violent Crimes',
 													value: c.non_violent_arrest_rate,
-													tooltip: `Based on a ${c.race} state population of ${c.population} in 2019 and ${c.non_violent_arrests} arrests for Violent crimes in 2018`
+													label: `${c.non_violent_arrest_rate} per 100,000\nBased on a ${c.race} state population of ${c.population} in 2019 \nand ${c.non_violent_arrests} arrests for Non-Violent crimes in 2018`
 												}
 											]
 										} else {
@@ -148,9 +149,9 @@ module.exports = {
 									.filter(e => e.currently_incarcerated_rate)
 									.map(d => {
 										return {
-											label: d.race,
+											race: d.race,
 											value: d.currently_incarcerated_rate,
-											tooltip: `Based on a 2018 year-end prison population of ${d.prison_pop_count} and a state ${d.race} population of ${d.population}.`
+											label: `Per 100,000 based on a 2018 year-end prison population of ${d.prison_pop_count} and a state ${d.race} population of ${d.population}.`
 										}
 									})
 							}
@@ -169,9 +170,15 @@ module.exports = {
 									.filter(e => e.race !== 'All races')
 									.map(d => {
 										return {
-											label: d.race,
-											value: d.population / stateTotPop,
-											tooltip: `Percentage of state population based on a ${d.race} population of ${d.population} and a total state population of ${stateTotPop}`
+											race: d.race,
+											value: Math.round((d.population / stateTotPop) * 100),
+											label: `${Math.round(
+												(d.population / stateTotPop) * 100
+											)}% of ${stateName}'s population \nBased on a ${
+												d.race
+											} population of ${
+												d.population
+											} \nand a total population of ${stateTotPop}`
 										}
 									})
 							}

@@ -1,33 +1,32 @@
 #footer {
-  height: 10vh;
-  width: 90vw;
+  background-color: #808080;
+  height: 5vh;
+  width: 100vw;
   overflow: hidden;
-  border: black solid 1px;
-  margin-left: 5vw;
-  margin-top: 20px;
   display: flex;
   justify-content: center;
-  position: absolute;
-  bottom:10px;
+  position: fixed;
+  bottom: 0;
 }
 
 .button {
   border: none;
-  border-radius: 15px;
+  border-radius: 5px;
   background-color: black;
   color: white;
-  margin-left: 25px;
+  /* margin-left: 25px;
   margin-right: 25px;
   margin-top: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 15px; */
+  margin: 5px;
   width: 100px;
-  height: 40px;
-
+  height: 30px;
 }
 
 .button:hover {
   color: black;
   background-color: #FCE21B;
+  cursor: pointer;
 }
 
 .button:focus {
