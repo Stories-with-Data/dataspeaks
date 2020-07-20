@@ -104,14 +104,16 @@
 .span-title {
   opacity: 0.0;
   animation: spanTitle 5s;
+  display:inline-block;
 }
 .span-title2 {
   opacity: 0.3;
   animation: spanTitle2 5s;
+  
 }
 @keyframes spanTitle {
-  from{opacity: 1}
-  to{opacity: 0.0}
+  from{ opacity: 1;}
+  to{display:none;}
 }
 @keyframes spanTitle2 {
   from{opacity: 1}
@@ -139,7 +141,11 @@
   justify-content: center;
   z-index:1;
   font-size: 45px;
-  
+}
+.header > h1 {
+  position: relative;
+  right:90px;
+  margin: 10px;
 }
 
 .missionStatement {
