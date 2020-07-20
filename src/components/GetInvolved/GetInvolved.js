@@ -14,7 +14,7 @@ function GetInvolved(props) {
   const [stateName, setStateName] = useState('')
 
   useEffect(() => {
-    if(!props.stateName){
+    if(props.stateName){
       setStateName(props.stateName)
       getMemberData()
     }
@@ -27,7 +27,7 @@ function GetInvolved(props) {
       }
     })
 
-    const response = await Axios.get(`/api/states/${'Utah'}`)
+    const response = await Axios.get(`/api/states/${stateName}`)
     const senateList = res.data.results[0].members
     for(let i = senateList.length - 1; i >= 0; i--){
       if(senateList[i].state !== response.data.state_abv){

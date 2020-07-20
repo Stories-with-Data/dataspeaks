@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import useStatesData from '../../hooks/useStatesData'
 import MaterialTable from 'material-table'
 // import State from '../State/State'
-import stateFlags from '../../assets/stateFlags/stateFlags.json'
+// import stateFlags from '../../assets/stateFlags/stateFlags.json'
 
 const StateRankTable = () => {
 	const data = useStatesData()

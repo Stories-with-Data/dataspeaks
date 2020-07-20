@@ -193,3 +193,7 @@
   padding: 20px;
   text-align: center;
 }
+
+.button {
+  z-index: 1;
+}
