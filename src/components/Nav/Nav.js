@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import IconButton from '@material-ui/core/IconButton'
@@ -18,7 +18,19 @@ const drawerStyles = makeStyles({
 		top: 0,
 		left: 0,
 		zIndex: 10,
+		transition: 'all linear 500ms',
 		color: '#fff'
+	},
+	menuBtnPulse: {
+		position: 'fixed',
+		top: 0,
+		left: 0,
+		zIndex: 10,
+		transition: 'all linear 500ms',
+		color: '#FCE21B'
+	},
+	menuIcon: {
+		textShadow: '0 0 5px 0 #202020'
 	}
 })
 
@@ -37,14 +49,22 @@ const Nav = () => {
 			setState({ ...state, [anchor]: open })
 		}
 
+	const [btnBool, setBtnBool] = useState(true)
+
+	useEffect(() => {
+		let interval = setInterval(() => {
+			setBtnBool(!btnBool)
+		}, 1000)
+		return () => clearInterval(interval)
+	}, [btnBool])
+
 	return (
 		<>
 			<IconButton
-				className={classes.menuBtn}
-				color='inherit'
+				className={btnBool ? classes.menuBtn : classes.menuBtnPulse}
 				onClick={toggleDrawer(anchor, true)}
 			>
-				<MenuIcon />
+				<MenuIcon className={classes.menuIcon} />
 			</IconButton>
 			<Drawer
 				anchor={anchor}
