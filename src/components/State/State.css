@@ -99,6 +99,14 @@
   flex-wrap: wrap;
 }
 
+@media only screen and (max-width: 600px) {
+	.stateTitleContainer {
+		width:30%;
+	}
+	.summaryContainer {
+		width:90%;
+	}
+}
 .involvedVisfalse {
 	position: absolute;
 	top: 0px;
