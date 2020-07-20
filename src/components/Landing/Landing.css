@@ -104,11 +104,10 @@
 .span-title {
   opacity: 0.0;
   animation: spanTitle 5s;
-  display:inline-block;
 }
 .span-title2 {
-  opacity: 0.3;
-  animation: spanTitle2 5s;
+  opacity: 0.0;
+  animation: spanTitle2 120s;
   
 }
 @keyframes spanTitle {
@@ -116,8 +115,9 @@
   to{display:none;}
 }
 @keyframes spanTitle2 {
-  from{opacity: 1}
-  to{opacity: 0.3; text-decoration: line-through;}
+  0%{opacity: 1; text-decoration: line-through;}
+  5%{opacity: 0.3; text-decoration: line-through;}
+  100%{opacity: 0.3; text-decoration: line-through;}
 }
 .span-title:nth-child(1){
   animation-delay: 21.5s;
@@ -125,27 +125,24 @@
 .span-title:nth-child(2){
   animation-delay: 22s;
 }
-.span-title2:nth-child(1){
+.span-title2{
   animation-delay: 22.5s;
 }
 
 .header {
-  height: 10vh;
   width: 90vw;
-  overflow: hidden;
-  border: black solid 1px;
-  margin-left: 5vw;
-  margin-right: 5vw;
+  background-color: rgba(0,0,0, 0.8);
+  color:yellow;
   margin-top: 20px;
   display: flex;
   justify-content: center;
   z-index:1;
   font-size: 45px;
 }
-.header > h1 {
-  position: relative;
-  right:90px;
-  margin: 10px;
+.header > h3 {
+  font-size:40px;
+  margin: 20px;
+  white-space: nowrap;
 }
 
 .missionStatement {
@@ -170,7 +167,7 @@
   width:95%;
   /* border:2px solid red; */
   padding:10px;
-  height:20%;
+  height:30%;
   z-index:1;
   position: relative;
 }
@@ -192,4 +189,18 @@
   width: 80%;
   padding: 20px;
   text-align: center;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .missionStatement {
+    width:80%;
+    height:500px;
+  }
+  .quote-div {
+    text-align: left;
+  }
+  .quote-div > cite {
+    right:10px;
+  }
 }
