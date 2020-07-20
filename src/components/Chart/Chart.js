@@ -52,8 +52,10 @@ function Chart(props) {
 						)
 					default:
 						break
-				}
-			})}
+        }
+        return null
+      }
+      )}
 		</div>
 	)
 }

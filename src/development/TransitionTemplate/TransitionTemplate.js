@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import Collapse from '@material-ui/core/Collapse'
+// import Collapse from '@material-ui/core/Collapse'
 import Fade from '@material-ui/core/Fade'
-import Grow from '@material-ui/core/Grow'
-import Slide from '@material-ui/core/Slide'
-import Zoom from '@material-ui/core/Zoom'
+// import Grow from '@material-ui/core/Grow'
+// import Slide from '@material-ui/core/Slide'
+// import Zoom from '@material-ui/core/Zoom'
 
 const TransitionTemplate = () => {
 	// * Determines whether transition children are visible
@@ -21,15 +21,15 @@ const TransitionTemplate = () => {
 
 	// * Determines how long transition takes to enter and exit (in milliseconds)
 	const timing = {
-		transition1: { enter: 500, exit: 500 },
-		transition2: { enter: 500, exit: 500 },
-		transition3: { enter: 500, exit: 500 },
-		transition4: { enter: 500, exit: 500 },
-		transition5: { enter: 500, exit: 500 },
-		transition6: { enter: 500, exit: 500 },
-		transition7: { enter: 500, exit: 500 },
-		transition8: { enter: 500, exit: 500 },
-		transition9: { enter: 500, exit: 500 }
+		transition1: { enter: 1000, exit: 1000 },
+		transition2: { enter: 1000, exit: 1000 },
+		transition3: { enter: 1000, exit: 1000 },
+		transition4: { enter: 1000, exit: 1000 },
+		transition5: { enter: 1000, exit: 1000 },
+		transition6: { enter: 1000, exit: 1000 },
+		transition7: { enter: 1000, exit: 1000 },
+		transition8: { enter: 1000, exit: 1000 },
+		transition9: { enter: 1000, exit: 1000 }
 	}
 
 	// * Function that fires as soon as transition changes from FALSE to TRUE
