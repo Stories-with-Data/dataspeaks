@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Footer from './components/Footer/Footer'
+// import Footer from './components/Footer/Footer'
 // import Nav from './components/Nav/Nav';
 import Routes from './routes'
 import './reset.css'
@@ -18,7 +18,7 @@ class App extends Component {
 		return (
 			<div className='App'>
 				{Routes}
-				<Footer />
+				{/* <Footer /> */}
 			</div>
 		)
 	}
