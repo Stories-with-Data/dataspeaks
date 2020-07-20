@@ -22,15 +22,15 @@ const TransitionTemplate = () => {
 
 	// * Determines how long transition takes to enter and exit (in milliseconds)
 	const timing = {
-		transition1: { enter: 500, exit: 500 },
-		transition2: { enter: 500, exit: 500 },
-		transition3: { enter: 500, exit: 500 },
-		transition4: { enter: 500, exit: 500 },
-		transition5: { enter: 500, exit: 500 },
-		transition6: { enter: 500, exit: 500 },
-		transition7: { enter: 500, exit: 500 },
-		transition8: { enter: 500, exit: 500 },
-		transition9: { enter: 500, exit: 500 }
+		transition1: { enter: 100, exit: 100 },
+		transition2: { enter: 100, exit: 100 },
+		transition3: { enter: 100, exit: 100 },
+		transition4: { enter: 100, exit: 100 },
+		transition5: { enter: 100, exit: 100 },
+		transition6: { enter: 100, exit: 100 },
+		transition7: { enter: 100, exit: 100 },
+		transition8: { enter: 100, exit: 100 },
+		transition9: { enter: 100, exit: 100 }
 	}
 
 	// * Function that fires as soon as transition changes from FALSE to TRUE
