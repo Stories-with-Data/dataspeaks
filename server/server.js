@@ -18,6 +18,7 @@ app.post('/dev/seed', seedCtrl.seedDb)
 
 // * Data Endpoints
 app.get('/api/data', ctrl.getData)
+app.get('/api/states/:state', ctrl.getStateAbv)
 
 massive({
 	connectionString: CONNECTION_STRING,
