@@ -1,14 +1,33 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
+import {
+	unstable_createMuiStrictModeTheme,
+	ThemeProvider
+} from '@material-ui/core/styles'
 import * as serviceWorker from './serviceWorker'
 import { HashRouter } from 'react-router-dom'
 
+const theme = unstable_createMuiStrictModeTheme({
+	spacing: 8,
+	palette: {
+		primary: {
+			main: '#FCE21B'
+		},
+		secondary: {
+			main: '#3747C4'
+		},
+		type: 'dark'
+	}
+})
+
 ReactDOM.render(
 	<React.StrictMode>
-		<HashRouter>
-			<App />
-		</HashRouter>
+		<ThemeProvider theme={theme}>
+			<HashRouter>
+				<App />
+			</HashRouter>
+		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 )
