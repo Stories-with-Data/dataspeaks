@@ -13,7 +13,6 @@ import stateAbv from '../../assets/stateAbv/stateAbv.json'
 function GetInvolved(props) {
 	const { stateName } = props
 	const [senators, setSenators] = useState([])
-	// const [stateName, setStateName] = useState('')
 
 	useEffect(() => {
 		const CancelToken = Axios.CancelToken,

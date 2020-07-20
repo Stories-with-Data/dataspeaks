@@ -85,7 +85,6 @@ const USMap = () => {
 									{geographies.map(geo => (
 										<React.Fragment key={geo.rsmKey}>
 											<Geography
-												// key={geo.rsmKey}
 												id='state'
 												geography={geo}
 												onClick={() => {
