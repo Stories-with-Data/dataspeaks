@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Category from '../Category/Category'
+import GetInvolved from '../GetInvolved/GetInvolved'
 import './State.css'
 import Rank from '../Rank/Rank'
 import Fade from '@material-ui/core/Fade'
@@ -17,8 +18,13 @@ const StateFromTable = props => {
 	// const stateData = sampleData.Texas
 
 	const [stateVis, setStateVis] = useState(false)
+	const [involvedVis, setInvolvedVis] = useState(false)
 
 	// const [stateFlag, setStateFlag] = useState('')
+
+	const toggleInvolvedVis = () => {
+		setInvolvedVis(!involvedVis)
+	}
 
 	useEffect(() => {
 		if (stateData.overall) {
@@ -84,6 +90,10 @@ const StateFromTable = props => {
 							</button>
 						</div>
 
+						<button onClick={() => toggleInvolvedVis()} className='button'>
+						Get Involved
+					</button>
+
 						<div className='categoryColumnContainer'>
 							{stateData.categories
 								? stateData.categories.map(elem => {
@@ -92,6 +102,12 @@ const StateFromTable = props => {
 								: null}
 						</div>
 					</div>
+					<div className={`involvedVis${involvedVis}`}>
+					<GetInvolved 
+						toggleInvolvedVis={toggleInvolvedVis} 
+						stateName={statename} 
+					/>
+				</div>
 				</div>
 			</Fade>
 		</>

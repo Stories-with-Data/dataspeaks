@@ -99,3 +99,22 @@
   flex-wrap: wrap;
 }
 
+.involvedVisfalse {
+	position: absolute;
+	top: 0px;
+	height: 0px;
+	width: 100%;
+	overflow: hidden;
+	transition: height 1s;
+}
+
+.involvedVistrue {
+	background-color: rgb(0, 0, 0, 0.9);
+	overflow: hidden;
+	position: absolute;
+	top: 0px;
+	height: 100%;
+	width: 100%;
+	z-index: 5;
+	transition: height 1s;
+}
