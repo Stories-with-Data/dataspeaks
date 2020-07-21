@@ -97,7 +97,7 @@
 
 .stateRaceLegend {
 	width: 300px;
-	height: 150px;
+	height: auto;
 	background-color: #80808090;
 	border-radius: 5px;
 	color: #fff;

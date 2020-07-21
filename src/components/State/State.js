@@ -24,6 +24,11 @@ function State(props) {
 		setHighlightedRace(race)
 	}
 
+	const resetCharts = () => {
+		setHighlightedRace('')
+		// find a way to re animat the charts in this click
+	}
+
 	const getRaceColor = (race) => {
 		switch (race) {
 			case highlightedRace:
@@ -117,6 +122,9 @@ function State(props) {
 								)
 							})}
 						</div>
+						<button onClick={() => resetCharts()} className='button'>
+							Reset Charts
+						</button>
 					</div>
 
 					<div className='categoryColumnContainer'>
