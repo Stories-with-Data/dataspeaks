@@ -32,7 +32,7 @@ const Loading = () => {
 		transition6: { enter: 200, exit: 200 },
 		transition7: { enter: 200, exit: 200 },
 		transition8: { enter: 200, exit: 200 },
-		transition9: { enter: 200, exit: 1500 }
+		transition9: { enter: 200, exit: 1000 }
 	}
 
 	// * Function that fires as soon as transition changes from FALSE to TRUE
