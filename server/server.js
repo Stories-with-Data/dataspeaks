@@ -35,7 +35,7 @@ app.post('/dev/seed/fbi', seedCtrl.populateFbiData)
 app.post('/dev/seed/census', seedCtrl.populateCensusData)
 app.post('/dev/seed/prison', seedCtrl.populatePrisonData)
 app.post('/dev/seed/ranks', seedCtrl.generateStateRanks)
-app.post('/dev/seed', seedCtrl.seedDb)
+app.post('/dev/seed', seedCtrl.seedDb, seedCtrl.populatePrisonData, seedCtrl.generateStateRanks)
 
 // * Data Endpoints
 app.get('/api/data', ctrl.getData)
@@ -56,4 +56,4 @@ massive({
 })
 
 // TODO: Write seed middleware to protect seed endpoints
-// TODO: Write Postgres function and trigger to refresh materialized views on update
+// // TODO: Write Postgres function and trigger to refresh materialized views on update
