@@ -20,7 +20,21 @@ class PieChart extends Component {
 		return (
 			<div>
 				<VictoryPie
+					name='pie'
 					data={this.props.data}
+					events={[
+						{
+							target: 'data',
+							eventHandlers: {
+								onClick: () => {
+									return ({
+										target: 'data',
+										mutation: (props) => this.props.changeHighlight(props.datum.race)
+									})
+								}
+							}
+						}
+					]}
 					theme={VictoryTheme.material}
 					animate={{
 						duration: 2000,
@@ -36,9 +50,11 @@ class PieChart extends Component {
 						data: {
 							fill: ({ datum }) => {
 								switch (datum.race) {
+									case this.props.highlighted:
+										return '#fce21b'
 									case 'Black or African American':
 										return '#000'
-									case 'rgb(255, 255, 255)':
+									case 'White or Caucasian':
 										return '#fff'
 									case 'Asian':
 										return '#C47AC0'

@@ -4,7 +4,7 @@ import Rank from '../Rank/Rank'
 import Chart from '../Chart/Chart'
 
 function Category(props) {
-	const { catData } = props
+	const { catData, highlighted } = props
 	return (
 		<div className='categoryContainer'>
 			<div className='categoryTitle'>
@@ -16,7 +16,11 @@ function Category(props) {
 			</div>
 
 			<div className='chartContainer'>
-				<Chart chartData={catData.data} />
+				<Chart 
+					chartData={catData.data} 
+					changeHighlight={props.changeHighlight} 
+					highlighted={highlighted} 
+				/>
 			</div>
 		</div>
 	)

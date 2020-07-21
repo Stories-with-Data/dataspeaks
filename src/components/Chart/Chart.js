@@ -5,7 +5,7 @@ import StackedBar from './Charts/StackedBar/StackedBar'
 import PieChart from './Charts/PieChart/PieChart'
 
 function Chart(props) {
-	const { chartData } = props
+	const { chartData, highlighted } = props
 	// console.log(chartData)
 	return (
 		<div className='chartMain'>
@@ -21,7 +21,11 @@ function Chart(props) {
 								}}
 							>
 								<h4>{elem.chartTitle}</h4>
-								<BarGraph data={elem.data} />
+								<BarGraph 
+									data={elem.data} 
+									changeHighlight={props.changeHighlight} 
+									highlighted={highlighted} 
+									/>
 							</div>
 						)
 					case 'stackedBar':
@@ -34,7 +38,11 @@ function Chart(props) {
 								}}
 							>
 								<h4>{elem.chartTitle}</h4>
-								<StackedBar data={elem.data} />
+								<StackedBar 
+									data={elem.data}
+									changeHighlight={props.changeHighlight} 
+									highlighted={highlighted} 
+									/>
 							</div>
 						)
 					case 'pie':
@@ -47,7 +55,11 @@ function Chart(props) {
 								}}
 							>
 								<h4>{elem.chartTitle}</h4>
-								<PieChart data={elem.data} />
+								<PieChart 
+									data={elem.data} 
+									changeHighlight={props.changeHighlight}
+									highlighted={highlighted} 
+									/>
 							</div>
 						)
 					default:
