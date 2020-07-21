@@ -4,6 +4,7 @@ import './State.css'
 import Rank from '../Rank/Rank'
 import Fade from '@material-ui/core/Fade'
 import GetInvolved from '../GetInvolved/GetInvolved'
+import {VictorySharedEvents} from 'victory'
 // import Paper from '@material-ui/core/Paper'
 
 function State(props) {
@@ -11,11 +12,37 @@ function State(props) {
 
 	const [stateVis, setStateVis] = useState(true)
 	const [involvedVis, setInvolvedVis] = useState(false)
+	const [highlightedRace, setHighlightedRace] = useState('')
 
 	const exit = 500
 
 	const toggleInvolvedVis = () => {
 		setInvolvedVis(!involvedVis)
+	}
+
+	const changeHighlight = (race) => {
+		setHighlightedRace(race)
+	}
+
+	const getRaceColor = (race) => {
+		switch (race) {
+			case highlightedRace:
+				return '#fce21b'
+			case 'Black or African American':
+				return '#000'
+			case 'White or Caucasian':
+				return '#fff'
+			case 'Asian':
+				return '#C47AC0'
+			case 'American Indian or Alaska Native':
+				return '#2B9720'
+			case 'Native Hawaiian or Pacific Islander':
+				return '#32CBFF'
+			case 'Other':
+				return '#1B3B6F'
+			default:
+				return '#32CBFF'
+		}
 	}
 
 	return (
@@ -71,9 +98,36 @@ function State(props) {
 						Get Involved
 					</button>
 
+					<div className='stateRaceLegend'>
+						<h4>Legend</h4>
+						<div className='legendRaceContainer'>
+							{stateData.categories[0].data[0].data.map(elem => {
+								return (
+									<div 
+										className='legendRace'
+										onClick={() => changeHighlight(elem.race)}
+									>
+										<div 
+											className='raceColor'
+											style={{backgroundColor: getRaceColor(elem.race)}}
+											>
+										</div>
+										<p>{`:	${elem.race}`}</p>
+									</div>
+								)
+							})}
+						</div>
+					</div>
+
 					<div className='categoryColumnContainer'>
 						{stateData.categories.map(elem => {
-							return <Category key={elem.title} catData={elem} />
+							return (
+								<Category 
+									key={elem.title} 
+									highlighted={highlightedRace} 
+									changeHighlight={changeHighlight}
+									catData={elem} />
+							)
 						})}
 					</div>
 				</div>
