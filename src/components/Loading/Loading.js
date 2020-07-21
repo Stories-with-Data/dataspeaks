@@ -1,15 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import Axios from 'axios'
 // import Collapse from '@material-ui/core/Collapse'
 import Fade from '@material-ui/core/Fade'
 // import Grow from '@material-ui/core/Grow'
 // import Slide from '@material-ui/core/Slide'
 // import Zoom from '@material-ui/core/Zoom'
+import Backdrop from '@material-ui/core/Backdrop'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import './Loading.css'
 
 const Loading = () => {
+	const [loading, setLoading] = useState(true)
+
 	// * Determines whether transition children are visible
 	const [transitions, setTransitions] = useState({
-		background: true,
+		background: false,
 		transition1: false,
 		transition2: false,
 		transition3: false,
@@ -79,7 +84,7 @@ const Loading = () => {
 			setTransitions({ ...transitions, transition8: false, transition9: true })
 		},
 		transition9: () => {
-			setTransitions({ ...transitions, transition9: false})
+			setTransitions({ ...transitions, transition9: false })
 		}
 	}
 
@@ -131,24 +136,62 @@ const Loading = () => {
 	const BLMimages = [
 		'https://i.insider.com/5b537d1157a20731008b4577?width=1100&format=jpeg&auto=webp',
 		'https://media3.s-nbcnews.com/i/newscms/2015_42/633526/140824-michael-brown-4p_08ecc72838564eecdc6a811f80158e3c.jpg',
-		'https://cdn.vox-cdn.com/thumbor/p-aprsQmpuSxJTP8zc1deomEmQI=/0x0:890x688/1200x800/filters:focal(466x227:608x369)/cdn.vox-cdn.com/uploads/chorus_image/image/55008753/B3KG3RmIAAABp6r.0.0.jpg'
-	]
-	BLMimages[3] =
-		'https://bloximages.newyork1.vip.townnews.com/postandcourier.com/content/tncms/assets/v3/editorial/1/8a/18a2f634-18aa-11e7-bf21-7bc0c5c57ffb/58e2ad35a7c58.image.jpg'
-	BLMimages[4] =
-		'https://cdn.vox-cdn.com/thumbor/Y0X6xIdD2okd13XpNriRI8hwI9c=/0x34:514x420/1200x800/filters:focal(0x34:514x420)/cdn.vox-cdn.com/uploads/chorus_image/image/50036359/Alton_20sterling.0.jpg'
-	BLMimages[5] =
-		'https://www.twincities.com/wp-content/uploads/2016/07/castile-philando-2.jpg'
-	BLMimages[6] =
-		'https://s.abcnews.com/images/US/shooting-victim-01-kxtv-jrl-180321_hpMain_16x9_1600.jpg'
-	BLMimages[7] =
-		'https://media2.s-nbcnews.com/i/newscms/2020_20/3351286/200515-breonna-taylor-al-0958_9d27d03246118154eaeab4510feb36a7.jpg'
-	BLMimages[8] =
+		'https://cdn.vox-cdn.com/thumbor/p-aprsQmpuSxJTP8zc1deomEmQI=/0x0:890x688/1200x800/filters:focal(466x227:608x369)/cdn.vox-cdn.com/uploads/chorus_image/image/55008753/B3KG3RmIAAABp6r.0.0.jpg',
+		'https://bloximages.newyork1.vip.townnews.com/postandcourier.com/content/tncms/assets/v3/editorial/1/8a/18a2f634-18aa-11e7-bf21-7bc0c5c57ffb/58e2ad35a7c58.image.jpg',
+		'https://cdn.vox-cdn.com/thumbor/Y0X6xIdD2okd13XpNriRI8hwI9c=/0x34:514x420/1200x800/filters:focal(0x34:514x420)/cdn.vox-cdn.com/uploads/chorus_image/image/50036359/Alton_20sterling.0.jpg',
+		'https://www.twincities.com/wp-content/uploads/2016/07/castile-philando-2.jpg',
+		'https://s.abcnews.com/images/US/shooting-victim-01-kxtv-jrl-180321_hpMain_16x9_1600.jpg',
+		'https://media2.s-nbcnews.com/i/newscms/2020_20/3351286/200515-breonna-taylor-al-0958_9d27d03246118154eaeab4510feb36a7.jpg',
 		'https://upload.wikimedia.org/wikipedia/en/9/9c/George_Floyd.png'
+	]
+
+	useEffect(() => {
+		const CancelToken = Axios.CancelToken,
+			source = CancelToken.source()
+
+		const getSession = async () => {
+			try {
+				const { data } = await Axios.get('/session')
+				if (data.views === 1) {
+					// * Initialize
+					setTransitions({
+						background: true,
+						transition1: false,
+						transition2: false,
+						transition3: false,
+						transition4: false,
+						transition5: false,
+						transition6: false,
+						transition7: false,
+						transition8: false,
+						transition9: false
+					})
+					setLoading(false)
+				} else {
+					setLoading(false)
+				}
+			} catch (err) {
+				if (Axios.isCancel(err)) {
+					console.log('Cancelled')
+				} else {
+					throw err
+				}
+			}
+		}
+
+		getSession()
+
+		return () => {
+			source.cancel()
+		}
+	}, [])
 
 	// https://upload.wikimedia.org/wikipedia/en/6/63/Sandra_Bland_re-crop.jpg
 	return (
 		<>
+			<Backdrop open={loading}>
+				<CircularProgress />
+			</Backdrop>
 			<Fade // ! TRANSITION 9
 				mountOnEnter
 				timeout={timing.background}

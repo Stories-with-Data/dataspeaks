@@ -8,13 +8,27 @@ const express = require('express'),
 
 const app = express()
 
+app.use(express.static(`${__dirname}/../build`))
+
 app.use(express.json())
-app.use(session({
-	resave: false,
-	saveUninitialized: true,
-	secret: SESSION_SECRET,
-	cookie: { maxAge: 1000 * 60 * 60 * 24 * 30} // 30 Days
-}))
+app.use(
+	session({
+		resave: false,
+		rolling: true,
+		saveUninitialized: true,
+		secret: SESSION_SECRET,
+		cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 } // 30 Days
+	})
+)
+
+app.use((req, res, next) => {
+	if (req.session.views) {
+		req.session.views++
+	} else {
+		req.session.views = 1
+	}
+	next()
+})
 
 // * Development Endpoints
 app.post('/dev/seed/fbi', seedCtrl.populateFbiData)
@@ -26,6 +40,9 @@ app.post('/dev/seed', seedCtrl.seedDb)
 // * Data Endpoints
 app.get('/api/data', ctrl.getData)
 app.get('/api/states/:state', ctrl.getStateAbv)
+
+// * Session Endpoint
+app.get('/session', (req, res) => res.status(200).send(req.session))
 
 massive({
 	connectionString: CONNECTION_STRING,
