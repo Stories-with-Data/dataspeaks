@@ -10,6 +10,9 @@ function Category(props) {
 			<div className='categoryTitle'>
 				<span className='pCategory'>{catData.title}</span>
 			</div>
+			<div className='categoryTitle'>
+				<span className='categoryDescription'>{catData.description}</span>
+			</div>
 
 			<div className='rankContainer'>
 				<Rank rank={catData.rank} />
