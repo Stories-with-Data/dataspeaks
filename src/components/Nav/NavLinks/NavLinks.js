@@ -18,6 +18,10 @@ const NavLinks = ({ styleClasses, anchor, toggleDrawer }) => {
 		{
 			primary: 'All States',
 			to: '/states'
+		},
+		{
+			primary: 'Methodology',
+			to: '/methodology'
 		}
 	]
 

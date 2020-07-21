@@ -93,15 +93,31 @@ module.exports = {
 			'The script has run. copy an paste the above console logs into seed.sql'
 		)
 	},
-	seedDb: async (req, res) => {
+	seedDb: async (req, res, next) => {
 		const db = req.app.get('db')
 
 		try {
-			await db.seed()
+			await db.withTransaction(async tx => {
+				await tx.seed.seed()
+				console.log('Seed initialized')
+				await tx.seed.seed_races()
+				console.log('Races seeded')
+				await tx.seed.seed_states()
+				console.log('States seeded')
+				await tx.seed.seed_iat_data()
+				console.log('iat_data seeded')
+				await tx.seed.seed_fbi_data()
+				console.log('fbi_data seeded')
+				await tx.seed.seed_census_data()
+				console.log('census_data seeded')
+				await tx.seed.seed_refresh_view()
+				console.log('refresh_view seeded')
+			})
+			next()
 		} catch (err) {
 			console.error(err)
+			res.sendStatus(500)
 		}
-		res.sendStatus(200)
 	},
 	populateCensusData: async (req, res) => {
 		const db = req.app.get('db'),
@@ -148,7 +164,7 @@ module.exports = {
 
 		res.sendStatus(200)
 	},
-	populatePrisonData: async (req, res) => {
+	populatePrisonData: async (req, res, next) => {
 		const db = req.app.get('db')
 
 		const raceConversion = {
@@ -164,31 +180,35 @@ module.exports = {
 			unknown: 6,
 			didNotReport: 0
 		}
-
-		for (let state in prisonData) {
-			for (let race in prisonData[state]) {
-				if (race !== 'note') {
-					try {
-						await db.prison_data.insert({
-							state_name: state,
-							race: raceConversion[race],
-							pop_count: prisonData[state][race],
-							year: 2018
-						})
-					} catch (err) {
-						console.error(err)
+		const populateData = async () => {
+			for (let state in prisonData) {
+				for (let race in prisonData[state]) {
+					if (race !== 'note') {
+						try {
+							await db.prison_data.insert({
+								state_name: state,
+								race: raceConversion[race],
+								pop_count: prisonData[state][race],
+								year: 2018
+							})
+						} catch (err) {
+							console.error(err)
+						}
+						console.log(`${state} - ${race} finished`)
+						// console.log({
+						// 	state_name: state,
+						// 	race: raceConversion[race],
+						// 	pop_count: prisonData[state][race],
+						// 	year: 2018
+						// })
 					}
-					console.log(`${state} - ${race} finished`)
-					// console.log({
-					// 	state_name: state,
-					// 	race: raceConversion[race],
-					// 	pop_count: prisonData[state][race],
-					// 	year: 2018
-					// })
 				}
 			}
 		}
-		res.sendStatus(200)
+
+		await populateData()
+
+		next()
 	},
 	generateStateRanks: async (req, res) => {
 		const db = req.app.get('db')
