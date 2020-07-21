@@ -24,24 +24,29 @@ function State(props) {
 		setHighlightedRace(race)
 	}
 
+	const resetCharts = () => {
+		setHighlightedRace('')
+		// find a way to re animat the charts in this click
+	}
+
 	const getRaceColor = (race) => {
 		switch (race) {
 			case highlightedRace:
 				return '#fce21b'
 			case 'Black or African American':
-				return '#000'
+				return highlightedRace ? '#00000070' : '#000000'
 			case 'White or Caucasian':
-				return '#fff'
+				return highlightedRace ? '#ffffff70' : '#ffffff'
 			case 'Asian':
-				return '#C47AC0'
+				return highlightedRace ? '#C47AC070' : '#C47AC0'
 			case 'American Indian or Alaska Native':
-				return '#2B9720'
+				return highlightedRace ? '#2B972070' : '#2B9720'
 			case 'Native Hawaiian or Pacific Islander':
-				return '#32CBFF'
+				return highlightedRace ? '#32CBFF70' : '#32CBFF'
 			case 'Other':
-				return '#1B3B6F'
+				return highlightedRace ? '#1B3B6F70' : '#1B3B6F'
 			default:
-				return '#32CBFF'
+				return highlightedRace ? '#32CBFF70' : '#32CBFF'
 		}
 	}
 
@@ -117,6 +122,9 @@ function State(props) {
 								)
 							})}
 						</div>
+						<button onClick={() => resetCharts()} className='button'>
+							Reset Charts
+						</button>
 					</div>
 
 					<div className='categoryColumnContainer'>

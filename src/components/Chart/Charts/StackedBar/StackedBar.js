@@ -132,14 +132,15 @@ class StackedBar extends Component {
 										},
 										data: {
 											fill: ({datum}) => {
-												if (datum.race === this.props.highlighted){
+												const {highlighted} = this.props
+												if (datum.race === highlighted){
 													return '#fce21b'
 												}
 												if (datum.category === 'Non-violent Crimes'){
-													return '#59C5B3'
+													return highlighted ? '#59C5B370' : '#59C5B3'
 												}
 												if (datum.category === 'Violent Crimes'){
-													return '#2D5963'
+													return highlighted ? '#2D596370' : '#2D5963'
 												}
 											}
 										}
