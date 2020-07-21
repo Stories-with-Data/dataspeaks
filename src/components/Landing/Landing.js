@@ -4,6 +4,7 @@ import './Landing.css'
 import { Link } from 'react-router-dom'
 // import Loading from '../Loading/Loading';
 
+
 function Landing(props) {
 	return (
 		<div className='landingPage'>
