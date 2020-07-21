@@ -14,6 +14,9 @@ import useStatesData from '../../hooks/useStatesData'
 import { makeStyles } from '@material-ui/core/styles'
 import Popover from '@material-ui/core/Popover'
 import Typography from '@material-ui/core/Typography'
+import Backdrop from '@material-ui/core/Backdrop'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Fade from '@material-ui/core/Fade'
 
 const useStyles = makeStyles(theme => ({
 	popover: {
@@ -21,6 +24,9 @@ const useStyles = makeStyles(theme => ({
 	},
 	paper: {
 		padding: theme.spacing(1)
+	},
+	backdrop: {
+		zIndex: theme.zIndex.drawer + 1000
 	}
 }))
 
@@ -30,6 +36,7 @@ const USMap = () => {
 	const [selectedState, setSelectedState] = useState('')
 	const [position, setPosition] = useState({ coords: [0, 0], zoom: 1 })
 	const [mapSize, setMapSize] = useState({ height: 600, width: 800 })
+	const [loading, setLoading] = useState(true)
 
 	// * All component functions
 	const handleStateOpen = stateName => {
@@ -46,6 +53,12 @@ const USMap = () => {
 	useEffect(() => {
 		setMapSize({ height: window.innerHeight, width: window.innerWidth })
 	}, [])
+
+	useEffect(() => {
+		if (data.Texas) {
+			setLoading(false)
+		}
+	}, [data])
 
 	// * For Popover
 	const classes = useStyles()
@@ -66,60 +79,72 @@ const USMap = () => {
 					stateFlag={stateFlags[selectedState.replace(/\s/g, '')]}
 				/>
 			) : null}
-			<div className='mapContainer'>
-				<ComposableMap
-					width={mapSize.width || 800}
-					height={mapSize.height || 600}
-					projection='geoAlbersUsa'
+			{loading ? (
+				<Backdrop open={loading}>
+					<CircularProgress />
+				</Backdrop>
+			) : (
+				<Fade
+					mountOnEnter
+					in={!loading}
+					timeout={{enter: 500, exit: 500}}
 				>
-					<ZoomableGroup
-						minZoom={0.5}
-						maxZoom={4}
-						zoom={1}
-						center={position.coords}
-						onMoveEnd={handleMoveEnd}
-					>
-						<Geographies geography={states}>
-							{({ geographies }) => (
-								<>
-									{geographies.map(geo => (
-										<React.Fragment key={geo.rsmKey}>
-											<Geography
-												id='state'
-												geography={geo}
-												onClick={() => {
-													handleStateOpen(geo.properties.name)
-												}}
-												style={{
-													default: {
-														fill: '#ddd',
-														stroke: '#ffffff00'
-													},
-													hover: {
-														cursor: 'pointer',
-														outline: 'none',
-														fill: '#FCE21B'
-													},
-													pressed: {
-														outline: 'none'
-													}
-												}}
-												onMouseEnter={e => {
-													setPopoverText(geo.properties.name)
-													handlePopoverOpen(e)
-												}}
-												onMouseLeave={() => {
-													handlePopoverClose()
-												}}
-											/>
-										</React.Fragment>
-									))}
-								</>
-							)}
-						</Geographies>
-					</ZoomableGroup>
-				</ComposableMap>
-			</div>
+					<div className='mapContainer'>
+						<ComposableMap
+							width={mapSize.width || 800}
+							height={mapSize.height || 600}
+							projection='geoAlbersUsa'
+						>
+							<ZoomableGroup
+								minZoom={0.5}
+								maxZoom={4}
+								zoom={1}
+								center={position.coords}
+								onMoveEnd={handleMoveEnd}
+							>
+								<Geographies geography={states}>
+									{({ geographies }) => (
+										<>
+											{geographies.map(geo => (
+												<React.Fragment key={geo.rsmKey}>
+													<Geography
+														id='state'
+														geography={geo}
+														onClick={() => {
+															handleStateOpen(geo.properties.name)
+														}}
+														style={{
+															default: {
+																fill: '#ddd',
+																stroke: '#ffffff00'
+															},
+															hover: {
+																cursor: 'pointer',
+																outline: 'none',
+																fill: '#FCE21B'
+															},
+															pressed: {
+																outline: 'none'
+															}
+														}}
+														onMouseEnter={e => {
+															setPopoverText(geo.properties.name)
+															handlePopoverOpen(e)
+														}}
+														onMouseLeave={() => {
+															handlePopoverClose()
+														}}
+													/>
+												</React.Fragment>
+											))}
+										</>
+									)}
+								</Geographies>
+							</ZoomableGroup>
+						</ComposableMap>
+					</div>
+				</Fade>
+			)}
 			<Popover
 				className={classes.popover}
 				classes={{

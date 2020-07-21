@@ -17,7 +17,7 @@ const drawerStyles = makeStyles({
 		position: 'fixed',
 		top: 0,
 		left: 0,
-		zIndex: 10,
+		zIndex: 4,
 		transition: 'all linear 500ms',
 		color: '#fff'
 	},
@@ -25,7 +25,7 @@ const drawerStyles = makeStyles({
 		position: 'fixed',
 		top: 0,
 		left: 0,
-		zIndex: 10,
+		zIndex: 4,
 		transition: 'all linear 500ms',
 		color: '#FCE21B'
 	},
