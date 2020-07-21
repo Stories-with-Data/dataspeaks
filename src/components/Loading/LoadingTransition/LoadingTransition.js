@@ -22,15 +22,15 @@ const TransitionTemplate = () => {
 
 	// * Determines how long transition takes to enter and exit (in milliseconds)
 	const timing = {
-		transition1: { enter: 500, exit: 500 },
-		transition2: { enter: 500, exit: 500 },
-		transition3: { enter: 500, exit: 500 },
-		transition4: { enter: 500, exit: 500 },
-		transition5: { enter: 500, exit: 500 },
-		transition6: { enter: 500, exit: 500 },
-		transition7: { enter: 500, exit: 500 },
-		transition8: { enter: 500, exit: 500 },
-		transition9: { enter: 500, exit: 500 }
+		transition1: { enter: 100, exit: 100 },
+		transition2: { enter: 100, exit: 100 },
+		transition3: { enter: 100, exit: 100 },
+		transition4: { enter: 100, exit: 100 },
+		transition5: { enter: 100, exit: 100 },
+		transition6: { enter: 100, exit: 100 },
+		transition7: { enter: 100, exit: 100 },
+		transition8: { enter: 100, exit: 100 },
+		transition9: { enter: 100, exit: 100 }
 	}
 
 	// * Function that fires as soon as transition changes from FALSE to TRUE
@@ -143,113 +143,125 @@ const TransitionTemplate = () => {
 	// https://upload.wikimedia.org/wikipedia/en/6/63/Sandra_Bland_re-crop.jpg
 	return (
 		<>
-			<Fade // ! TRANSITION 1
+			<Fade // ! TRANSITION 9
 				mountOnEnter
-				timeout={timing.transition1}
-				in={transitions.transition1}
-				onEntering={onEntering.transition1}
-				onEntered={onEntered.transition1}
-				onExiting={onExiting.transition1}
-				onExited={onExited.transition1}
+				timeout={timing.background}
+				in={transitions.background}
+				onEntering={onEntering.background}
+				onEntered={onEntered.background}
+				onExiting={onExiting.background}
+				onExited={onExited.background}
 			>
-				<img id='BLMimage' alt='.img' src={BLMimages[0]} />
-				{/* INSERT STUFF TO TRANSITION TO HERE */}
-			</Fade>
-			<Fade // ! TRANSITION 2
-				mountOnEnter
-				timeout={timing.transition2}
-				in={transitions.transition2}
-				onEntering={onEntering.transition2}
-				onEntered={onEntered.transition2}
-				onExiting={onExiting.transition2}
-				onExited={onExited.transition2}
-			>
-				<img id='BLMimage' alt='.img' src={BLMimages[1]} />
-				{/* INSERT STUFF TO TRANSITION TO HERE */}
-			</Fade>
-			<Fade // ! TRANSITION 2
-				mountOnEnter
-				timeout={timing.transition3}
-				in={transitions.transition3}
-				onEntering={onEntering.transition3}
-				onEntered={onEntered.transition3}
-				onExiting={onExiting.transition3}
-				onExited={onExited.transition3}
-			>
-				<img id='BLMimage' alt='.img' src={BLMimages[2]} />
-				{/* INSERT STUFF TO TRANSITION TO HERE */}
-			</Fade>
-			<Fade // ! TRANSITION 2
-				mountOnEnter
-				timeout={timing.transition4}
-				in={transitions.transition4}
-				onEntering={onEntering.transition4}
-				onEntered={onEntered.transition4}
-				onExiting={onExiting.transition4}
-				onExited={onExited.transition4}
-			>
-				<img id='BLMimage' alt='.img' src={BLMimages[3]} />
-				{/* INSERT STUFF TO TRANSITION TO HERE */}
-			</Fade>
-			<Fade // ! TRANSITION 2
-				mountOnEnter
-				timeout={timing.transition5}
-				in={transitions.transition5}
-				onEntering={onEntering.transition5}
-				onEntered={onEntered.transition5}
-				onExiting={onExiting.transition5}
-				onExited={onExited.transition5}
-			>
-				<img id='BLMimage' alt='.img' src={BLMimages[4]} />
-				{/* INSERT STUFF TO TRANSITION TO HERE */}
-			</Fade>
-			<Fade // ! TRANSITION 2
-				mountOnEnter
-				timeout={timing.transition6}
-				in={transitions.transition6}
-				onEntering={onEntering.transition6}
-				onEntered={onEntered.transition6}
-				onExiting={onExiting.transition6}
-				onExited={onExited.transition6}
-			>
-				<img id='BLMimage' alt='.img' src={BLMimages[5]} />
-				{/* INSERT STUFF TO TRANSITION TO HERE */}
-			</Fade>
-			<Fade // ! TRANSITION 2
-				mountOnEnter
-				timeout={timing.transition3}
-				in={transitions.transition7}
-				onEntering={onEntering.transition7}
-				onEntered={onEntered.transition7}
-				onExiting={onExiting.transition7}
-				onExited={onExited.transition7}
-			>
-				<img id='BLMimage' alt='.img' src={BLMimages[6]} />
-				{/* INSERT STUFF TO TRANSITION TO HERE */}
-			</Fade>
-			<Fade // ! TRANSITION 2
-				mountOnEnter
-				timeout={timing.transition3}
-				in={transitions.transition8}
-				onEntering={onEntering.transition8}
-				onEntered={onEntered.transition8}
-				onExiting={onExiting.transition8}
-				onExited={onExited.transition8}
-			>
-				<img id='BLMimage' alt='.img' src={BLMimages[7]} />
-				{/* INSERT STUFF TO TRANSITION TO HERE */}
-			</Fade>
-			<Fade // ! TRANSITION 2
-				mountOnEnter
-				timeout={timing.transition3}
-				in={transitions.transition9}
-				onEntering={onEntering.transition9}
-				onEntered={onEntered.transition9}
-				onExiting={onExiting.transition9}
-				onExited={onExited.transition9}
-			>
-				<img id='BLMimage' alt='.img' src={BLMimages[8]} />
-				{/* INSERT STUFF TO TRANSITION TO HERE */}
+				<div id='loading-cont'>
+					<Fade // ! TRANSITION 1
+						mountOnEnter
+						timeout={timing.transition1}
+						in={transitions.transition1}
+						onEntering={onEntering.transition1}
+						onEntered={onEntered.transition1}
+						onExiting={onExiting.transition1}
+						onExited={onExited.transition1}
+					>
+						<img id='BLMimage' alt='.img' src={BLMimages[0]} />
+						{/* INSERT STUFF TO TRANSITION TO HERE */}
+					</Fade>
+					<Fade // ! TRANSITION 2
+						mountOnEnter
+						timeout={timing.transition2}
+						in={transitions.transition2}
+						onEntering={onEntering.transition2}
+						onEntered={onEntered.transition2}
+						onExiting={onExiting.transition2}
+						onExited={onExited.transition2}
+					>
+						<img id='BLMimage' alt='.img' src={BLMimages[1]} />
+						{/* INSERT STUFF TO TRANSITION TO HERE */}
+					</Fade>
+					<Fade // ! TRANSITION 2
+						mountOnEnter
+						timeout={timing.transition3}
+						in={transitions.transition3}
+						onEntering={onEntering.transition3}
+						onEntered={onEntered.transition3}
+						onExiting={onExiting.transition3}
+						onExited={onExited.transition3}
+					>
+						<img id='BLMimage' alt='.img' src={BLMimages[2]} />
+						{/* INSERT STUFF TO TRANSITION TO HERE */}
+					</Fade>
+					<Fade // ! TRANSITION 2
+						mountOnEnter
+						timeout={timing.transition4}
+						in={transitions.transition4}
+						onEntering={onEntering.transition4}
+						onEntered={onEntered.transition4}
+						onExiting={onExiting.transition4}
+						onExited={onExited.transition4}
+					>
+						<img id='BLMimage' alt='.img' src={BLMimages[3]} />
+						{/* INSERT STUFF TO TRANSITION TO HERE */}
+					</Fade>
+					<Fade // ! TRANSITION 2
+						mountOnEnter
+						timeout={timing.transition5}
+						in={transitions.transition5}
+						onEntering={onEntering.transition5}
+						onEntered={onEntered.transition5}
+						onExiting={onExiting.transition5}
+						onExited={onExited.transition5}
+					>
+						<img id='BLMimage' alt='.img' src={BLMimages[4]} />
+						{/* INSERT STUFF TO TRANSITION TO HERE */}
+					</Fade>
+					<Fade // ! TRANSITION 2
+						mountOnEnter
+						timeout={timing.transition6}
+						in={transitions.transition6}
+						onEntering={onEntering.transition6}
+						onEntered={onEntered.transition6}
+						onExiting={onExiting.transition6}
+						onExited={onExited.transition6}
+					>
+						<img id='BLMimage' alt='.img' src={BLMimages[5]} />
+						{/* INSERT STUFF TO TRANSITION TO HERE */}
+					</Fade>
+					<Fade // ! TRANSITION 2
+						mountOnEnter
+						timeout={timing.transition7}
+						in={transitions.transition7}
+						onEntering={onEntering.transition7}
+						onEntered={onEntered.transition7}
+						onExiting={onExiting.transition7}
+						onExited={onExited.transition7}
+					>
+						<img id='BLMimage' alt='.img' src={BLMimages[6]} />
+						{/* INSERT STUFF TO TRANSITION TO HERE */}
+					</Fade>
+					<Fade // ! TRANSITION 2
+						mountOnEnter
+						timeout={timing.transition8}
+						in={transitions.transition8}
+						onEntering={onEntering.transition8}
+						onEntered={onEntered.transition8}
+						onExiting={onExiting.transition8}
+						onExited={onExited.transition8}
+					>
+						<img id='BLMimage' alt='.img' src={BLMimages[7]} />
+						{/* INSERT STUFF TO TRANSITION TO HERE */}
+					</Fade>
+					<Fade // ! TRANSITION 9
+						mountOnEnter
+						timeout={timing.transition9}
+						in={transitions.transition9}
+						onEntering={onEntering.transition9}
+						onEntered={onEntered.transition9}
+						onExiting={onExiting.transition9}
+						onExited={onExited.transition9}
+					>
+						<img id='BLMimage' alt='.img' src={BLMimages[8]} />
+						{/* INSERT STUFF TO TRANSITION TO HERE */}
+					</Fade>
+				</div>
 			</Fade>
 		</>
 	)

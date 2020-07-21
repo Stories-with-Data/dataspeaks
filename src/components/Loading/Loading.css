@@ -6,7 +6,10 @@
     animation: fadeOut 120s infinite 20s;
     background-position: center;
     background-size: cover;
-    background-image: url('https://cdn.dribbble.com/users/132438/screenshots/12227088/amplify_black_voices_-_1.png')
+    background-image: url('https://cdn.dribbble.com/users/132438/screenshots/12227088/amplify_black_voices_-_1.png');
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 @keyframes fadeOut {
     0% {opacity: 1.0;}
