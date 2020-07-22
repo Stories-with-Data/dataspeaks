@@ -1,89 +1,105 @@
-import React, {useEffect, useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import SelectField from '@material-ui/core/SelectField';
-import MenuItem from '@material-ui/core/menuItem';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import useStatesData from '../../hooks/useStatesData'
+import MaterialTable from 'material-table'
+import TwitterIcon from '@material-ui/icons/Twitter'
+import FacebookIcon from '@material-ui/icons/Facebook'
+import YouTubeIcon from '@material-ui/icons/YouTube'
 import axios from 'axios'
+import IconButton from '@material-ui/core/IconButton'
 
-const useStyle = makeStyles({
-  table: {
-    margin: 20,
-  }
-})
-
-function GetInvolvedFromNav (props) {
+const GetInvolvedFromNav = () => {
+	// const data = useStatesData()
+  // const history = useHistory()
 
   const [senatorData, setSenatorData] = useState([])
-  const [search, setSearch] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-
+  
+  
   useEffect(() => {
     axios.get('https://api.propublica.org/congress/v1/116/senate/members.json', {
-      headers: {
-        'X-API-KEY': 'sTgSE1HxTFvOD7NVYqQFCt32afEhu0ApzxLf4uav'
-      } 
-    })
-    .then(res => {
+    headers: {
+    'X-API-KEY': 'sTgSE1HxTFvOD7NVYqQFCt32afEhu0ApzxLf4uav'
+    }}).then(res => {
+
       setSenatorData(res.data.results[0].members)
       setIsLoading(false)
-    })
+      console.log(res.data.results[0].members)
+    })}, [])
 
-  }, [])
+
+	const columns = [
+		{
+			title: 'Last Name',
+			field: 'last_name'
+		},
+		{
+			title: 'First Name',
+			field: 'first_name'
+    },
+    {
+			title: 'State',
+			field: 'state'
+		},
+		{
+			title: 'Twitter',
+      field: 'twitter_account'
+		},
+		{
+			title: 'Facebook',
+			field: 'facebook_account'
+		},
+		{
+			title: 'YouTube',
+			field: 'youtube_account'
+		},
+		{
+			title: 'Contact Form',
+			field: 'overall.ranks.bpRank'
+		}
+	]
 
 
-  return (
-    <TableContainer component={Paper}>
-      <SelectField 
-        floatingLabelText='frequency'
-        value={search}
-        onChange={(e, i, v) => setSearch({v})}
-        >
-          <MenuItem value='last_name' primaryText='Last Name'/>
-          <MenuItem value='first_name' primaryText='First Name'/>
-          <MenuItem value='state' primaryText='State'/>
-          <MenuItem value='twitter_account' primaryText='Twitter'/>
-          <MenuItem value='facebook_account' primaryText='Facebook'/>
-          <MenuItem value='youtube_account' primaryText='Youtube'/>
-        </SelectField>
-      <Table stickyHeader aria-label='sticky table'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Last Name</TableCell>
-            <TableCell align='right'>First Name</TableCell>
-            <TableCell align='right'>State</TableCell>
-            <TableCell align='right'>Twitter</TableCell>
-            <TableCell align='right'>Facebook</TableCell>
-            <TableCell align='right'>Youtube</TableCell>
-            <TableCell align='right'>Contact Form</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {senatorData.map(elem => {
-            return (
-              <TableRow key={elem.id}>
-                <TableCell component='th' scope='row'>
-                  {elem.last_name}
-                </TableCell>
-                <TableCell align='right'>{elem.first_name}</TableCell>
-                <TableCell align='right'>{elem.state}</TableCell>
-                <TableCell align='right'>{elem.twitter_account}</TableCell>
-                <TableCell align='right'>{elem.facebook_account}</TableCell>
-                <TableCell align='right'>{elem.youtube_account}</TableCell>
-                <TableCell align='right'>Contact</TableCell>
-              </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  )
+	return (
+		<>
+			<MaterialTable
+				data={Object.values(senatorData)}
+				columns={columns}
+        isLoading={isLoading}
+        actions={[
+          {
+            icon: TwitterIcon,
+            tooltip: 'Twitter Account',
+            onClick: (event, elem) => {
+              window.open(elem.twitter_account
+								? `https://twitter.com/${elem.twitter_account}`
+								: `https://twitter.com/search?q=${elem.first_name}%20${elem.last_name}&src=typed_query`, '_blank')
+            }
+          },
+          {
+            icon: FacebookIcon,
+            tooltip: 'Facebook Account'
+          },
+          {
+            icon: YouTubeIcon,
+            tooltip: 'YouTube Account'
+          }
+        ]
+      }
+				options={{
+					pageSize: 101,
+					pageSizeOptions: [10, 25, 50, 101]
+				}}
+				title='US Senators'
+				// onRowClick={(event, rowData) => {
+				// 	history.push(
+				// 		`/states/${rowData.overall.stateName}`
+				// 	)
+				// }}
+				
+			/>
+		</>
+	)
 }
-
 
 export default GetInvolvedFromNav

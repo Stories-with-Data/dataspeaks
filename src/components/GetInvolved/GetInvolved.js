@@ -87,7 +87,7 @@ function GetInvolved(props) {
 					</IconButton>
 				</div>
 				<div className='contact-form'>
-					{`Write ${elem.first_name} a message expressing how to feel the government needs change. Click below`}
+					{`Write ${elem.first_name} a message expressing how you feel the government needs to change. Click below`}
 					<IconButton
 						className='linkButton'
 						href={elem.contact_form}
