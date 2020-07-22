@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography'
 import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Fade from '@material-ui/core/Fade'
+import Rank from '../Rank/Rank'
 
 const useStyles = makeStyles(theme => ({
 	popover: {
@@ -37,6 +38,8 @@ const USMap = () => {
 	const [position, setPosition] = useState({ coords: [0, 0], zoom: 1 })
 	const [mapSize, setMapSize] = useState({ height: 600, width: 800 })
 	const [loading, setLoading] = useState(true)
+	const [heatMap, setHeatMap] = useState('')
+	const [menuOpen, setMenuOpen] = useState(false)
 
 	// * All component functions
 	const handleStateOpen = stateName => {
@@ -45,6 +48,73 @@ const USMap = () => {
 
 	const handleStateClose = () => {
 		setSelectedState('')
+	}
+
+	const getHeatTitle = (mapType) => {
+		switch (mapType) {
+			case 'black_pop':
+				return 'Black Population'
+			case 'overall':
+				return 'Overall'
+			case 'plainMap':
+				return 'Plain Map'
+			case 'iat':
+				return 'IAT Score'
+			case 'arrest_rate':
+				return 'Arrest Rate'
+			case 'incarcerated_rate':
+				return 'Incarcerated Rate'
+			default:
+				return 'Heat Map'
+		}
+	}
+
+	const getHeatColor = (stateName) => {
+		// arrestRates and incarcerated rates are inverted (50 is green, 1 is red)
+		// black pop should go from rgb(221, 221, 221) to black with more population
+		// iat and overall (50 is red, 1 is green)
+		if (!heatMap || heatMap === 'plainMap') {
+			return '#ddd'
+		}
+		
+		const ranks = data.heatmapRanks.filter(elem => elem.state_name === stateName)
+
+		if(!ranks[0]){
+			return '#ddd'
+		}
+	
+		const rank = ranks[0][heatMap]
+		let color = 0
+
+		if (heatMap === 'arrest_rate' || heatMap === 'incarcerated_rate'){
+			if (rank <= 25){
+				color = Math.ceil(40 + (rank / 25 * (240 - 40)))
+				return `rgb(255, ${color}, 0)`
+			}
+			else {
+				color = Math.ceil(240 - (rank - 25) / 25 * (240-40))
+				return `rgb(${color}, 255, 0)`
+			}
+		}
+		if (heatMap === 'overall' || heatMap === 'iat'){
+			if (rank <= 25){
+				color = Math.ceil(40 + (rank) / 25 * (240-40))
+				return `rgb(${color}, 255, 0)`
+			}
+			else {
+				color = Math.ceil(240 - (rank - 25) / 25 * (240 - 40))
+				return `rgb(255, ${color}, 0)`
+			}
+		}
+		if (heatMap == 'black_pop'){
+			color = Math.ceil(rank / 50 * 221)
+			return `rgb(${color}, ${color}, 221)`
+		}
+	}
+
+	const handleHeatMap = (mapType) => {
+		setMenuOpen(false)
+		setHeatMap(mapType)
 	}
 
 	const handleMoveEnd = position => setPosition(position)
@@ -90,6 +160,17 @@ const USMap = () => {
 					timeout={{enter: 500, exit: 500}}
 				>
 					<div className='mapContainer'>
+						<div className={`heatMapMenu${menuOpen}`}>
+							<ul>
+								<div onClick={() => setMenuOpen(!menuOpen)}>{getHeatTitle(heatMap)}</div>
+								<li onClick={() => handleHeatMap('plainMap')}>Plain Map</li>
+								<li onClick={() => handleHeatMap('overall')}>Overall</li>
+								<li onClick={() => handleHeatMap('arrest_rate')}>Arrest Rate</li>
+								<li onClick={() => handleHeatMap('iat')}>IAT Score</li>
+								<li onClick={() => handleHeatMap('black_pop')}>Black Population</li>
+								<li onClick={() => handleHeatMap('incarcerated_rate')}>Incarcerated Rate</li>
+							</ul>
+						</div>
 						<ComposableMap
 							width={mapSize.width || 800}
 							height={mapSize.height || 600}
@@ -115,7 +196,7 @@ const USMap = () => {
 														}}
 														style={{
 															default: {
-																fill: '#ddd',
+																fill: getHeatColor(geo.properties.name),
 																stroke: '#ffffff00'
 															},
 															hover: {
