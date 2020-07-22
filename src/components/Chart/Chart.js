@@ -58,8 +58,7 @@ function Chart(props) {
 								<PieChart 
 									data={elem.data} 
 									changeHighlight={props.changeHighlight}
-									highlighted={highlighted} 
-									/>
+									highlighted={highlighted} />
 							</div>
 						)
 					default:
