@@ -4,9 +4,6 @@ import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
@@ -40,20 +37,7 @@ const Methodology = () => {
 				alignItems='center'
 				direction='column'
 			>
-				<Accordion>
-					<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-						<Typography variant='h6'>Title</Typography>
-					</AccordionSummary>
-					<AccordionDetails>
-						<Typography variant='body1'>Body</Typography>
-					</AccordionDetails>
-				</Accordion>
 				<Typography variant='h1'>Methodology</Typography>
-				<List>
-					<ListItem button>
-						<ListItemText primary='IAT' />
-					</ListItem>
-				</List>
 				<Grid item container justify='center' direction='column'>
 					<Box p={1}>
 						<Paper variant='outlined' id='iat'>
@@ -341,9 +325,78 @@ const Methodology = () => {
 								</AccordionSummary>
 								<AccordionDetails>
 									<Typography variant='body1'>
-										The states are ranked by the mean CIR of the state's Black or African American population. This means the number one ranked state
-										has the highest CIR per 100,000 Black or African
-										Americans living in the state.
+										The states are ranked by the mean CIR of the state's Black
+										or African American population. This means the number one
+										ranked state has the highest CIR per 100,000 Black or
+										African Americans living in the state.
+									</Typography>
+								</AccordionDetails>
+							</Accordion>
+						</Paper>
+					</Box>
+					<Box p={1}>
+						<Paper variant='outlined' id='population'>
+							<Typography variant='h2'>State Population</Typography>
+
+							<Accordion>
+								<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+									<Typography variant='h6'>What is it?</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Grid container direction='column' alignItems='center'>
+										<Typography variant='body1'>
+											The Currently Incarcerated Rate is defined as the 2018
+											year-end prison population count per 100,000 corresponding
+											state population.
+										</Typography>
+										<Typography variant='body1'>
+											The prison population data used is sourced from the Bureau
+											of Justice Statistics 'Prisoners in 2018' report (
+											<a
+												target='_blank'
+												rel='noopener noreferrer'
+												href='https://www.bjs.gov/index.cfm?ty=pbdetail&iid=6846'
+												className={classes.inlineLink}
+											>
+												here
+											</a>
+											).
+										</Typography>
+										<Typography variant='body1'>
+											The state population data used is sourced from the Census
+											Bureau API (
+											<a
+												target='_blank'
+												rel='noopener noreferrer'
+												href='https://www.census.gov/data/developers/guidance/api-user-guide.Overview.html'
+												className={classes.inlineLink}
+											>
+												here
+											</a>
+											)
+										</Typography>
+										<Typography variant='body1'>
+											The formula used to calculate the rate is as follows:
+										</Typography>
+										<Typography variant='body1'>
+											( Year-end prison population count / State population
+											count ) * 100,000
+										</Typography>
+									</Grid>
+								</AccordionDetails>
+							</Accordion>
+							<Accordion>
+								<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+									<Typography variant='h6'>
+										How did we rank the states?
+									</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Typography variant='body1'>
+										The states are ranked by the mean CIR of the state's Black
+										or African American population. This means the number one
+										ranked state has the highest CIR per 100,000 Black or
+										African Americans living in the state.
 									</Typography>
 								</AccordionDetails>
 							</Accordion>
