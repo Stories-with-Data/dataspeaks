@@ -22,6 +22,10 @@ const NavLinks = ({ styleClasses, anchor, toggleDrawer }) => {
 		{
 			primary: 'Methodology',
 			to: '/methodology'
+		},
+		{
+			primary: 'Get Involved',
+			to: '/senators'
 		}
 	]
 

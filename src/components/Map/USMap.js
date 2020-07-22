@@ -17,7 +17,7 @@ import Typography from '@material-ui/core/Typography'
 import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Fade from '@material-ui/core/Fade'
-import Rank from '../Rank/Rank'
+// import Rank from '../Rank/Rank'
 
 const useStyles = makeStyles(theme => ({
 	popover: {
@@ -106,7 +106,7 @@ const USMap = () => {
 				return `rgb(255, ${color}, 0)`
 			}
 		}
-		if (heatMap == 'black_pop'){
+		if (heatMap === 'black_pop'){
 			color = Math.ceil(rank / 50 * 221)
 			return `rgb(${color}, ${color}, 221)`
 		}
