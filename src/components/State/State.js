@@ -4,7 +4,6 @@ import './State.css'
 import Rank from '../Rank/Rank'
 import Fade from '@material-ui/core/Fade'
 import GetInvolved from '../GetInvolved/GetInvolved'
-import {VictorySharedEvents} from 'victory'
 // import Paper from '@material-ui/core/Paper'
 
 function State(props) {
@@ -26,7 +25,6 @@ function State(props) {
 
 	const resetCharts = () => {
 		setHighlightedRace('')
-		// find a way to re animat the charts in this click
 	}
 
 	const getRaceColor = (race) => {
