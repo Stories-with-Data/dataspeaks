@@ -196,6 +196,7 @@ module.exports = {
 			}
 		} else {
 			// * Looping over states array to generate output data
+			output.heatmapRanks = states
 			states.forEach(async state => {
 				// * destructuring all ranks
 				const {
@@ -212,7 +213,6 @@ module.exports = {
 					stateTotPop =
 						stateData[stateData.findIndex(j => j.race === 'All races')]
 							.population
-
 				//#region
 				output[stateName] = {
 					overall: {
