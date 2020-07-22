@@ -8,6 +8,7 @@ import Rank from './components/Rank/Rank';
 import StateRankTable from './components/StateRankTable/StateRankTable'
 import StateFromTable from './components/State/StateFromTable'
 import Methodology from './components/Methodology/Methodology'
+import GetInvolvedFromNav from './components/GetInvolved/GetInvolvedFromNav'
 
 export default (
     <Switch>
@@ -20,5 +21,6 @@ export default (
         <Route path='/states/:statename' component={StateFromTable} />
         <Route path='/methodology' component={Methodology} />
         {/* <Route path='/d3' component={Main} /> */}
+        <Route path='/senators' component={GetInvolvedFromNav}/>
     </Switch>
 )

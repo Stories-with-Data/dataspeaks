@@ -89,21 +89,21 @@ const USMap = () => {
 		if (heatMap === 'arrest_rate' || heatMap === 'incarcerated_rate'){
 			if (rank <= 25){
 				color = Math.ceil(40 + (rank / 25 * (240 - 40)))
-				return `rgb(255, ${color}, 0)`
+				return `rgb(240, ${color}, 0)`
 			}
 			else {
 				color = Math.ceil(240 - (rank - 25) / 25 * (240-40))
-				return `rgb(${color}, 255, 0)`
+				return `rgb(${color}, 240, 0)`
 			}
 		}
 		if (heatMap === 'overall' || heatMap === 'iat'){
 			if (rank <= 25){
 				color = Math.ceil(40 + (rank) / 25 * (240-40))
-				return `rgb(${color}, 255, 0)`
+				return `rgb(${color}, 240, 0)`
 			}
 			else {
 				color = Math.ceil(240 - (rank - 25) / 25 * (240 - 40))
-				return `rgb(255, ${color}, 0)`
+				return `rgb(240, ${color}, 0)`
 			}
 		}
 		if (heatMap == 'black_pop'){
