@@ -27,6 +27,8 @@ app.post('/dev/seed', seedCtrl.seedDb)
 app.get('/api/data', ctrl.getData)
 app.get('/api/states/:state', ctrl.getStateAbv)
 
+// * Session Endpoint
+
 massive({
 	connectionString: CONNECTION_STRING,
 	ssl: {

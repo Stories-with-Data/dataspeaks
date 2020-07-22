@@ -1,7 +1,8 @@
 import React from 'react'
+// import TransitionTemplate from '../../development/TransitionTemplate/TransitionTemplate'
 import './Landing.css'
 import { Link } from 'react-router-dom'
-import Loading from '../Loading/Loading';
+// import Loading from '../Loading/Loading';
 
 
 function Landing(props) {
@@ -12,7 +13,7 @@ function Landing(props) {
 			<div className='header'>
       			<h3> <span className='span-title'>When</span> <span className='span-title'>They</span> <br/> <span>See</span> <span>U.</span> <span>S.</span> <span className='span-title2'>A.</span> </h3>
       		</div>
-			<Loading />
+			{/* <Loading /> */}
 			<div className='missionStatement'>
 
 					<div className='quote-div'>
