@@ -42,10 +42,7 @@ app.get('/api/data', ctrl.getData)
 app.get('/api/states/:state', ctrl.getStateAbv)
 
 // * Session Endpoint
-<<<<<<< HEAD
-=======
 app.get('/session', (req, res) => res.status(200).send(req.session))
->>>>>>> master
 
 massive({
 	connectionString: CONNECTION_STRING,
