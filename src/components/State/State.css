@@ -35,6 +35,7 @@
 .stateSubContainer{
 	background-color: #00000090;
 	min-height: 100vh;
+	display: flex;
 }
 
 .stateHeadContainer {
@@ -94,6 +95,43 @@
 	/* border: solid black 1px; */
 }
 
+.stateRaceLegend {
+	width: 300px;
+	height: auto;
+	background-color: #80808090;
+	border-radius: 5px;
+	color: #fff;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.stateRaceLegend > h4 {
+	font-size: 20px;
+}
+
+.legendRaceContainer {
+	width: 100%;
+}
+
+.legendRace {
+	width: auto;
+	display: flex;
+	align-items: center;
+	margin: 5px;
+}
+
+.legendRace:hover {
+	cursor: pointer;
+}
+
+.raceColor {
+	width: 20px;
+	height: 10px;
+	border-radius: 3px;
+}
+
 .categoryColumnContainer {
   width: 100vw;
   justify-content: center;
@@ -128,4 +166,15 @@
 	width: 100%;
 	z-index: 5;
 	transition: height 1s;
+}
+
+@media (max-width: 325px){
+	.stateRaceLegend{
+		width: calc(100vw - 30px);
+		height: auto;
+	}
+
+	.legendRace {
+		font-size: 13px;
+	}
 }

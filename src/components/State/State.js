@@ -4,6 +4,7 @@ import './State.css'
 import Rank from '../Rank/Rank'
 import Fade from '@material-ui/core/Fade'
 import GetInvolved from '../GetInvolved/GetInvolved'
+import {VictorySharedEvents} from 'victory'
 // import Paper from '@material-ui/core/Paper'
 
 function State(props) {
@@ -11,11 +12,42 @@ function State(props) {
 
 	const [stateVis, setStateVis] = useState(true)
 	const [involvedVis, setInvolvedVis] = useState(false)
+	const [highlightedRace, setHighlightedRace] = useState('')
 
 	const exit = 500
 
 	const toggleInvolvedVis = () => {
 		setInvolvedVis(!involvedVis)
+	}
+
+	const changeHighlight = (race) => {
+		setHighlightedRace(race)
+	}
+
+	const resetCharts = () => {
+		setHighlightedRace('')
+		// find a way to re animat the charts in this click
+	}
+
+	const getRaceColor = (race) => {
+		switch (race) {
+			case highlightedRace:
+				return '#fce21b'
+			case 'Black or African American':
+				return highlightedRace ? '#00000070' : '#000000'
+			case 'White or Caucasian':
+				return highlightedRace ? '#ffffff70' : '#ffffff'
+			case 'Asian':
+				return highlightedRace ? '#C47AC070' : '#C47AC0'
+			case 'American Indian or Alaska Native':
+				return highlightedRace ? '#2B972070' : '#2B9720'
+			case 'Native Hawaiian or Pacific Islander':
+				return highlightedRace ? '#32CBFF70' : '#32CBFF'
+			case 'Other':
+				return highlightedRace ? '#1B3B6F70' : '#1B3B6F'
+			default:
+				return highlightedRace ? '#32CBFF70' : '#32CBFF'
+		}
 	}
 
 	return (
@@ -71,9 +103,39 @@ function State(props) {
 						Get Involved
 					</button>
 
+					<div className='stateRaceLegend'>
+						<h4>Legend</h4>
+						<div className='legendRaceContainer'>
+							{stateData.categories[0].data[0].data.map(elem => {
+								return (
+									<div 
+										className='legendRace'
+										onClick={() => changeHighlight(elem.race)}
+									>
+										<div 
+											className='raceColor'
+											style={{backgroundColor: getRaceColor(elem.race)}}
+											>
+										</div>
+										<p>{`:	${elem.race}`}</p>
+									</div>
+								)
+							})}
+						</div>
+						<button onClick={() => resetCharts()} className='button'>
+							Reset Charts
+						</button>
+					</div>
+
 					<div className='categoryColumnContainer'>
 						{stateData.categories.map(elem => {
-							return <Category key={elem.title} catData={elem} />
+							return (
+								<Category 
+									key={elem.title} 
+									highlighted={highlightedRace} 
+									changeHighlight={changeHighlight}
+									catData={elem} />
+							)
 						})}
 					</div>
 				</div>

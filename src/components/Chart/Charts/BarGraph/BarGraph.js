@@ -61,7 +61,21 @@ class BarGraph extends Component {
 						tickFormat={x => `${x}`}
 					/>
 					<VictoryBar
+						name='bar'
 						data={this.props.data}
+						events={[
+							{
+								target: 'data',
+								eventHandlers: {
+									onClick: () => {
+										return ({
+											target: 'data',
+											mutation: (props) => this.props.changeHighlight(props.datum.race)
+										})
+									}
+								}
+							}
+						]}
 						x='race'
 						y='value'
 						// categories={{ x: this.props.data.map(e => e.label) }}
@@ -77,21 +91,24 @@ class BarGraph extends Component {
 							},
 							data: {
 								fill: ({ datum }) => {
+									const {highlighted} = this.props
 									switch (datum.race) {
+										case highlighted:
+											return '#fce21b'
 										case 'Black or African American':
-											return '#000'
-										case 'rgb(255, 255, 255)':
-											return '#fff'
+											return highlighted ? '#00000070' : '#000000'
+										case 'White or Caucasian':
+											return highlighted ? '#ffffff70' : '#ffffff'
 										case 'Asian':
-											return '#C47AC0'
+											return highlighted ? '#C47AC070' : '#C47AC0'
 										case 'American Indian or Alaska Native':
-											return '#2B9720'
+											return highlighted ? '#2B972070' : '#2B9720'
 										case 'Native Hawaiian or Pacific Islander':
-											return '#32CBFF'
+											return highlighted ? '#32CBFF70' : '#32CBFF'
 										case 'Other':
-											return '#1B3B6F'
+											return highlighted ? '#1B3B6F70' : '#1B3B6F'
 										default:
-											return '#32CBFF'
+											return highlighted ? '#32CBFF70' : '#32CBFF'
 									}
 								}
 							}

@@ -10,9 +10,6 @@ class App extends Component {
 		super()
 
 		this.state = {
-			navOpen: false,
-			user: {},
-			loading: true
 		}
 	}
 async componentDidMount(){
