@@ -23,6 +23,86 @@
   cursor: grabbing;
 }
 
+.heatMapMenutrue {
+  position: fixed;
+  top: 5px;
+  left: 80px;
+  width: auto;
+  height: 203px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #303030;
+  border: 1px solid rgb(121, 121, 121);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.heatMapMenufalse {
+  position: fixed;
+  top: 5px;
+  left: 80px;
+  width: auto;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #303030;
+  border: 1px solid rgb(121, 121, 121);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.heatMapMenufalse:hover {
+  cursor: pointer;
+}
+
+.heatMapMenutrue:hover {
+  cursor: pointer;
+}
+
+.heatMapMenufalse > ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: start;
+  
+}
+
+.heatMapMenufalse > ul > div {
+  padding: 12px;
+}
+
+.heatMapMenufalse > ul > li {
+  padding: 5px;
+}
+
+.heatMapMenutrue > ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: start;
+  
+}
+
+.heatMapMenutrue > ul > div {
+  padding: 12px;
+}
+
+.heatMapMenutrue > ul > li {
+  padding: 5px;
+}
+
 .stateFlag {
   z-index: 2;
 }
