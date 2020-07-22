@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Category from '../Category/Category'
 import './State.css'
 import Rank from '../Rank/Rank'
@@ -13,21 +13,32 @@ function State(props) {
 	const [involvedVis, setInvolvedVis] = useState(false)
 	const [highlightedRace, setHighlightedRace] = useState('')
 
+	const [categoryVis, setCategoryVis] = useState(true),
+		categoryExit = 250,
+		categoryEnter = 250
+
+	const [categoryTimeout, setCategoryTimeout] = useState(null)
+
 	const exit = 500
 
 	const toggleInvolvedVis = () => {
 		setInvolvedVis(!involvedVis)
 	}
 
-	const changeHighlight = (race) => {
+	const changeHighlight = race => {
 		setHighlightedRace(race)
 	}
 
 	const resetCharts = () => {
 		setHighlightedRace('')
+		setCategoryVis(false)
+		const catTimeout = setTimeout(() => {
+			setCategoryVis(true)
+		}, categoryExit + categoryEnter)
+		setCategoryTimeout(catTimeout)
 	}
 
-	const getRaceColor = (race) => {
+	const getRaceColor = race => {
 		switch (race) {
 			case highlightedRace:
 				return '#fce21b'
@@ -47,6 +58,12 @@ function State(props) {
 				return highlightedRace ? '#32CBFF70' : '#32CBFF'
 		}
 	}
+
+	useEffect(() => {
+		return () => {
+			clearTimeout(categoryTimeout)
+		}
+	}, [categoryTimeout])
 
 	return (
 		<Fade
@@ -106,15 +123,15 @@ function State(props) {
 						<div className='legendRaceContainer'>
 							{stateData.categories[0].data[0].data.map(elem => {
 								return (
-									<div 
+									<div
+										key={elem.race}
 										className='legendRace'
 										onClick={() => changeHighlight(elem.race)}
 									>
-										<div 
+										<div
 											className='raceColor'
-											style={{backgroundColor: getRaceColor(elem.race)}}
-											>
-										</div>
+											style={{ backgroundColor: getRaceColor(elem.race) }}
+										></div>
 										<p>{`:	${elem.race}`}</p>
 									</div>
 								)
@@ -125,22 +142,29 @@ function State(props) {
 						</button>
 					</div>
 
-					<div className='categoryColumnContainer'>
-						{stateData.categories.map(elem => {
-							return (
-								<Category 
-									key={elem.title} 
-									highlighted={highlightedRace} 
-									changeHighlight={changeHighlight}
-									catData={elem} />
-							)
-						})}
-					</div>
+					<Fade
+						in={categoryVis}
+						timeout={{ enter: categoryEnter, exit: categoryExit }}
+						unmountOnExit
+					>
+						<div className='categoryColumnContainer'>
+							{stateData.categories.map(elem => {
+								return (
+									<Category
+										key={elem.title}
+										highlighted={highlightedRace}
+										changeHighlight={changeHighlight}
+										catData={elem}
+									/>
+								)
+							})}
+						</div>
+					</Fade>
 				</div>
 				<div className={`involvedVis${involvedVis}`}>
-					<GetInvolved 
-						toggleInvolvedVis={toggleInvolvedVis} 
-						stateName={stateData.overall.stateName} 
+					<GetInvolved
+						toggleInvolvedVis={toggleInvolvedVis}
+						stateName={stateData.overall.stateName}
 					/>
 				</div>
 			</div>
