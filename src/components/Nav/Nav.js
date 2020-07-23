@@ -5,7 +5,6 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import NavLinks from './NavLinks/NavLinks'
 import './Nav.css'
-import GetInvolvedFromNav from '../GetInvolved/GetInvolvedFromNav'
 
 const drawerStyles = makeStyles({
 	list: {
