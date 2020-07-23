@@ -6,7 +6,8 @@ import {
 	VictoryAxis,
 	VictoryTheme,
 	VictoryTooltip,
-	VictoryLegend
+	VictoryLegend,
+	VictoryContainer
 } from 'victory'
 
 class StackedBar extends Component {
@@ -23,6 +24,9 @@ class StackedBar extends Component {
 		return (
 			<div>
 				<VictoryChart
+					containerComponent={
+						<VictoryContainer style={{ touchAction: 'auto' }} />
+					}
 					domainPadding={20}
 					theme={VictoryTheme.material}
 					events={categories.map(cat => ({
@@ -102,10 +106,11 @@ class StackedBar extends Component {
 											target: 'data',
 											eventHandlers: {
 												onClick: () => {
-													return ({
+													return {
 														target: 'data',
-														mutation: (props) => this.props.changeHighlight(props.datum.race)
-													})
+														mutation: props =>
+															this.props.changeHighlight(props.datum.race)
+													}
 												}
 											}
 										}
@@ -131,15 +136,15 @@ class StackedBar extends Component {
 											fill: '#000'
 										},
 										data: {
-											fill: ({datum}) => {
-												const {highlighted} = this.props
-												if (datum.race === highlighted){
+											fill: ({ datum }) => {
+												const { highlighted } = this.props
+												if (datum.race === highlighted) {
 													return '#fce21b'
 												}
-												if (datum.category === 'Non-violent Crimes'){
+												if (datum.category === 'Non-violent Crimes') {
 													return highlighted ? '#59C5B370' : '#59C5B3'
 												}
-												if (datum.category === 'Violent Crimes'){
+												if (datum.category === 'Violent Crimes') {
 													return highlighted ? '#2D596370' : '#2D5963'
 												}
 											}

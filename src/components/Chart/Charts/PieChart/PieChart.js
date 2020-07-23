@@ -4,7 +4,7 @@ import {
 	// VictoryChart,
 	// VictoryAxis,
 	VictoryTheme,
-	// VictoryLabel,
+	VictoryContainer,
 	VictoryTooltip
 } from 'victory'
 
@@ -20,6 +20,9 @@ class PieChart extends Component {
 		return (
 			<div>
 				<VictoryPie
+					containerComponent={
+						<VictoryContainer style={{ touchAction: 'auto' }} />
+					}
 					name='pie'
 					data={this.props.data}
 					events={[
@@ -27,10 +30,11 @@ class PieChart extends Component {
 							target: 'data',
 							eventHandlers: {
 								onClick: () => {
-									return ({
+									return {
 										target: 'data',
-										mutation: (props) => this.props.changeHighlight(props.datum.race)
-									})
+										mutation: props =>
+											this.props.changeHighlight(props.datum.race)
+									}
 								}
 							}
 						}
@@ -49,25 +53,25 @@ class PieChart extends Component {
 						},
 						data: {
 							fill: ({ datum }) => {
-								const {highlighted} = this.props
-									switch (datum.race) {
-										case highlighted:
-											return '#fce21b'
-										case 'Black or African American':
-											return highlighted ? '#00000070' : '#000000'
-										case 'White or Caucasian':
-											return highlighted ? '#ffffff70' : '#ffffff'
-										case 'Asian':
-											return highlighted ? '#C47AC070' : '#C47AC0'
-										case 'American Indian or Alaska Native':
-											return highlighted ? '#2B972070' : '#2B9720'
-										case 'Native Hawaiian or Pacific Islander':
-											return highlighted ? '#32CBFF70' : '#32CBFF'
-										case 'Other':
-											return highlighted ? '#1B3B6F70' : '#1B3B6F'
-										default:
-											return highlighted ? '#32CBFF70' : '#32CBFF'
-									}
+								const { highlighted } = this.props
+								switch (datum.race) {
+									case highlighted:
+										return '#fce21b'
+									case 'Black or African American':
+										return highlighted ? '#00000070' : '#000000'
+									case 'White or Caucasian':
+										return highlighted ? '#ffffff70' : '#ffffff'
+									case 'Asian':
+										return highlighted ? '#C47AC070' : '#C47AC0'
+									case 'American Indian or Alaska Native':
+										return highlighted ? '#2B972070' : '#2B9720'
+									case 'Native Hawaiian or Pacific Islander':
+										return highlighted ? '#32CBFF70' : '#32CBFF'
+									case 'Other':
+										return highlighted ? '#1B3B6F70' : '#1B3B6F'
+									default:
+										return highlighted ? '#32CBFF70' : '#32CBFF'
+								}
 							}
 						}
 					}}

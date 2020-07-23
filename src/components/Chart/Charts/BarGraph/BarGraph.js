@@ -6,8 +6,8 @@ import {
 	VictoryTheme,
 	// VictoryLabel,
 	VictoryTooltip,
-  // VictoryLegend,
-  // VictoryContainer
+	// VictoryLegend,
+	VictoryContainer
 } from 'victory'
 // import { withTheme } from '@material-ui/core'
 // import { values } from 'd3'
@@ -22,7 +22,13 @@ class BarGraph extends Component {
 	render() {
 		return (
 			<div>
-				<VictoryChart domainPadding={20} theme={VictoryTheme.material}>
+				<VictoryChart
+					containerComponent={
+						<VictoryContainer style={{ touchAction: 'auto' }} />
+					}
+					domainPadding={20}
+					theme={VictoryTheme.material}
+				>
 					<VictoryAxis
 						style={{
 							grid: { stroke: 'rgb(255, 255, 255, 0.0)' },
@@ -68,10 +74,11 @@ class BarGraph extends Component {
 								target: 'data',
 								eventHandlers: {
 									onClick: () => {
-										return ({
+										return {
 											target: 'data',
-											mutation: (props) => this.props.changeHighlight(props.datum.race)
-										})
+											mutation: props =>
+												this.props.changeHighlight(props.datum.race)
+										}
 									}
 								}
 							}
@@ -91,7 +98,7 @@ class BarGraph extends Component {
 							},
 							data: {
 								fill: ({ datum }) => {
-									const {highlighted} = this.props
+									const { highlighted } = this.props
 									switch (datum.race) {
 										case highlighted:
 											return '#fce21b'
@@ -122,34 +129,34 @@ class BarGraph extends Component {
 						}
 					/>
 					{/* <VictoryLegend
-            padding={20}
-						data={this.props.data.map(e => ({ name: e.race }))}
-						style={{
-							labels: {
-								fill: '#fff'
-							},
-							data: {
-								fill: ({ datum }) => {
-									switch (datum.name) {
-										case 'Black or African American':
-											return '#000'
-										case 'rgb(255, 255, 255)':
-											return '#fff'
-										case 'Asian':
-											return '#C47AC0'
-										case 'American Indian or Alaska Native':
-											return '#2B9720'
-										case 'Native Hawaiian or Pacific Islander':
-											return '#32CBFF'
-										case 'Other':
-											return '#1B3B6F'
-										default:
-											return '#32CBFF'
+	            padding={20}
+							data={this.props.data.map(e => ({ name: e.race }))}
+							style={{
+								labels: {
+									fill: '#fff'
+								},
+								data: {
+									fill: ({ datum }) => {
+										switch (datum.name) {
+											case 'Black or African American':
+												return '#000'
+											case 'rgb(255, 255, 255)':
+												return '#fff'
+											case 'Asian':
+												return '#C47AC0'
+											case 'American Indian or Alaska Native':
+												return '#2B9720'
+											case 'Native Hawaiian or Pacific Islander':
+												return '#32CBFF'
+											case 'Other':
+												return '#1B3B6F'
+											default:
+												return '#32CBFF'
+										}
 									}
 								}
-							}
-						}}
-					/> */}
+							}}
+						/> */}
 				</VictoryChart>
 			</div>
 		)

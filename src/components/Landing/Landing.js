@@ -494,6 +494,7 @@ const Landing = () => {
 
 	const fullPageProps = {
 		licenseKey: process.env.REACT_APP_FULL_PAGE_LICENSE,
+		responsiveWidth: 800,
 		fadingEffect: true,
 		scrollingSpeed: 500,
 		afterRender: () => {

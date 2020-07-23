@@ -4,6 +4,7 @@ import './State.css'
 import Rank from '../Rank/Rank'
 import Fade from '@material-ui/core/Fade'
 import GetInvolved from '../GetInvolved/GetInvolved'
+import StateHeader from './StateHeader/StateHeader'
 // import Paper from '@material-ui/core/Paper'
 
 function State(props) {
@@ -59,6 +60,33 @@ function State(props) {
 		}
 	}
 
+	const headerBtns = [
+		{
+			text: 'Get Involved',
+			onClick: () => {
+				toggleInvolvedVis()
+			}
+		},
+		{
+			text: 'Reset',
+			onClick: () => {
+				resetCharts()
+			}
+		},
+		{
+			text: 'Back to Map',
+			onClick: () => {
+				setStateVis(false)
+				setTimeout(() => {
+					handleStateClose()
+				}, exit)
+			},
+			props: {
+				edge: 'end'
+			}
+		}
+	]
+
 	useEffect(() => {
 		return () => {
 			clearTimeout(categoryTimeout)
@@ -81,6 +109,7 @@ function State(props) {
 				className='stateContainer'
 				style={{ backgroundImage: `url(${stateFlag})` }}
 			>
+				<StateHeader buttons={headerBtns} />
 				<div className='stateSubContainer'>
 					<div className='stateHeadContainer'>
 						<div className='stateTitleContainer'>

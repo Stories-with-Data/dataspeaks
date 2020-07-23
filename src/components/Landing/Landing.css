@@ -348,7 +348,7 @@
 	padding: 100px 20px;
 }
 
-@media (min-width: 1050px) {
+@media screen and (min-width: 1050px) {
 	.sourceSeals {
 		height: calc(35vw / 3);
 		width: calc(35vw / 3);
@@ -363,13 +363,13 @@
 	}
 }
 
-@media (max-width: 920px) {
+@media screen and (max-width: 920px) {
 	.crestContainer {
 		width: 80vw;
 	}
 }
 
-@media (max-width: 860px) {
+@media screen and (max-width: 860px) {
 	.landingH1 {
 		font-size: 50px !important;
 	}
@@ -381,13 +381,13 @@
 
 }
 
-@media (max-width: 560px) {
+@media screen and (max-width: 560px) {
 	.landingH1 {
 		font-size: 48px !important;
 	}
 }
 
-@media (max-width: 450px) {
+@media screen and (max-width: 450px) {
 	.landingH1 {
 		font-size: 36px !important;
 	}
