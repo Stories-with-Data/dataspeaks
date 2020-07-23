@@ -8,8 +8,6 @@ import LanguageIcon from '@material-ui/icons/Language';
 import axios from 'axios'
 
 const GetInvolvedFromNav = () => {
-	// const data = useStatesData()
-  // const history = useHistory()
 
   const [senatorData, setSenatorData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -24,7 +22,6 @@ const GetInvolvedFromNav = () => {
       setIsLoading(false)
     })}, [])
 
-
 	const columns = [
 		{
 			title: 'Last Name',
@@ -33,8 +30,8 @@ const GetInvolvedFromNav = () => {
 		{
 			title: 'First Name',
 			field: 'first_name'
-    },
-    {
+		},
+		{
 			title: 'State',
 			field: 'state'
 		},
@@ -47,7 +44,6 @@ const GetInvolvedFromNav = () => {
 			field: 'state_rank'
 		}
 	]
-
 
 	return (
 		<>

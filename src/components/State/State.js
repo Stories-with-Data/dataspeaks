@@ -73,6 +73,11 @@ function State(props) {
 			unmountOnExit
 		>
 			<div
+				onScroll={() => {
+					if (involvedVis) {
+						setInvolvedVis(false)
+					}
+				}}
 				className='stateContainer'
 				style={{ backgroundImage: `url(${stateFlag})` }}
 			>

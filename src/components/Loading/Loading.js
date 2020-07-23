@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Axios from 'axios'
+// import Axios from 'axios'
 // import Collapse from '@material-ui/core/Collapse'
 import Fade from '@material-ui/core/Fade'
 // import Grow from '@material-ui/core/Grow'
@@ -9,7 +9,7 @@ import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import './Loading.css'
 
-const Loading = () => {
+const Loading = ({ firstVisit }) => {
 	const [loading, setLoading] = useState(true)
 
 	// * Determines whether transition children are visible
@@ -146,45 +146,25 @@ const Loading = () => {
 	]
 
 	useEffect(() => {
-		const CancelToken = Axios.CancelToken,
-			source = CancelToken.source()
-
-		const getSession = async () => {
-			try {
-				const { data } = await Axios.get('/session')
-				if (data.views === 1) {
-					// * Initialize
-					setTransitions({
-						background: true,
-						transition1: false,
-						transition2: false,
-						transition3: false,
-						transition4: false,
-						transition5: false,
-						transition6: false,
-						transition7: false,
-						transition8: false,
-						transition9: false
-					})
-					setLoading(false)
-				} else {
-					setLoading(false)
-				}
-			} catch (err) {
-				if (Axios.isCancel(err)) {
-					console.log('Cancelled')
-				} else {
-					throw err
-				}
-			}
+		if (firstVisit) {
+			// * Initialize
+			setTransitions({
+				background: true,
+				transition1: false,
+				transition2: false,
+				transition3: false,
+				transition4: false,
+				transition5: false,
+				transition6: false,
+				transition7: false,
+				transition8: false,
+				transition9: false
+			})
+			setLoading(false)
+		} else {
+			setLoading(false)
 		}
-
-		getSession()
-
-		return () => {
-			source.cancel()
-		}
-	}, [])
+	}, [firstVisit])
 
 	// https://upload.wikimedia.org/wikipedia/en/6/63/Sandra_Bland_re-crop.jpg
 	return (

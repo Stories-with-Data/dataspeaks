@@ -1,16 +1,20 @@
+* {
+	box-sizing: border-box;
+}
+
 body::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 body {
 	box-sizing: border-box;
-  font-family: Helvetica, sans-serif;
-  background-color: #303030;
+	font-family: Helvetica, sans-serif;
+	background-color: #303030;
 }
 
 h1 {
-  font-size: 3rem;
-  text-align: center;
+	font-size: 3rem;
+	text-align: center;
 }
 
 .App {
@@ -21,25 +25,32 @@ h1 {
 }
 
 .button {
-  border: none;
-  border-radius: 5px;
-  background-color: black;
-  color: white;
-  /* margin-left: 25px;
+	border: none;
+	border-radius: 5px;
+	background-color: black;
+	color: white;
+	/* margin-left: 25px;
   margin-right: 25px;
   margin-top: 15px;
   margin-bottom: 15px; */
   margin: 5px;
-  width: 100px;
-  height: 30px;
+  padding: 10px;
+	/* width: 100px;
+  height: 30px; */
+  font-size: 20px;
+  transition: all linear 100ms;
 }
 
 .button:hover {
-  color: black;
-  background-color: #FCE21B;
-  cursor: pointer;
+	color: black;
+	background-color: #fce21b;
+	cursor: pointer;
 }
 
 .button:focus {
-  outline: none;
+	outline: none;
+}
+
+@media (max-width: 600px) {
+
 }
