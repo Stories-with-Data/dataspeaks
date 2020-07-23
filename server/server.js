@@ -8,8 +8,6 @@ const express = require('express'),
 
 const app = express()
 
-app.use(express.static(`${__dirname}/../build`))
-
 app.use(express.json())
 app.use(
 	session({
@@ -21,6 +19,8 @@ app.use(
 	})
 )
 
+app.use(express.static(`${__dirname}/../build`))
+
 app.use((req, res, next) => {
 	if (req.session.views) {
 		req.session.views++
@@ -30,12 +30,19 @@ app.use((req, res, next) => {
 	next()
 })
 
+
+
 // * Development Endpoints
 app.post('/dev/seed/fbi', seedCtrl.populateFbiData)
 app.post('/dev/seed/census', seedCtrl.populateCensusData)
 app.post('/dev/seed/prison', seedCtrl.populatePrisonData)
 app.post('/dev/seed/ranks', seedCtrl.generateStateRanks)
-app.post('/dev/seed', seedCtrl.seedDb, seedCtrl.populatePrisonData, seedCtrl.generateStateRanks)
+app.post(
+	'/dev/seed',
+	seedCtrl.seedDb,
+	seedCtrl.populatePrisonData,
+	seedCtrl.generateStateRanks
+)
 
 // * Data Endpoints
 app.get('/api/data', ctrl.getData)
