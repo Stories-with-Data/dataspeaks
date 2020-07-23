@@ -33,7 +33,7 @@
 }
 
 .stateSubContainer{
-	background-color: #00000090;
+	background-color: rgba(0,0,0,.8);
 	min-height: 100vh;
 	display: flex;
 }
@@ -56,6 +56,8 @@
 .summaryContainer {
 	width: 100%;
 	height: 100%;
+	display: flex;
+	justify-content: center;
 }
 .flagImageContainer {
 	width: 30%;
@@ -88,9 +90,10 @@
 }
 
 .summary {
-	width: 100%;
+	max-width: 50vw;
   height: 100%;
-  padding: 20px;
+	padding: 20px;
+	font-size: 24px;
 	/* background-color: teal; */
 	/* border: solid black 1px; */
 }
@@ -144,6 +147,9 @@
 	}
 	.summaryContainer {
 		width:90%;
+	}
+	.summary {
+		max-width: 100%;
 	}
 }
 .involvedVisfalse {

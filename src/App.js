@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Nav from './components/Nav/Nav';
+import Nav from './components/Nav/Nav'
+import { withRouter } from 'react-router-dom'
 import Routes from './routes'
 import './reset.css'
 import './App.css'
@@ -8,18 +9,18 @@ class App extends Component {
 	constructor() {
 		super()
 
-		this.state = {
-		}
+		this.state = {}
 	}
 
 	render() {
+		const { pathname } = this.props.location
 		return (
 			<div className='App'>
-				<Nav />
+				{pathname === '/' ? null : <Nav />}
 				{Routes}
 			</div>
 		)
 	}
 }
 
-export default App
+export default withRouter(App)
