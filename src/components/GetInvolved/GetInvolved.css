@@ -81,7 +81,10 @@
     margin: 5px;
   }
 }
-
+.MuiPaper-root {
+  position: relative;
+  top:40px;
+}
 @media (max-width: 500px){
   .get-involved-container{
     font-size: 20px;

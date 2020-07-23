@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-import React from 'react'
-// import TransitionTemplate from '../../development/TransitionTemplate/TransitionTemplate'
-import './Landing.css'
-=======
 import React, { useState, useEffect } from 'react'
->>>>>>> master
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
 import Typography from '@material-ui/core/Typography'

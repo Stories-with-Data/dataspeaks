@@ -119,7 +119,7 @@ function State(props) {
 						</button>
 					</div>
 
-					<button onClick={() => toggleInvolvedVis()} className='button'>
+					<button onClick={() => toggleInvolvedVis()} className='button buttonAnimate'>
 						Get Involved
 					</button>
 
