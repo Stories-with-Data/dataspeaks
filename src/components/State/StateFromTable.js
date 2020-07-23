@@ -9,6 +9,7 @@ import useStatesData from '../../hooks/useStatesData'
 import stateFlags from '../../assets/stateFlags/stateFlags.json'
 import Backdrop from '@material-ui/core/Backdrop'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import StateHeader from './StateHeader/StateHeader'
 
 const StateFromTable = props => {
 	const { statename } = props.match.params
@@ -18,7 +19,6 @@ const StateFromTable = props => {
 
 	const [stateVis, setStateVis] = useState(false)
 	const [involvedVis, setInvolvedVis] = useState(false)
-
 
 	const toggleInvolvedVis = () => {
 		setInvolvedVis(!involvedVis)
@@ -32,9 +32,37 @@ const StateFromTable = props => {
 
 	const exit = 500
 
+	const headerBtns = [
+		{
+			text: 'Get Involved',
+			onClick: () => {
+				toggleInvolvedVis()
+			}
+		},
+		{
+			text: 'Reset',
+			onClick: () => {
+				// resetCharts()
+			}
+		},
+		{
+			text: 'Back',
+			onClick: () => {
+				// * Setting the stateVis to trigger exit transition
+				setStateVis(false)
+				// * Using a setTimeout synced to exit transition time
+				// * before altering USMap state with handleStateClose
+				setTimeout(() => {
+					history.push('/states')
+				}, exit)
+			},
+			props: {}
+		}
+	]
+
 	return (
 		<>
-			<Backdrop open={!stateVis} transitionDuration={{enter: 50, exit: 750}}>
+			<Backdrop open={!stateVis} transitionDuration={{ enter: 50, exit: 750 }}>
 				<CircularProgress />
 			</Backdrop>
 			<Fade
@@ -45,8 +73,9 @@ const StateFromTable = props => {
 			>
 				<div
 					className='stateContainer'
-					style={{ backgroundImage: `url(${stateFlag})` }}
+					style={{ backgroundImage: `url(.${stateFlag})` }}
 				>
+					<StateHeader buttons={headerBtns} />
 					<div className='stateSubContainer'>
 						<div className='stateHeadContainer'>
 							<div className='stateTitleContainer'>
@@ -85,9 +114,9 @@ const StateFromTable = props => {
 							</button>
 						</div>
 
-						<button onClick={() => toggleInvolvedVis()} className='button'>
+						{/* <button onClick={() => toggleInvolvedVis()} className='button'>
 							Get Involved
-						</button>
+						</button> */}
 
 						<div className='categoryColumnContainer'>
 							{stateData.categories

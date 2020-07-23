@@ -329,7 +329,7 @@
 	/* box-shadow: 0 0 5px 0 black; */
 	color: white;
 	cursor: pointer;
-	background-color: #11ABAB;
+	background-color: #11abab;
 }
 
 .crestContainer {
@@ -363,6 +363,12 @@
 	}
 }
 
+@media screen and (max-width: 1000px) {
+	.landingH1 {
+		font-size: 50px !important;
+	}
+}
+
 @media screen and (max-width: 920px) {
 	.crestContainer {
 		width: 80vw;
@@ -370,15 +376,11 @@
 }
 
 @media screen and (max-width: 860px) {
-	.landingH1 {
-		font-size: 50px !important;
-	}
 	.sourceSeals {
 		height: calc(70vw / 3);
 		width: calc(70vw / 3);
 		padding: 10px;
 	}
-
 }
 
 @media screen and (max-width: 560px) {
@@ -387,8 +389,8 @@
 	}
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 510px) {
 	.landingH1 {
-		font-size: 36px !important;
+		font-size: 32px !important;
 	}
 }

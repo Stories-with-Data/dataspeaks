@@ -55,7 +55,7 @@ module.exports = {
 					rank: +overallRank,
 					summary: `The state of ${stateName} is ${ordinal(
 						iatRank
-					)} in overall score on Harvard's Race IAT by the state's White population while it's Black or African American population size is ${ordinal(
+					)} in overall score on Harvard's Race IAT by the state's $$IAT$$ while it's Black or African American population size is ${ordinal(
 						bpRank
 					)} in the nation (Based on 2019 Census Estimate Data). Additionally, ${stateName} has the ${ordinal(
 						arRank
@@ -220,7 +220,7 @@ module.exports = {
 						rank: +overallRank,
 						summary: `The state of ${stateName} is ${ordinal(
 							iatRank
-						)} in overall score on Harvard's Race IAT by the state's White population while it's Black or African American population size is ${ordinal(
+						)} in overall score on Harvard's Race IAT $$IAT$$ while it's Black or African American population size is ${ordinal(
 							bpRank
 						)} in the nation (Based on 2019 Census Estimate Data). Additionally, ${stateName} has the ${ordinal(
 							arRank

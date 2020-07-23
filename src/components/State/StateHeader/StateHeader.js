@@ -4,18 +4,20 @@ import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const useStyles = makeStyles({
 	header: {
 		flexGrow: 1,
 		backgroundColor: '#171515'
 	},
-	toolbar: { justifyContent: 'center' }
+	toolbar: {}
 })
 
 const StateHeader = ({ buttons }) => {
 	const classes = useStyles()
+	const matches = useMediaQuery('(max-width:600px)')
+
 	return (
 		// <div className={classes.root}>
 		<AppBar
@@ -23,9 +25,12 @@ const StateHeader = ({ buttons }) => {
 			position='fixed'
 			// variant='outlined'
 		>
-			<Toolbar className={classes.toolbar}>
+			<Toolbar
+				className={classes.toolbar}
+				style={{ justifyContent: matches ? 'space-between' : 'center' }}
+			>
 				{buttons.map(btn => (
-					<Button onClick={btn.onClick} {...btn.props}>
+					<Button key={btn.text} onClick={btn.onClick} {...btn.props}>
 						{btn.text}
 					</Button>
 				))}

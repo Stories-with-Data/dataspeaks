@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Category from '../Category/Category'
 import './State.css'
 import Rank from '../Rank/Rank'
@@ -13,6 +14,7 @@ function State(props) {
 	const [stateVis, setStateVis] = useState(true)
 	const [involvedVis, setInvolvedVis] = useState(false)
 	const [highlightedRace, setHighlightedRace] = useState('')
+	const [summary, setSummary] = useState()
 
 	const [categoryVis, setCategoryVis] = useState(true),
 		categoryExit = 250,
@@ -80,9 +82,6 @@ function State(props) {
 				setTimeout(() => {
 					handleStateClose()
 				}, exit)
-			},
-			props: {
-				edge: 'end'
 			}
 		}
 	]
@@ -92,6 +91,17 @@ function State(props) {
 			clearTimeout(categoryTimeout)
 		}
 	}, [categoryTimeout])
+
+	useEffect(() => {
+		const replacements = {
+			$$IAT$$: <Link to='/methodology'>(see methodology)</Link>
+		}
+		const regEx = /(\$\$IAT\$\$|\$\$CENSUS\$\$)/
+
+		setSummary(
+			stateData.overall.summary.split(regEx).map(e => (replacements[e] ? replacements[e] : e))
+		)
+	}, [stateData.overall.summary])
 
 	return (
 		<Fade
@@ -113,7 +123,9 @@ function State(props) {
 				<div className='stateSubContainer'>
 					<div className='stateHeadContainer'>
 						<div className='stateTitleContainer'>
-							<h1 className='stateTitle'>{stateData.overall.stateName}</h1>
+							<h1 className='stateTitle'>
+								{stateData && stateData.overall.stateName}
+							</h1>
 							<div className='overall'>
 								Overall Rank
 								<Rank rank={stateData.overall.rank} />
@@ -121,7 +133,7 @@ function State(props) {
 						</div>
 
 						<div className='summaryContainer'>
-							<div className='summary'>{stateData.overall.summary}</div>
+							<div className='summary'>{summary}</div>
 						</div>
 
 						{/* <div className='flagImageContainer'>
@@ -131,7 +143,7 @@ function State(props) {
 						</div> */}
 					</div>
 
-					<div className='closeStateBtnContainer'>
+					{/* <div className='closeStateBtnContainer'>
 						<button
 							className='button'
 							onClick={() => {
@@ -146,34 +158,35 @@ function State(props) {
 						>
 							Close
 						</button>
-					</div>
+					</div> */}
 
-					<button onClick={() => toggleInvolvedVis()} className='button'>
+					{/* <button onClick={() => toggleInvolvedVis()} className='button'>
 						Get Involved
-					</button>
+					</button> */}
 
 					<div className='stateRaceLegend'>
 						<h4>Legend</h4>
 						<div className='legendRaceContainer'>
-							{stateData.categories[0].data[0].data.map(elem => {
-								return (
-									<div
-										key={elem.race}
-										className='legendRace'
-										onClick={() => changeHighlight(elem.race)}
-									>
+							{stateData &&
+								stateData.categories[0].data[0].data.map(elem => {
+									return (
 										<div
-											className='raceColor'
-											style={{ backgroundColor: getRaceColor(elem.race) }}
-										></div>
-										<p>{`:	${elem.race}`}</p>
-									</div>
-								)
-							})}
+											key={elem.race}
+											className='legendRace'
+											onClick={() => changeHighlight(elem.race)}
+										>
+											<div
+												className='raceColor'
+												style={{ backgroundColor: getRaceColor(elem.race) }}
+											></div>
+											<p>{`:	${elem.race}`}</p>
+										</div>
+									)
+								})}
 						</div>
-						<button onClick={() => resetCharts()} className='button'>
+						{/* <button onClick={() => resetCharts()} className='button'>
 							Reset Charts
-						</button>
+						</button> */}
 					</div>
 
 					<Fade
@@ -182,23 +195,24 @@ function State(props) {
 						unmountOnExit
 					>
 						<div className='categoryColumnContainer'>
-							{stateData.categories.map(elem => {
-								return (
-									<Category
-										key={elem.title}
-										highlighted={highlightedRace}
-										changeHighlight={changeHighlight}
-										catData={elem}
-									/>
-								)
-							})}
+							{stateData &&
+								stateData.categories.map(elem => {
+									return (
+										<Category
+											key={elem.title}
+											highlighted={highlightedRace}
+											changeHighlight={changeHighlight}
+											catData={elem}
+										/>
+									)
+								})}
 						</div>
 					</Fade>
 				</div>
 				<div className={`involvedVis${involvedVis}`}>
 					<GetInvolved
 						toggleInvolvedVis={toggleInvolvedVis}
-						stateName={stateData.overall.stateName}
+						stateName={stateData && stateData.overall.stateName}
 					/>
 				</div>
 			</div>

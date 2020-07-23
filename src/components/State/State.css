@@ -7,34 +7,34 @@
 }
 
 .stateContainer,
-.stateSubContainer{
+.stateSubContainer {
 	position: absolute;
 	top: 0;
 	flex-direction: column;
-  align-items: center;
-  min-height: 95%;
-  width: 100vw;
-  z-index: 5;
-  color: white;
+	align-items: center;
+	min-height: 95%;
+	width: 100vw;
+	z-index: 5;
+	color: white;
 }
 
 .stateContainer {
-  /* height: 100%; */
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-	overflow:scroll;
+	/* height: 100%; */
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	overflow: scroll;
 	overflow-x: hidden;
 	min-height: 100vh;
 }
 
 .stateContainer::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
-.stateSubContainer{
+.stateSubContainer {
 	margin-top: 64px;
-	background-color: rgba(0,0,0,.8);
+	background-color: rgba(0, 0, 0, 0.8);
 	min-height: 100vh;
 	display: flex;
 }
@@ -42,10 +42,10 @@
 .stateHeadContainer {
 	padding-top: 20px;
 	width: 100%;
-  /* height: 30vh; */
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	/* height: 30vh; */
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .stateTitleContainer {
@@ -66,8 +66,8 @@
 }
 
 .flagSvg {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 .stateTitle {
@@ -78,7 +78,7 @@
 
 .closeStateBtnContainer {
 	position: fixed;
-  right: 0;
+	right: 0;
 	top: 0;
 	z-index: 10;
 }
@@ -93,7 +93,7 @@
 
 .summary {
 	max-width: 50vw;
-  height: 100%;
+	height: 100%;
 	padding: 20px;
 	font-size: 24px;
 	/* background-color: teal; */
@@ -138,17 +138,17 @@
 }
 
 .categoryColumnContainer {
-  width: 100vw;
-  justify-content: center;
-  flex-wrap: wrap;
+	width: 100vw;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 @media only screen and (max-width: 600px) {
 	.stateTitleContainer {
-		width:30%;
+		width: 30%;
 	}
 	.summaryContainer {
-		width:90%;
+		width: 90%;
 	}
 	.summary {
 		max-width: 100%;
@@ -176,13 +176,19 @@
 	transition: height 1s;
 }
 
-@media (max-width: 325px){
-	.stateRaceLegend{
+@media screen and (max-width: 325px) {
+	.stateRaceLegend {
 		width: calc(100vw - 30px);
 		height: auto;
 	}
 
 	.legendRace {
 		font-size: 13px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.stateSubContainer {
+		margin-top: 56px;
 	}
 }
