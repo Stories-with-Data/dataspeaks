@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import Routes from './routes'
 import './reset.css'
 import './App.css'
+import axios from 'axios';
 
 class App extends Component {
 	constructor() {
@@ -11,7 +12,14 @@ class App extends Component {
 
 		this.state = {}
 	}
-
+async componentDidMount(){
+	await axios.get('/session').then(res => this.setState({user: res.data})).catch(err => console.log(err))
+	if (this.state.user.name){
+		this.setState({
+			loading: false
+		})
+	}
+}
 	render() {
 		const { pathname } = this.props.location
 		return (
