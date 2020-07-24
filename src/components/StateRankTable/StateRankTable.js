@@ -44,10 +44,16 @@ const StateRankTable = () => {
 		}
 	}, [data])
 
+	const cleanData = (d) => {
+		delete d.heatmapRanks
+		delete d.mapViews
+		return d
+	}
+
 	return (
 		<>
 			<MaterialTable
-				data={Object.values(data)}
+				data={Object.values(cleanData(data))}
 				columns={columns}
 				isLoading={isLoading}
 				options={{

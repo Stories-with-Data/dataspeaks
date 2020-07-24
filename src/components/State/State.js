@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Category from '../Category/Category'
 import './State.css'
 import Rank from '../Rank/Rank'
 import Fade from '@material-ui/core/Fade'
 import GetInvolved from '../GetInvolved/GetInvolved'
-// import Paper from '@material-ui/core/Paper'
+import StateHeader from './StateHeader/StateHeader'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import Typography from '@material-ui/core/Typography'
 
 function State(props) {
 	const { stateData, handleStateClose, stateFlag } = props
@@ -12,12 +15,8 @@ function State(props) {
 	const [stateVis, setStateVis] = useState(true)
 	const [involvedVis, setInvolvedVis] = useState(false)
 	const [highlightedRace, setHighlightedRace] = useState('')
+	const [summary, setSummary] = useState()
 
-	const [categoryVis, setCategoryVis] = useState(true),
-		categoryExit = 250,
-		categoryEnter = 250
-
-	const [categoryTimeout, setCategoryTimeout] = useState(null)
 
 	const exit = 500
 
@@ -29,13 +28,10 @@ function State(props) {
 		setHighlightedRace(race)
 	}
 
-	const resetCharts = () => {
-		setHighlightedRace('')
-		setCategoryVis(false)
-		const catTimeout = setTimeout(() => {
-			setCategoryVis(true)
-		}, categoryExit + categoryEnter)
-		setCategoryTimeout(catTimeout)
+	const resetCharts = e => {
+		if (e.target.nodeName !== 'path') {
+			setHighlightedRace('')
+		}
 	}
 
 	const getRaceColor = race => {
@@ -59,11 +55,64 @@ function State(props) {
 		}
 	}
 
-	useEffect(() => {
-		return () => {
-			clearTimeout(categoryTimeout)
+	const headerBtns = [
+		{
+			text: 'Get Involved',
+			onClick: () => {
+				toggleInvolvedVis()
+			}
+		},
+		{
+			text: 'Back to Map',
+			onClick: () => {
+				setStateVis(false)
+				setTimeout(() => {
+					handleStateClose()
+				}, exit)
+			}
 		}
-	}, [categoryTimeout])
+	]
+
+
+	useEffect(() => {
+		const replacements = {
+			$$IAT$$: (
+				<Link key='iatSumLink' className='summaryLink' to='/methodology#iat'>
+					Harvard's Race IAT
+				</Link>
+			),
+			$$ARREST_RATE$$: (
+				<Link
+					key='arSumLink'
+					className='summaryLink'
+					to='/methodology#arrestRate'
+				>
+					arrest rate
+				</Link>
+			),
+			$$CIR$$: (
+				<Link key='cirSumLink' className='summaryLink' to='/methodology#cir'>
+					currently incarcerated
+				</Link>
+			),
+			$$POPULATION$$: (
+				<Link
+					key='popSumLink'
+					className='summaryLink'
+					to='/methodology#population'
+				>
+					Black or African American population
+				</Link>
+			)
+		}
+		const regEx = /(\$\$IAT\$\$|\$\$CIR\$\$|\$\$ARREST_RATE\$\$|\$\$POPULATION\$\$)/
+
+		setSummary(
+			stateData.overall.summary
+				.split(regEx)
+				.map(e => (replacements[e] ? replacements[e] : e))
+		)
+	}, [stateData.overall.summary])
 
 	return (
 		<Fade
@@ -81,79 +130,65 @@ function State(props) {
 				className='stateContainer'
 				style={{ backgroundImage: `url(${stateFlag})` }}
 			>
+				<StateHeader buttons={headerBtns} />
 				<div className='stateSubContainer'>
 					<div className='stateHeadContainer'>
 						<div className='stateTitleContainer'>
-							<h1 className='stateTitle'>{stateData.overall.stateName}</h1>
+							<Typography align='center' variant='h2' className='stateTitle'>
+								{stateData && stateData.overall.stateName}
+							</Typography>
 							<div className='overall'>
-								Overall Rank
+								<Typography align='center'>Overall Rank</Typography>
 								<Rank rank={stateData.overall.rank} />
 							</div>
 						</div>
 
 						<div className='summaryContainer'>
-							<div className='summary'>{stateData.overall.summary}</div>
+							<div className='summary'>{summary}</div>
 						</div>
-
-						{/* <div className='flagImageContainer'>
-							<svg className='flagSvg'>
-								<image className='flagSvg' xlinkHref={stateFlag} />
-							</svg>
-						</div> */}
 					</div>
 
-					<div className='closeStateBtnContainer'>
-						<button
-							className='button'
-							onClick={() => {
-								// * Setting the stateVis to trigger exit transition
-								setStateVis(false)
-								// * Using a setTimeout synced to exit transition time
-								// * before altering USMap state with handleStateClose
-								setTimeout(() => {
-									handleStateClose()
-								}, exit)
-							}}
-						>
-							Close
-						</button>
-					</div>
-
-					<button onClick={() => toggleInvolvedVis()} className='button buttonAnimate'>
-						Get Involved
-					</button>
-
-					<div className='stateRaceLegend'>
-						<h4>Legend</h4>
-						<div className='legendRaceContainer'>
-							{stateData.categories[0].data[0].data.map(elem => {
-								return (
-									<div
-										key={elem.race}
-										className='legendRace'
-										onClick={() => changeHighlight(elem.race)}
-									>
-										<div
-											className='raceColor'
-											style={{ backgroundColor: getRaceColor(elem.race) }}
-										></div>
-										<p>{`:	${elem.race}`}</p>
-									</div>
-								)
-							})}
+					<ClickAwayListener onClickAway={resetCharts}>
+						<div className='stateRaceLegend'>
+							<h4>Legend</h4>
+							<div className='legendRaceContainer'>
+								{stateData &&
+									stateData.categories[0].data[0].data.map(elem => {
+										return (
+											<div
+												key={elem.race}
+												className='legendRace'
+												onClick={() => changeHighlight(elem.race)}
+											>
+												<div
+													className='raceColor'
+													style={{ backgroundColor: getRaceColor(elem.race) }}
+												>
+													<Typography
+														variant='body1'
+														style={{
+															color:
+																elem.race === 'White or Caucasian'
+																	? '#000'
+																	: highlightedRace === elem.race
+																	? '#000'
+																	: '#fff',
+															fontWeight:
+																highlightedRace === elem.race
+																	? 'bolder'
+																	: 'normal'
+														}}
+													>{`${elem.race}`}</Typography>
+												</div>
+											</div>
+										)
+									})}
+							</div>
 						</div>
-						<button onClick={() => resetCharts()} className='button'>
-							Reset Charts
-						</button>
-					</div>
-
-					<Fade
-						in={categoryVis}
-						timeout={{ enter: categoryEnter, exit: categoryExit }}
-						unmountOnExit
-					>
-						<div className='categoryColumnContainer'>
-							{stateData.categories.map(elem => {
+					</ClickAwayListener>
+					<div className='categoryColumnContainer'>
+						{stateData &&
+							stateData.categories.map(elem => {
 								return (
 									<Category
 										key={elem.title}
@@ -163,13 +198,13 @@ function State(props) {
 									/>
 								)
 							})}
-						</div>
-					</Fade>
+					</div>
 				</div>
 				<div className={`involvedVis${involvedVis}`}>
 					<GetInvolved
+						open={involvedVis}
 						toggleInvolvedVis={toggleInvolvedVis}
-						stateName={stateData.overall.stateName}
+						stateName={stateData && stateData.overall.stateName}
 					/>
 				</div>
 			</div>

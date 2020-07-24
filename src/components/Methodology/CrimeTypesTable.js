@@ -23,7 +23,7 @@ const CrimeTypesTable = ({ tableClass }) => {
 				</TableHead>
 				<TableBody>
           {nonViolent.split(',').map((e, i) => (
-            <TableRow>
+            <TableRow key={`${e}${i}`}>
               <TableCell>{violentCrimes.split(',')[i] || ''}</TableCell>
               <TableCell>{e}</TableCell>
             </TableRow>

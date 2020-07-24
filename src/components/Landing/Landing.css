@@ -329,7 +329,7 @@
 	/* box-shadow: 0 0 5px 0 black; */
 	color: white;
 	cursor: pointer;
-	background-color: #11ABAB;
+	background-color: #11abab;
 }
 
 .crestContainer {
@@ -348,7 +348,7 @@
 	padding: 100px 20px;
 }
 
-@media (min-width: 1050px) {
+@media screen and (min-width: 1050px) {
 	.sourceSeals {
 		height: calc(35vw / 3);
 		width: calc(35vw / 3);
@@ -363,32 +363,34 @@
 	}
 }
 
-@media (max-width: 920px) {
+@media screen and (max-width: 1000px) {
+	.landingH1 {
+		font-size: 50px !important;
+	}
+}
+
+@media screen and (max-width: 920px) {
 	.crestContainer {
 		width: 80vw;
 	}
 }
 
-@media (max-width: 860px) {
-	.landingH1 {
-		font-size: 50px !important;
-	}
+@media screen and (max-width: 860px) {
 	.sourceSeals {
 		height: calc(70vw / 3);
 		width: calc(70vw / 3);
 		padding: 10px;
 	}
-
 }
 
-@media (max-width: 560px) {
+@media screen and (max-width: 560px) {
 	.landingH1 {
 		font-size: 48px !important;
 	}
 }
 
-@media (max-width: 450px) {
+@media screen and (max-width: 510px) {
 	.landingH1 {
-		font-size: 36px !important;
+		font-size: 32px !important;
 	}
 }

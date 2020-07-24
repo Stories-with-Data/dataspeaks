@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
@@ -25,8 +25,35 @@ const useStyles = makeStyles(theme => ({
 	}
 }))
 
-const Methodology = () => {
+const Methodology = ({ location }) => {
 	const classes = useStyles()
+	const [open, setOpen] = useState({
+		iat: false,
+		arrestRate: false,
+		cir: false,
+		population: false
+	})
+
+	useEffect(() => {
+		const { hash } = location
+		switch (hash) {
+			case '#iat':
+				setOpen({ ...open, iat: true })
+				break
+			case '#arrestrate':
+				setOpen({ ...open, arrestRate: true })
+				break
+			case '#cir':
+				setOpen({ ...open, cir: true })
+				break
+			case '#population':
+				setOpen({ ...open, population: true })
+				break
+			default:
+				break
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
 	return (
 		<Box p={1} pt={6}>
@@ -36,16 +63,21 @@ const Methodology = () => {
 				justify='center'
 				alignItems='center'
 				direction='column'
+				xs={true}
 			>
-				<Typography variant='h1'>Methodology</Typography>
-				<Grid item container justify='center' direction='column'>
+				<Typography variant='h2'>Methodology</Typography>
+				<Grid item container justify='center' direction='column' xs={true}>
 					<Box p={1}>
-						<Paper variant='outlined' id='iat'>
-							<Typography variant='h2'>IAT</Typography>
+						<Paper variant='outlined'>
+							<Typography id='iat' variant='h2'>
+								IAT
+							</Typography>
 							<Typography variant='subtitle1'>
 								Implicit Association Test
 							</Typography>
-							<Accordion>
+							<Accordion
+								defaultExpanded={location.hash === '#iat' ? true : false}
+							>
 								<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 									<Typography variant='h6'>What is it?</Typography>
 								</AccordionSummary>
@@ -189,9 +221,13 @@ const Methodology = () => {
 						</Paper>
 					</Box>
 					<Box p={1}>
-						<Paper variant='outlined' id='arrestRate'>
-							<Typography variant='h2'>Arrest Rate</Typography>
-							<Accordion>
+						<Paper variant='outlined'>
+							<Typography id='arrestRate' variant='h2'>
+								Arrest Rate
+							</Typography>
+							<Accordion
+								defaultExpanded={location.hash === '#arrestRate' ? true : false}
+							>
 								<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 									<Typography variant='h6'>What is it?</Typography>
 								</AccordionSummary>
@@ -265,12 +301,16 @@ const Methodology = () => {
 						</Paper>
 					</Box>
 					<Box p={1}>
-						<Paper variant='outlined' id='cir'>
-							<Typography variant='h2'>CIR</Typography>
+						<Paper variant='outlined'>
+							<Typography variant='h2' id='cir'>
+								CIR
+							</Typography>
 							<Typography variant='subtitle1'>
 								Currently Incarcerated Rate
 							</Typography>
-							<Accordion>
+							<Accordion
+								defaultExpanded={location.hash === '#cir' ? true : false}
+							>
 								<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 									<Typography variant='h6'>What is it?</Typography>
 								</AccordionSummary>
@@ -335,36 +375,22 @@ const Methodology = () => {
 						</Paper>
 					</Box>
 					<Box p={1}>
-						<Paper variant='outlined' id='population'>
-							<Typography variant='h2'>State Population</Typography>
+						<Paper variant='outlined'>
+							<Typography id='population' variant='h2'>
+								State Population
+							</Typography>
 
-							<Accordion>
+							<Accordion
+								defaultExpanded={location.hash === '#population' ? true : false}
+							>
 								<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 									<Typography variant='h6'>What is it?</Typography>
 								</AccordionSummary>
 								<AccordionDetails>
 									<Grid container direction='column' alignItems='center'>
 										<Typography variant='body1'>
-											The Currently Incarcerated Rate is defined as the 2018
-											year-end prison population count per 100,000 corresponding
-											state population.
-										</Typography>
-										<Typography variant='body1'>
-											The prison population data used is sourced from the Bureau
-											of Justice Statistics 'Prisoners in 2018' report (
-											<a
-												target='_blank'
-												rel='noopener noreferrer'
-												href='https://www.bjs.gov/index.cfm?ty=pbdetail&iid=6846'
-												className={classes.inlineLink}
-											>
-												here
-											</a>
-											).
-										</Typography>
-										<Typography variant='body1'>
 											The state population data used is sourced from the Census
-											Bureau API (
+											Bureau API 2019 estimates (
 											<a
 												target='_blank'
 												rel='noopener noreferrer'
@@ -374,13 +400,6 @@ const Methodology = () => {
 												here
 											</a>
 											)
-										</Typography>
-										<Typography variant='body1'>
-											The formula used to calculate the rate is as follows:
-										</Typography>
-										<Typography variant='body1'>
-											( Year-end prison population count / State population
-											count ) * 100,000
 										</Typography>
 									</Grid>
 								</AccordionDetails>
@@ -393,11 +412,54 @@ const Methodology = () => {
 								</AccordionSummary>
 								<AccordionDetails>
 									<Typography variant='body1'>
-										The states are ranked by the mean CIR of the state's Black
-										or African American population. This means the number one
-										ranked state has the highest CIR per 100,000 Black or
-										African Americans living in the state.
+										The state's are ranked by the size of their Black or African
+										American population. Rank 1 = Largest Black or African
+										American population
 									</Typography>
+								</AccordionDetails>
+							</Accordion>
+						</Paper>
+					</Box>
+					<Box p={1}>
+						<Paper variant='outlined'>
+							<Typography id='overall' variant='h2'>
+								Overall Rank
+							</Typography>
+							<Accordion
+								defaultExpanded={location.hash === '#overall' ? true : false}
+							>
+								<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+									<Typography variant='h6'>
+										How did we rank the states?
+									</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Grid container direction='column' alignItems='center'>
+										<Typography variant='body1'>
+											The states are ranked using the following formula:
+										</Typography>
+										<Typography variant='h6'>Mean IAT Score Rank</Typography>
+										<Typography variant='caption'>
+											of those who identified themselves as any race NOT Black
+											or African American
+										</Typography>
+										<Typography variant='h3'>+</Typography>
+										<Typography variant='h6'>51 - Arrest Rate Rank</Typography>
+										<Typography variant='h3'>+</Typography>
+										<Typography variant='h6'>
+											51 - Currently Incarcerated Rate Rank
+										</Typography>
+										<Typography variant='h3'>+</Typography>
+										<Typography variant='h6'>
+											Black Population Rank / 50
+										</Typography>
+										<Typography variant='caption'>
+											Added a 1/50 weight to factor size of the State's Black or
+											African American population
+										</Typography>
+										<Typography variant='h3'>÷</Typography>
+										<Typography variant='h6'>4</Typography>
+									</Grid>
 								</AccordionDetails>
 							</Accordion>
 						</Paper>

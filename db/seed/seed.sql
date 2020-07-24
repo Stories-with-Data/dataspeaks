@@ -224,17 +224,19 @@ GROUP BY s.state_name, r.name;
 
 CREATE MATERIALIZED VIEW state_ranks_adj AS
 SELECT
-  state_name,
-  iat,
-  arrest_rate,
-  incarcerated_rate,
-  black_pop,
+  sr.state_name,
+  s.state_abv,
+  sr.iat,
+  sr.arrest_rate,
+  sr.incarcerated_rate,
+  sr.black_pop,
   RANK () OVER (
     ORDER BY
-      overall_calc
+      sr.overall_calc
   ) overall
 FROM
-  state_ranks;
+  state_ranks sr
+LEFT OUTER JOIN states s ON s.state_name = sr.state_name;
 
 CREATE MATERIALIZED VIEW return_data AS
 select

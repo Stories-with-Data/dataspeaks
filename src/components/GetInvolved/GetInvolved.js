@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
-import './GetInvolved.css'
 import TwitterIcon from '@material-ui/icons/Twitter'
 import FacebookIcon from '@material-ui/icons/Facebook'
 import YouTubeIcon from '@material-ui/icons/YouTube'
 import IconButton from '@material-ui/core/IconButton'
 import ContactMailRoundedIcon from '@material-ui/icons/ContactMailRounded'
 import stateAbv from '../../assets/stateAbv/stateAbv.json'
+import Dialog from '@material-ui/core/Dialog'
+import Typography from '@material-ui/core/Typography'
+import './GetInvolved.css'
 
 // this component needs stateName to passed into it as a prop. this should be the only prop needed.
 
@@ -53,7 +55,7 @@ function GetInvolved(props) {
 	const senatorsMap = senators.map(elem => {
 		return (
 			<div className='senator-container' key={elem.id}>
-				<div className='senator-name'>{`${elem.first_name} ${elem.last_name}`}</div>
+				<Typography className='senator-name' variant='h4'>{`${elem.first_name} ${elem.last_name}`}</Typography>
 				<div className='media-links'>
 					<IconButton
 						href={
@@ -87,7 +89,9 @@ function GetInvolved(props) {
 					</IconButton>
 				</div>
 				<div className='contact-form'>
-					{`Write ${elem.first_name} a message expressing how you feel the government needs to change. Click below`}
+					<Typography variant='body1' align='center'>
+						{`Write ${elem.first_name} a message expressing how you feel the government needs to change. Click below`}
+					</Typography>
 					<IconButton
 						className='linkButton'
 						href={elem.contact_form}
@@ -101,14 +105,27 @@ function GetInvolved(props) {
 	})
 
 	return (
-		<div className='get-involved-container'>
-			<div>Want to help change our damaged system?</div>
-			<div>{`Meet the U.S senators for ${stateName}`}</div>
+		<Dialog
+			// className='get-involved-container'
+			PaperProps={{
+				className: 'get-involved-container'
+			}}
+			open={props.open}
+			onClose={props.handleClose}
+		>
+			<Typography variant='h3' color='textPrimary' align='center' gutterBottom >
+				Is the data speaking to you?
+			</Typography>
+			<Typography
+				variant='h5'
+				color='textPrimary'
+				align='center'
+			>{`Get involved by contacting the U.S senators from ${stateName}`}</Typography>
 			<div className='senators'>{senatorsMap}</div>
 			<button onClick={() => props.toggleInvolvedVis()} className='button'>
 				Close
 			</button>
-		</div>
+		</Dialog>
 	)
 }
 

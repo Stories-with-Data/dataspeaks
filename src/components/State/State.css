@@ -7,33 +7,34 @@
 }
 
 .stateContainer,
-.stateSubContainer{
+.stateSubContainer {
 	position: absolute;
 	top: 0;
 	flex-direction: column;
-  align-items: center;
-  min-height: 95%;
-  width: 100vw;
-  z-index: 5;
-  color: white;
+	align-items: center;
+	min-height: 95%;
+	width: 100vw;
+	z-index: 5;
+	color: white;
 }
 
 .stateContainer {
-  /* height: 100%; */
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-	overflow:scroll;
+	/* height: 100%; */
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	overflow: scroll;
 	overflow-x: hidden;
 	min-height: 100vh;
 }
 
 .stateContainer::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
-.stateSubContainer{
-	background-color: rgba(0,0,0,.8);
+.stateSubContainer {
+	margin-top: 64px;
+	background-color: rgba(0, 0, 0, 0.8);
 	min-height: 100vh;
 	display: flex;
 }
@@ -41,14 +42,14 @@
 .stateHeadContainer {
 	padding-top: 20px;
 	width: 100%;
-  /* height: 30vh; */
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	/* height: 30vh; */
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .stateTitleContainer {
-	width: 100%;
+	width: 100vw;
 	/* height: 100%; */
 	/* background-color: teal; */
 	flex-direction: column;
@@ -56,7 +57,6 @@
 .summaryContainer {
 	width: 100%;
 	height: 100%;
-	display: flex;
 	justify-content: center;
 }
 .flagImageContainer {
@@ -65,25 +65,30 @@
 }
 
 .flagSvg {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 .stateTitle {
-	width: 100%;
+	width: 100vw;
 	height: 100%;
 	/* margin-left: 10%; */
 }
 
 .closeStateBtnContainer {
 	position: fixed;
-  right: 0;
-  top: 0;
+	right: 0;
+	top: 0;
+	z-index: 10;
 }
 
 .overall {
 	height: 100%;
 	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	/* border: solid black 1px; */
 	/* background-color: teal; */
 	/* margin-right: 5px; */
@@ -91,7 +96,7 @@
 
 .summary {
 	max-width: 50vw;
-  height: 100%;
+	height: 100%;
 	padding: 20px;
 	font-size: 24px;
 	/* background-color: teal; */
@@ -99,7 +104,7 @@
 }
 
 .stateRaceLegend {
-	width: 315px;
+	width: 350px;
 	height: auto;
 	background-color: #80808090;
 	border-radius: 5px;
@@ -141,30 +146,31 @@
 }
 
 .raceColor {
-	width: 20px;
-	height: 10px;
+	width: 100%;
 	border-radius: 3px;
+	padding: 8px;
+	transition: all linear 100ms;
 }
 
 .categoryColumnContainer {
-  width: 100vw;
-  justify-content: center;
-  flex-wrap: wrap;
+	width: 100vw;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 @media only screen and (max-width: 600px) {
-	.stateTitleContainer {
-		width:30%;
-	}
+	/* .stateTitleContainer {
+		width: 30%;
+	} */
 	.summaryContainer {
-		width:90%;
-		text-align: left;
+		width: 90%;
 	}
 	.summary {
 		max-width: 100%;
+		font-size: 18px;
 	}
 }
-.involvedVisfalse {
+/* .involvedVisfalse {
 	position: absolute;
 	top: 0px;
 	height: 0px;
@@ -184,15 +190,35 @@
 	width: 100%;
 	z-index: 5;
 	transition: height 1s;
+} */
+
+.summaryLink {
+	color: #FCE21B;
+	text-decoration: none;
+	transition: all linear 100ms;
 }
 
-@media (max-width: 325px){
-	.stateRaceLegend{
+.summaryLink:visited {
+	color: #FCE21B;
+}
+
+.summaryLink:hover {
+	color: #11ABAB;
+}
+
+@media screen and (max-width: 325px) {
+	.stateRaceLegend {
 		width: calc(100vw - 30px);
 		height: auto;
 	}
 
 	.legendRace {
 		font-size: 13px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.stateSubContainer {
+		margin-top: 56px;
 	}
 }

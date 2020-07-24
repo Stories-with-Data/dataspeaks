@@ -388,10 +388,10 @@ const Landing = () => {
 					},
 					children: () => (
 						<Typography
+							className='landingH1'
 							color='textPrimary'
 							align='center'
 							variant='h1'
-							style={{ paddingLeft: 40 }}
 						>
 							Data speaks.
 						</Typography>
@@ -411,10 +411,10 @@ const Landing = () => {
 					},
 					children: () => (
 						<Typography
+							className='landingH1'
 							color='textPrimary'
 							align='center'
 							variant='h1'
-							style={{ paddingLeft: 40 }}
 						>
 							What does it say to{' '}
 							{!you ? (
@@ -494,6 +494,7 @@ const Landing = () => {
 
 	const fullPageProps = {
 		licenseKey: process.env.REACT_APP_FULL_PAGE_LICENSE,
+		responsiveWidth: 800,
 		fadingEffect: true,
 		scrollingSpeed: 500,
 		afterRender: () => {
