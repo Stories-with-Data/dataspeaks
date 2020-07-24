@@ -46,6 +46,7 @@ const StateRankTable = () => {
 
 	const cleanData = (d) => {
 		delete d.heatmapRanks
+		delete d.mapViews
 		return d
 	}
 

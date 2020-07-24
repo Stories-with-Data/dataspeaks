@@ -46,7 +46,21 @@ class PieChart extends Component {
 					}}
 					x='race'
 					y='value'
-					labelComponent={<VictoryTooltip />}
+					labelComponent={
+						<VictoryTooltip
+							constrainToVisibleArea
+							pointerWidth={50}
+							pointerLength={100}
+							flyoutStyle={{
+								fill: '#ffffff'
+							}}
+							flyuotPadding={10}
+							flyoutWidth={350}
+							style={{
+								fontSize: 15
+							}}
+						/>
+					}
 					style={{
 						labels: {
 							fill: '#000'

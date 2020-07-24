@@ -126,8 +126,16 @@ class StackedBar extends Component {
 									cornerRadius={{ top: 5 }}
 									labelComponent={
 										<VictoryTooltip
+											constrainToVisibleArea
+											pointerWidth={50}
+											pointerLength={100}
 											flyoutStyle={{
-												fill: '#ffffff90'
+												fill: '#ffffff'
+											}}
+											flyuotPadding={10}
+											flyoutWidth={350}
+											style={{
+												fontSize: 15
 											}}
 										/>
 									}

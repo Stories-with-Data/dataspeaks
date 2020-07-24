@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express'),
 	massive = require('massive'),
 	ctrl = require('./controllers/controller'),
+	middlewareCtrl = require('./middleware/controller'),
 	seedCtrl = require('./controllers/seedController'),
 	session = require('express-session'),
 	{ SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
@@ -21,16 +22,7 @@ app.use(
 
 app.use(express.static(`${__dirname}/../build`))
 
-app.use((req, res, next) => {
-	if (req.session.views) {
-		req.session.views++
-	} else {
-		req.session.views = 1
-	}
-	next()
-})
-
-
+app.use(middlewareCtrl.totalViews)
 
 // * Development Endpoints
 app.post('/dev/seed/fbi', seedCtrl.populateFbiData)
@@ -45,7 +37,7 @@ app.post(
 )
 
 // * Data Endpoints
-app.get('/api/data', ctrl.getData)
+app.get('/api/data', middlewareCtrl.mapViews, ctrl.getData)
 app.get('/api/states/:state', ctrl.getStateAbv)
 
 // * Session Endpoint
