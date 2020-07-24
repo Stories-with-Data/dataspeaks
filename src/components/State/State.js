@@ -122,11 +122,6 @@ function State(props) {
 			unmountOnExit
 		>
 			<div
-				onScroll={() => {
-					if (involvedVis) {
-						setInvolvedVis(false)
-					}
-				}}
 				className='stateContainer'
 				style={{ backgroundImage: `url(${stateFlag})` }}
 			>
@@ -200,11 +195,12 @@ function State(props) {
 							})}
 					</div>
 				</div>
-				<div className={`involvedVis${involvedVis}`}>
+				<div className={`involvedVis`}>
 					<GetInvolved
 						open={involvedVis}
 						toggleInvolvedVis={toggleInvolvedVis}
 						stateName={stateData && stateData.overall.stateName}
+						
 					/>
 				</div>
 			</div>
