@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import Axios from 'axios'
 import TwitterIcon from '@material-ui/icons/Twitter'
 import FacebookIcon from '@material-ui/icons/Facebook'
@@ -12,7 +13,14 @@ import './GetInvolved.css'
 
 // this component needs stateName to passed into it as a prop. this should be the only prop needed.
 
+const useStyles = makeStyles({
+	container: {
+		width: '100vw'
+	}
+})
+
 function GetInvolved(props) {
+	const classes = useStyles()
 	const { stateName } = props
 	const [senators, setSenators] = useState([])
 
@@ -55,7 +63,10 @@ function GetInvolved(props) {
 	const senatorsMap = senators.map(elem => {
 		return (
 			<div className='senator-container' key={elem.id}>
-				<Typography className='senator-name' variant='h4'>{`${elem.first_name} ${elem.last_name}`}</Typography>
+				<Typography
+					className='senator-name'
+					variant='h4'
+				>{`${elem.first_name} ${elem.last_name}`}</Typography>
 				<div className='media-links'>
 					<IconButton
 						href={
@@ -106,14 +117,15 @@ function GetInvolved(props) {
 
 	return (
 		<Dialog
-			// className='get-involved-container'
+			className={classes.container}
 			PaperProps={{
 				className: 'get-involved-container'
 			}}
 			open={props.open}
 			onClose={props.handleClose}
+			maxWidth='md'
 		>
-			<Typography variant='h3' color='textPrimary' align='center' gutterBottom >
+			<Typography variant='h3' color='textPrimary' align='center' gutterBottom>
 				Is the data speaking to you?
 			</Typography>
 			<Typography
