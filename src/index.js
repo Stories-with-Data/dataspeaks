@@ -6,7 +6,7 @@ import {
 	ThemeProvider
 } from '@material-ui/core/styles'
 import * as serviceWorker from './serviceWorker'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter, BrowserRouter } from 'react-router-dom'
 
 const theme = unstable_createMuiStrictModeTheme({
 	spacing: 8,
@@ -21,12 +21,14 @@ const theme = unstable_createMuiStrictModeTheme({
 	}
 })
 
+const Router = process.env.NODE_ENV === 'development' ? HashRouter : BrowserRouter
+
 ReactDOM.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
-			<BrowserRouter>
+			<Router>
 				<App />
-			</BrowserRouter>
+			</Router>
 		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById('root')

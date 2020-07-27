@@ -5,6 +5,7 @@ const express = require('express'),
 	middlewareCtrl = require('./middleware/controller'),
 	seedCtrl = require('./controllers/seedController'),
 	session = require('express-session'),
+	path = require('path'),
 	{ SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 
 const app = express()
@@ -42,6 +43,10 @@ app.get('/api/states/:state', ctrl.getStateAbv)
 
 // * Session Endpoint
 app.get('/session',middlewareCtrl.totalViews,  (req, res) => res.status(200).send(req.session))
+
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../build/index.html'))
+})
 
 massive({
 	connectionString: CONNECTION_STRING,
