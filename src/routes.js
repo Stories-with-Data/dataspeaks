@@ -13,7 +13,7 @@ import GetInvolvedFromNav from './components/GetInvolved/GetInvolvedFromNav'
 export default (
     <Switch>
         <Route exact path = '/' component={Landing} />
-        <Route path='/map' component={USMap} />
+        <Route exact path='/map' component={USMap} />
         <Route path='/getinvolved' component={GetInvolved} />
         <Route path='/loading' component={Loading} />
         <Route path='/rank' component={Rank} />

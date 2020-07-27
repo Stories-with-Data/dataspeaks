@@ -53,7 +53,7 @@ const FirstMapVisit = ({ open, backdropClass, finishFirstVisit }) => {
 			},
 			children: (
 				<Typography variant='h2' color='primary'>
-					Click on a state to see it's story
+					Click on a state to see its story
 				</Typography>
 			)
 		},

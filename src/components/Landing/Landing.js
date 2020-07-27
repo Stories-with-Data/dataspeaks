@@ -32,7 +32,7 @@ const Landing = () => {
 		const getSession = async () => {
 			try {
 				const { data } = await Axios.get('/session')
-				if (data.views === 1) {
+				if (data.views <= 2) {
 					setFirstVisit(true)
 					setLoading(false)
 				} else {

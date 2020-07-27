@@ -58,13 +58,13 @@ module.exports = {
 					rank: +overallRank,
 					summary: `The state of ${stateName} is ${ordinal(
 						iatRank
-					)} in overall score on $$IAT$$ while it's $$POPULATION$$ size is ${ordinal(
+					)} in overall score on $$IAT$$ while its $$POPULATION$$ size is ${ordinal(
 						bpRank
 					)} in the nation (Based on 2019 Census Estimate Data). Additionally, ${stateName} has the ${ordinal(
 						arRank
 					)} highest overall $$ARREST_RATE$$ of Black or African Americans (according to FBI 2018 arrest data) and the ${ordinal(
 						cirRank
-					)} highest rate of Black or African American's $$CIR$$ (per 100,000 based on Bureau of Justice Prisoners in 2018 Report).`,
+					)} highest rate of Black or African Americans $$CIR$$ (per 100,000 based on Bureau of Justice Prisoners in 2018 Report).`,
 					ranks: {
 						iatRank,
 						arRank,
