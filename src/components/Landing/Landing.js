@@ -36,8 +36,8 @@ const Landing = () => {
 					setFirstVisit(true)
 					setLoading(false)
 				} else {
-					setLoading(false)
 					setFirstVisit(false)
+					setLoading(false)
 				}
 			} catch (err) {
 				if (Axios.isCancel(err)) {

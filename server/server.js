@@ -21,9 +21,9 @@ app.use(
 	})
 )
 
-app.use(express.static(`${__dirname}/../build`))
 
-app.use(middlewareCtrl.totalViews)
+
+app.use(express.static(`${__dirname}/../build`))
 
 // * Development Endpoints
 app.post('/dev/seed/fbi', seedCtrl.populateFbiData)
@@ -42,7 +42,7 @@ app.get('/api/data', middlewareCtrl.mapViews, ctrl.getData)
 app.get('/api/states/:state', ctrl.getStateAbv)
 
 // * Session Endpoint
-app.get('/session', (req, res) => res.status(200).send(req.session))
+app.get('/session',middlewareCtrl.totalViews,  (req, res) => res.status(200).send(req.session))
 
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../build/index.html'))
