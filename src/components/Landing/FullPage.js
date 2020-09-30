@@ -61,6 +61,19 @@ const FullPage = ({
 													key={pageI + transI + trans.type}
 													in={transitions[pageI][transI]}
 													onEntered={() => {
+														if (trans.delay) {
+															const timeout = setTimeout(() => {
+																setTransitions({
+																	...transitions,
+																	[pageI]: {
+																		...transitions[pageI],
+																		[transI + 1]: true
+																	}
+																})
+															}, trans.delay)
+															setTimeouts([...timeouts, timeout])
+															return
+														}
 														setTransitions({
 															...transitions,
 															[pageI]: {
